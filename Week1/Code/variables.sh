@@ -1,5 +1,10 @@
 #!/bin/bash
-# Shows the use of variables
+#Author pg5117@ic.ac.uk
+# Script: variables.sh
+# Desc: 
+# Shows use of variables in bash - NO SPACES!
+#October 2017
+
 MyVar='a string'
 echo 'the current value of the variable is' $MyVar
 echo 'Please enter a new string'
