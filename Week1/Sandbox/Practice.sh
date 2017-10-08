@@ -1,4 +1,7 @@
 #!/bin/bash
+#Practising tr commands
+#Not part of coursework
+
 $ echo "Remove
 excess
 spaces." | tr -s "\b" " "

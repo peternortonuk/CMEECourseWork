@@ -1,2 +1,0 @@
-# CMEECourseWork
-Imperial MSc

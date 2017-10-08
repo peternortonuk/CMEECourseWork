@@ -1,8 +1,7 @@
 #!/bin/bash
 #Author pg5117@ic.ac.uk
 # Script: variables.sh
-# Desc: 
-# Shows use of variables in bash - NO SPACES!
+# Desc: # Shows use of variables in bash - NO SPACES!
 #October 2017
 
 MyVar='a string'

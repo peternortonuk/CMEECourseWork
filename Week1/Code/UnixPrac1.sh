@@ -6,23 +6,17 @@
 # 3) Count sequence length of E. coli genome
 # 4) Count matches for ATGC
 # 5) Find ratio of A and T to G and C
+# Arguments: requires soem fasta's AND E.coli.fasta in Data directory 
 #October 2017
-#
 
-#
-# cd /home/petra/Documents/CMEECourseWork/Week1/Data # send to correct dir
+
+
+#cd ../Data # send to Data dir using relative path
 #1 wc -l *.fasta
 #2 cat E.coli.fasta | tail -78103
 #3 tr -d "\n" < E.coli.fasta | wc -m 
 #4 tr -d "\n" < E.coli.fasta | grep ATGC -o |  wc -l 
-# didn't know why hint said remove first line? there were no ATCG on first line?
-#5 echo "scale=3 ; $( grep AT -o E.coli.fasta | wc -l )/$( grep GC -o E.coli.fasta | wc -l )" | bc
-# Used bc instead of expr because I couldnt get expr to do do floats, gave me 0 as answer.
-
-
-
-
-
+#5 tr -d "\n" < E.coli.fasta | tail -78103 | echo "scale=3 ; $( grep 'A\|T' -o E.coli.fasta|  wc -l)/$(grep 'C\|G' -o E.coli.fasta|  wc -l) " | bc
 
 
 
