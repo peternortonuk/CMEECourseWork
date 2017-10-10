@@ -9,6 +9,7 @@
 # #Date October 2017
 
 # I put FirstExample in Data dir
+#Remember you need the bibliography to be created
 cd ../Data
 pdflatex $1.tex
 pdflatex $1.tex
@@ -17,8 +18,8 @@ pdflatex $1.tex
 pdflatex $1.tex
 evince $1.pdf &
 
-clean up - i think this deletes all the files created to make the document
-rm *~
+#clean up - this deletes all the files created to make the document
+#rm *~ # too scary
 rm *.aux
 rm *.dvi
 rm *.log
@@ -27,7 +28,7 @@ rm *.out
 rm *.snm
 rm *.toc
 #added these last two on, because I could see these had been
-# created.hop they're no important? check this later coz StackExchange says
+# created hope they're no important? check this later coz StackExchange says
 #you need some of the above, like .aux
 rm *.blg 
 rm *.bbl
