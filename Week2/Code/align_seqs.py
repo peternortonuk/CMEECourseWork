@@ -1,6 +1,15 @@
 # These are the two sequences to match
-seq2 = "ATCGCCGGATTACGGG"
-seq1 = "CAATTCGGAT"
+
+
+data = [line.strip() for line in open("../Data/seq.csv", "r")]
+
+seq2 = data[0]
+seq1 = data[1]
+
+#PS above code works because I know there are two elements in data
+#This should be made more general
+#seq2 = "ATCGCCGGATTACGGG"
+#seq1 = "CAATTCGGAT"
 
 # assign the longest sequence s1, and the shortest to s2
 # l1 is the length of the longest, l2 that of the shortest
@@ -13,7 +22,7 @@ if l1 >= l2:
 else:
     s1 = seq2
     s2 = seq1
-    l1, l2 = l2, l1 # swap the two lengths
+    l1, l2 = l2, l1 # swap the two lengths make s1, l1 the longest
 
 # function that computes a score
 # by returning the number of matches 
@@ -57,3 +66,9 @@ for i in range(l1):
 print my_best_align
 print s1
 print "Best score:", my_best_score
+
+f = open("../Data/align_seq_out.txt","wb")
+f.write(str(my_best_score))
+f.write(str(my_best_align))
+
+
