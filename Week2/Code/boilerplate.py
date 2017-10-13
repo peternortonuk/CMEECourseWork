@@ -1,6 +1,6 @@
 #!usr/bin/python
 
-"""Program descriptopn"""
+"""Program description"""
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"

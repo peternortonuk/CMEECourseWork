@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-#Filenaame: using_name.py
+#Filename: using_name.py
 
 if __name__=="__main__":
 		print "This program is being run by itself!!"

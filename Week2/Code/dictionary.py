@@ -18,15 +18,32 @@ taxa = [ ('Myotis lucifugus','Chiroptera'),
 
 # ALSO, PLEASE INCLUDE A DOCSTRING AT THE BEGINNING OF THIS FILE THAT 
 # SAYS WHAT THE SCRIPT DOES AND WHO THE AUTHOR IS
-
-# Write your script here:
-taxa_dic = {}
-#This works, but its a bit nested
-#for row in taxa:
-#	mydict[row[0]] = row[1]
 	
-#This is neater
+"""Create a dictionary from the taxa list of tuples using two methods"""
 
-for l, t in taxa:
-	taxa_dic[l] = t
-print mydict
+#This first method creates a set of keys. Creating a set ensure the elements are unique
+
+#keys = set([v for k, v in taxa])
+
+#mydict = {}
+#loop thru keys assigning each species if in taxa its family is equal to the key
+#for key in keys:
+#	mydict[key] = []
+#	for item in taxa:
+#		if item[1] == key:
+#			mydict[key].append(item[0])
+#print mydict 
+
+
+#But this method using collections is super neat
+#defaultdict(list) says that the values for each key are a list
+
+from collections import defaultdict
+
+
+mydict2 = defaultdict(list)
+for k, v in taxa:
+	mydict2[v].append(k)
+	
+print mydict2
+        

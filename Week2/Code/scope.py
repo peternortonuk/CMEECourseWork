@@ -7,6 +7,8 @@ __version__ = "2.7"
 
 #imports
 
+import sys
+
 #constants
 
 _a_global = 10
@@ -34,3 +36,5 @@ def a_function():
 		
 a_function()
 print "Outside the function, the value of _a_global is", _a_global
+
+

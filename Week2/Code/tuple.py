@@ -1,3 +1,10 @@
+#!usr/bin/python
+
+"""5.10.2 Practicals Tuple"""
+
+__author__ = "Petra Guy, pg5117@ic.ac.uk"
+__version__ = "2.7"
+
 birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Delichon urbica','House martin',19),
           ('Junco phaeonotus','Yellow-eyed junco',19.5),

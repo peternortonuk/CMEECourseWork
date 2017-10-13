@@ -1,6 +1,6 @@
 #!usr/bin/python
 
-"""Program descriptopn"""
+"""5.9 Control Statements, loops etc"""
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"

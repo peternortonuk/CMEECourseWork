@@ -20,14 +20,12 @@ l2 = len(seq2)
 
 #functions
 
-#PS above code works because I know there are two elements in data
-#This should be made more general
-#seq2 = "ATCGCCGGATTACGGG"
-#seq1 = "CAATTCGGAT"
+def getfilenames ()
+	echo 'enter files names to be aligned'
+	read f1,f2
+	return f1,f2
 
-# assign the longest sequence s1, and the shortest to s2
-# l1 is the length of the longest, l2 that of the shortest
-
+def makesequences (
 
 if l1 >= l2:
     s1 = seq1
@@ -91,5 +89,10 @@ print "Best score:", my_best_score
 f = open("../Sandbox/align_seq_out.txt","wb")
 f.write(str(my_best_score))
 f.write(str(my_best_align))
-
-
+ 
+def main(f1 = ../Data/Fasta1.fasta, f2 = ):
+		#call the default files in here
+         
+if (__name__ == "__main__"):
+		status = main(sys.argv)
+		sys.exit(status)

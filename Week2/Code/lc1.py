@@ -1,6 +1,12 @@
 #!usr/bin/python
 
 """Chapter 5 Practicals, modify lc1.py"""
+"""Author Petra Guy. Writing list comprehensions and for loops to extract elements from a list"""
+
+
+__author__ = "Petra Guy, pg5117@ic.ac.uk"
+__version__ = "2.7"
+
 
 #(1) Write three separate list comprehensions that create three different
 # lists containing the latin names, common names and mean body masses for
@@ -19,7 +25,6 @@ __version__ = "2.7"
 
 #imports
 
-import sys
 
 #constants
 
@@ -33,13 +38,7 @@ birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
 
 
 
-#This is a for loop for extracting the informatio
-#latin_birds = list()
-#for bird in birds:
-#	latin_birds.append(bird[0])
-#print latin_birds
-
-#here are the list comprehension ways of doing the above for loop
+#here are the list comprehension methods
 #NB the x in birds selects each element of the bids list (lapply), which 
 #is a list of 3)
 
@@ -52,7 +51,22 @@ print birds_common
 bmi = [x[2] for x in birds]
 print bmi
 
+#This are the loops for extracting the information
+latin_birds = list()
+for bird in birds:
+	latin_birds.append(bird[0])
+print latin_birds
 
-if (__name__ == "__main__"):
-		status = main(sys.argv)
-		sys.exit(status)
+common_birds = list()
+for bird in birds:
+	common_birds.append(bird[1])
+print common_birds
+
+bird_bmi = list()
+for bird in birds:
+	bird_bmi.append(bird[2])
+print latin_birds
+
+
+
+
