@@ -5,3 +5,4 @@
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"
 
+print "Chapt 6 exercises, not yet completed"

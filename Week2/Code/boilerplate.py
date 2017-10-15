@@ -1,6 +1,6 @@
 #!usr/bin/python
 
-"""Program description"""
+"""Program description Boilerplate/Template"""
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"

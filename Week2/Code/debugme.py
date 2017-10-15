@@ -14,6 +14,7 @@ import sys
 
 #functions
 
+#These functions are here to create an error
 def createabug(x):
 	y = x**4
 	z = 0.

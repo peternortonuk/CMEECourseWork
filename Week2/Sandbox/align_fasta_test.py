@@ -1,5 +1,7 @@
 import numpy as np
 
+# testing functions for align_seq_fasta
+
 f1 = ("../../Week1/Data/407228326.fasta", "r")
 f2 = ("../../Week1/Data/407228412.fasta", "r")
 

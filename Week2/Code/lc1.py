@@ -1,7 +1,7 @@
 #!usr/bin/python
 
-"""Chapter 5 Practicals, modify lc1.py"""
-"""Author Petra Guy. Writing list comprehensions and for loops to extract elements from a list"""
+"""Chapter 5 Practicals, modify lc1.py, Petra Guy
+	Writing list comprehensions and for loops to extract elements from a list"""
 
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
@@ -20,8 +20,6 @@ __version__ = "2.7"
 # ALSO, PLEASE INCLUDE A DOCSTRING AT THE BEGINNING OF THIS FILE THAT 
 # SAYS WHAT THE SCRIPT DOES AND WHO THE AUTHOR IS
 
-__author__ = "Petra Guy, pg5117@ic.ac.uk"
-__version__ = "2.7"
 
 #imports
 
