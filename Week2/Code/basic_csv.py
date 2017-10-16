@@ -11,7 +11,7 @@ import csv
 
 #read a csv file and append stuff to each row
 
-f = open('../Sandbox/testcsv.csv','rb')
+f = open('../Data/testcsv.csv','rb')
 
 csvread = csv.reader(f)
 temp = []
@@ -23,8 +23,8 @@ f.close()
 
 #write only the species to another file
 
-f = open('../Sandbox/testcsv.csv', 'rb')
-g = open('../Sandbox/bodymass.csv', 'wb')
+f = open('../Data/testcsv.csv', 'rb')
+g = open('../Data/bodymass.csv', 'wb')
 
 csvread = csv.reader(f)
 csvwrite = csv.writer(g)
