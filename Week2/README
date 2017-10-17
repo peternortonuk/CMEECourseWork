@@ -30,5 +30,7 @@ I changed the code so that "quercus" could be input (length string = 7) or querc
 I am guessing there would by a nicer way to do this, but couldnt find it.
 The doctest output was confusing because although I got failed messages, the tests also said passed, ok. I reran the code in a different window, and it worked. I could see that each tree test had passed, so I am not sure what the failed messages were.
 
+This week I created a bash script to run all the scripts to see if that would a) make sure I had completed all the scripts b) throw up any errors. It all ran OK. 
+
 
 

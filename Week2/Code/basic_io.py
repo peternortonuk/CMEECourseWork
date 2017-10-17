@@ -42,7 +42,7 @@ f.close()
 
 list_to_save = range(100)
 
-f = open('../Data/testout.txt', 'w')
+f = open('../Results/testout.txt', 'w')
 for i in list_to_save:
 	f.write(str(i) +'\n') # f.write only writes strings, not nums hence str(i)
 	

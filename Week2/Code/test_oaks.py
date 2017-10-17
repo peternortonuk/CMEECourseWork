@@ -32,7 +32,7 @@ print(is_an_oak.__doc__)
 
 def main(argv): 
     f = open('../Data/TestOaksData.csv','rb')
-    g = open('../Data/JustOaksData.csv','wb')
+    g = open('../Results/JustOaksData.csv','wb')
     taxa = csv.reader(f)
     csvwrite = csv.writer(g)
     oaks = set()

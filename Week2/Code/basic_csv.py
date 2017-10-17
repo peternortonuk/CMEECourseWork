@@ -24,7 +24,7 @@ f.close()
 #write only the species to another file
 
 f = open('../Data/testcsv.csv', 'rb')
-g = open('../Data/bodymass.csv', 'wb')
+g = open('../Results/bodymass.csv', 'wb')
 
 csvread = csv.reader(f)
 csvwrite = csv.writer(g)
