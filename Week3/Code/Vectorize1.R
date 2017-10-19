@@ -2,6 +2,7 @@
 
 M = matrix(runif(1000000), 1000,1000)
 
+#AN example of using for loops to sum matrix elements
 SumAllElements =  function(M) {
   Dimensions = dim(M)
   Tot = 0

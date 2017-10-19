@@ -1,4 +1,6 @@
+
 # Exercise 9.1.1, The apply family
+
 rm(list=ls())
 M = matrix(rnorm(100),10,10)
 
