@@ -19,8 +19,10 @@ MyData = as.data.frame(cbind(Years,Temps))
 
 pdf("../Results/TAutocorrtimeseries1.pdf")
 
-plot.ts(MyData$Temps)
-  #plot terms with lag of 1 to 4 years against each other M Crawley p787
+ggplot(MyData, aes(x = MyData$Years, y = MyData$Temps))+
+ labs(Title = "Time series of temperature data for KeyWest 1900 - 2000", x = "date", y = "Temperature")+
+  geom_point()
+ 
 dev.off()
 
 pdf("../Results/TAutocorrtimeseries2.pdf")
@@ -104,6 +106,7 @@ for (i in seq_along((Temps))) {
   pdf("../Results/TAutocorrmovingavg.pdf")
   ggplot(MyData, aes(y = MyData$ma, x = MyData$Years , colour  = abs(lm$residuals)))+
   geom_point()+
+  labs(x = "Years", title = "Scatterplot of 2 point moving average and linear fit", y = "Moving Average")+
   geom_abline(intercept = lm$coefficients[1][1],
                slope = lm$coefficients[2][1],
                 colour = "red")
