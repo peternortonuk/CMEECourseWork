@@ -35,7 +35,7 @@ Prey.mass.median = tapply(log(Mydf$Prey.mass), groups, median)
 
 Predator.mass.median = tapply(log(Mydf$Prey.mass), groups, median)
 
-PreyPred.mass.median = tapply(log(Mydf$Prey.mass/Mydf$Predator.mass), groups, mean)
+PreyPred.mass.median = tapply(log(Mydf$Predator.mass/Mydf$Prey.mass), groups, mean)
   
 stats = rbind(Prey.mass.means, Predator.mass.means, PreyPred.mass.means, Prey.mass.median, Predator.mass.median, PreyPred.mass.median)
 

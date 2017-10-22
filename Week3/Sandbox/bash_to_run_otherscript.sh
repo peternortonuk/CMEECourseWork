@@ -19,13 +19,16 @@ python Vectorize1.py
 python Vectorize2.py
 Rscript sample.R
 Rscript try.R
-Rscript browser.R
+Rscript browse.R
 Rscript PP_Lattice.R
-
-#Rscript TAutoCorr.R
+Rscript TAutoCorr.R
 #Rscript maps.R
+#PP_Regress.R
+#PP_Regress_loc.R.
+#DataWrang.R
+#DataWrangTidy.R.
 
-#19
+#23
 
 
 
