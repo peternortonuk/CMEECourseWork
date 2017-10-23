@@ -1,0 +1,87 @@
+# Starting again with Sparrows in a moew logical order
+rm(list = ls())
+library(ggplot2)
+library(gridExtra) # for multiple plots
+#library(dplyr) #not used yet
+library(moments) # for skewness
+library(MASS)
+
+###   Import and normalise Data #####
+SparrowsData = as.data.frame(read.table("../Data/SparrowSize.txt", header = TRUE))
+NumericCols = sapply(SparrowsData, is.numeric)
+ScaledData = sapply(SparrowsData[,3:6], scale)
+SparrowsNormalised = cbind(SparrowsData[,1:2], ScaledData, SparrowsData[,7:8])
+
+### function to calcualte the mode ####
+estimate_mode <- function(x) {
+  
+  d <- density(x, na.rm = TRUE)
+  d$x[which.max(d$y)]
+}
+
+
+###     Sats for unnormalised data   ####
+
+SparrowMeans = round(colMeans(as.data.frame(SparrowsData[,4:6]), na.rm = TRUE), digits = 2)
+
+
+Variances =  sapply(SparrowsData[,NumericCols], var, na.rm = TRUE)
+SparrowVars = round(Variances, digits = 2)[4:6]
+
+Sparrowsd = round(sqrt(Variances[4:6]), digits = 2)
+
+SparrowMedians = sapply(SparrowsData[,4:6], median, na.rm = TRUE)
+
+SparrowModes = sapply(SparrowsData[,4:6], estimate_mode)
+ 
+Skews = sapply(SparrowsData[,NumericCols], skewness, na.rm = TRUE)
+
+SparrowSkews = round(Skews[4:6], digits = 2)
+
+NormTests = sapply(SparrowsData[,4:6], shapiro.test)
+
+SparrowStats = rbind(SparrowMeans, SparrowVars, Sparrowsd, SparrowSkews, NormTests)
+
+colnames(SparrowStats) = c("Bill", "Wing", "Mass")
+#rownames(SparrowStats) = c("Mean", "Variance", "StandDev", "Skewness")
+
+###### Plots for un normalised data  ########################
+dev.off()
+plot1 <- ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(Wing))+
+  geom_histogram(bins = 25)+
+  geom_vline(data=SparrowsData, aes(xintercept =  SparrowMeans[[2]]))+
+  geom_density()
+  
+plot1a <- ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(x=1, y = Wing))+
+  geom_boxplot()+
+  coord_flip()
+
+plot2 <- ggplot(data = subset(SparrowsData, !is.na(Mass)) , aes(Mass))+
+  geom_histogram(bins = 25)+
+  geom_vline(data=SparrowsData, aes(xintercept =  SparrowMeans[[3]]))
+geom_density()
+
+plot2a <- ggplot(data=subset(SparrowsData, !is.na(Mass)), aes(x=1, y = Mass))+
+  geom_boxplot()+
+  coord_flip()
+
+plot3 <- ggplot(data=subset(SparrowsData, !is.na(Bill)), aes(Bill))+
+  geom_histogram(bins = 25)+
+  geom_vline(data=SparrowsData, aes(xintercept =  SparrowMeans[[1]]))
+geom_density()
+
+plot3a <-   ggplot(data=subset(SparrowsData, !is.na(Bill)), aes(x=1, y = Bill))+
+  geom_boxplot()+
+  coord_flip()
+grid.arrange(plot1,plot1a, plot2,plot2a, plot3, plot3a)
+
+
+########## Fits #######################
+
+
+print(SparrowStats)
+#gives max-liklihod estimtors
+
+#fitdistr(c(na.exclude(SparrowsData$Bill)), "normal")
+
+

@@ -6,12 +6,14 @@ library(stats) # for plot.ts
 library(ggplot2) 
 library(pracma) # for movavg
 
-# get the data and make two vectors coz easier for loops
+# Collect the data
+MyData = as.data.frame(read.csv("../Data/KeyWest.CSV"))
 
-load("../Data/KeyWestAnnualMeanTemperature.RData")
-Years = ats[[1]]  
-Temps = ats[[2]]
-MyData = as.data.frame(cbind(Years,Temps))
+
+#load("../Data/KeyWestAnnualMeanTemperature.RData")
+#Years = ats[[1]]  
+Temps = MyData[[3]]
+#MyData = as.data.frame(cbind(Years,Temps))
  
 
 #Examine = function(Data){
@@ -19,15 +21,15 @@ MyData = as.data.frame(cbind(Years,Temps))
 
 pdf("../Results/TAutocorrtimeseries1.pdf")
 
-ggplot(MyData, aes(x = MyData$Years, y = MyData$Temps))+
- labs(Title = "Time series of temperature data for KeyWest 1900 - 2000", x = "date", y = "Temperature")+
-  geom_point()
+ggplot(MyData, aes(x = Year, y = Temp))+
+ labs(title = "Time series of temperature data for KeyWest 1900 - 2000", x = "date", y = "Temperature")+
+  geom_line()
  
 dev.off()
 
 pdf("../Results/TAutocorrtimeseries2.pdf")
 par(mfrow = c(2,2))
-sapply(1:4, function(x) plot(MyData$Temps[-c(100:(100-x+1))], MyData$Temps[-c(1:x)]))
+sapply(1:4, function(x) plot(MyData$Temp[-c(100:(100-x+1))], MyData$Temp[-c(1:x)], ylab = "Year", xlab = "year"))
 dev.off()
 
 #autocorrelation coef is Sum(Y[i+1]-AveY)(Y[i] -AveY)/sum(sqr(Y[i]-AveY))
@@ -94,17 +96,19 @@ for (i in seq_along((Temps))) {
   output = c(message,p)
   write(output,'../Results/pvalue.txt' )
 
-#Since p value indicates correlation between points, lets look at moving average
-#and plot a trend line
+ pdf("../Results/TAutocorrHist.pdf")
+hist(acfs, main = paste("distribution of random acfs. acf for sequential data 0.309"))
+  #Since p value indicates correlation between points, lets look at moving average
+  #and plot a trend line
+dev.off()
 
-
-  ma = movavg(MyData$Temps, 2, "s") # simple moving average with 2 points
+  ma = movavg(MyData$Temp, 2, "s") # simple moving average with 2 points
 
   MyData = as.data.frame(cbind(MyData,ma)) # need a dataframe for ggplot
 
-  lm = summary(lm(MyData$ma ~ MyData$Years, MyData)) #a linear model of moving averages
+  lm = summary(lm(MyData$ma ~ MyData$Year, MyData)) #a linear model of moving averages
   pdf("../Results/TAutocorrmovingavg.pdf")
-  ggplot(MyData, aes(y = MyData$ma, x = MyData$Years , colour  = abs(lm$residuals)))+
+  ggplot(MyData, aes(y = MyData$ma, x = MyData$Year , colour  = abs(lm$residuals)))+
   geom_point()+
   labs(x = "Years", title = "Scatterplot of 2 point moving average and linear fit", y = "Moving Average")+
   geom_abline(intercept = lm$coefficients[1][1],

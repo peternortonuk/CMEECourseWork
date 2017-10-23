@@ -19,15 +19,15 @@ evince $1.pdf &
 #clean up - this deletes all the files created to make the document
 #rm *~ # too scary
 rm *.aux
-rm *.dvi
+#rm *.dvi
 rm *.log
-rm *.nav
+#rm *.nav
 rm *.out
-rm *.snm
-rm *.toc
+#rm *.snm
+#rm *.toc
 #added these last two on, because I could see these had been
 # created hope they're no important? check this later coz StackExchange says
 #you need some of the above, like .aux
-rm *.blg 
-rm *.bbl
+#rm *.blg 
+#rm *.bbl
 

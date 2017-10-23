@@ -31,16 +31,12 @@ prepare_workspace = function(){
   }
  
   
-  # reapeting using piping - but since acf gives a list, the answer is messh=y, hnce unlist and select out alternate values
+  # reapeting using piping - but since acf gives a list, the answer is messh=y, hence unlist and select out alternate values
   acfs2 =vector("numeric",1000)
   for (i in 1:1000){ 
     acfs2[i] <- Temps %>% sample(.,100) %>% acf(.,1)
   }
 acfs2 = unlist(acfs2[c(FALSE,TRUE)])
 
-
-
-
-
-
+hist(acfs2, main = paste("distribution of random acfs. Our acf was 0.309", xlab = "autocorrelation coefficients"))
 
