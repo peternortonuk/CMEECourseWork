@@ -1,8 +1,10 @@
-# Starting again with Sparrows in a moew logical order
+#!/usr/bin/env Rscript
+
+# Starting again with Sparrows in a more logical order
 rm(list = ls())
 library(ggplot2)
 library(gridExtra) # for multiple plots
-#library(dplyr) #not used yet
+library(dplyr) #not used yet
 library(moments) # for skewness
 library(MASS)
 
@@ -19,6 +21,10 @@ estimate_mode <- function(x) {
   d$x[which.max(d$y)]
 }
 
+StandError =  function(data){
+  data = na.omit(data)
+  SE = sd(data, na.rm = TRUE)/sqrt(length(data))
+}
 
 ###     Sats for unnormalised data   ####
 
@@ -38,15 +44,25 @@ Skews = sapply(SparrowsData[,NumericCols], skewness, na.rm = TRUE)
 
 SparrowSkews = round(Skews[4:6], digits = 2)
 
+
+  
+SparrowBillSE = round(with(SparrowsData, tapply(Bill, Year, StandError)), digits = 2)
+SparrowWingSE = round(with(SparrowsData, tapply(Wing, Year, StandError)), digits =2)
+SparrowMassSE = round(with(SparrowsData, tapply(Mass, Year, StandError)), digits = 2)
+SparrowSE = rbind(SparrowBillSE,SparrowWingSE,SparrowMassSE)
+rownames(SparrowSE) = c("Bill", "Wing", "Mass")
+
 NormTests = sapply(SparrowsData[,4:6], shapiro.test)
 
-SparrowStats = rbind(SparrowMeans, SparrowVars, Sparrowsd, SparrowSkews, NormTests)
+SparrowStats = rbind(SparrowMeans, SparrowMedians, SparrowModes, SparrowVars, Sparrowsd, SparrowSkews, NormTests)
+
+SparrowSE = by(SparrowsData, Year, mean, na.rm = TRUE)
 
 colnames(SparrowStats) = c("Bill", "Wing", "Mass")
 #rownames(SparrowStats) = c("Mean", "Variance", "StandDev", "Skewness")
 
 ###### Plots for un normalised data  ########################
-dev.off()
+#dev.off()
 plot1 <- ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(Wing))+
   geom_histogram(bins = 25)+
   geom_vline(data=SparrowsData, aes(xintercept =  SparrowMeans[[2]]))+
@@ -76,7 +92,12 @@ plot3a <-   ggplot(data=subset(SparrowsData, !is.na(Bill)), aes(x=1, y = Bill))+
 grid.arrange(plot1,plot1a, plot2,plot2a, plot3, plot3a)
 
 
-########## Fits #######################
+### More plots to examine fits etc ####
+
+
+ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(Sex.1, y = Wing))+
+  geom_boxplot()
+
 
 
 print(SparrowStats)
