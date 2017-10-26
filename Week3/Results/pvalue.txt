@@ -1,2 +1,2 @@
 p value for autocorrelation coeffice=ient of lag 1 is 
-0.002
+0.001

@@ -20,6 +20,7 @@ estimate_mode <- function(x) {
   d <- density(x, na.rm = TRUE)
   d$x[which.max(d$y)]
 }
+#Fuction to caluclate the standard error
 
 StandError =  function(data){
   data = na.omit(data)
@@ -55,14 +56,12 @@ rownames(SparrowSE) = c("Bill", "Wing", "Mass")
 NormTests = sapply(SparrowsData[,4:6], shapiro.test)
 
 SparrowStats = rbind(SparrowMeans, SparrowMedians, SparrowModes, SparrowVars, Sparrowsd, SparrowSkews, NormTests)
-
-SparrowSE = by(SparrowsData, Year, mean, na.rm = TRUE)
-
+                 
 colnames(SparrowStats) = c("Bill", "Wing", "Mass")
 #rownames(SparrowStats) = c("Mean", "Variance", "StandDev", "Skewness")
 
 ###### Plots for un normalised data  ########################
-#dev.off()
+dev.off()
 plot1 <- ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(Wing))+
   geom_histogram(bins = 25)+
   geom_vline(data=SparrowsData, aes(xintercept =  SparrowMeans[[2]]))+
@@ -95,14 +94,25 @@ grid.arrange(plot1,plot1a, plot2,plot2a, plot3, plot3a)
 ### More plots to examine fits etc ####
 
 
-ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(Sex.1, y = Wing))+
+Wing_Sex1 = ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(Sex.1, y = Wing))+
   geom_boxplot()
+
+Wing_Sex2 = ggplot(data=subset(SparrowsData, !is.na(Wing)), aes(Sex.1, y = Wing))+
+  geom_smooth()
+
 
 
 
 print(SparrowStats)
+
 #gives max-liklihod estimtors
 
-#fitdistr(c(na.exclude(SparrowsData$Bill)), "normal")
+fitdistr(c(na.exclude(SparrowsData$Bill)), "normal")
+
+#### t tests. using var1~var2 in t.test takes mean of each and performs test
+
+ttest = t.test(SparrowsData$Mass~ SparrowsData$Sex.1)
+Sparrows2001 =  subset(SparrowsData, Year == 2001)    #2001 only
+t.test2001 = t.test(Sparrows2001$Wing~Sparrows2001$Sex.1) # calcs mean of wing for make and female and does t test
 
 
