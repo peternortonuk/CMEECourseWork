@@ -1,0 +1,14 @@
+
+TAutocorr
+
+Firstly wrote this like a python script, with functions and set of calls in a "main" (Autocorr1 in Sandbox) -but that didnt work - I have to run each function in the console. Is this different in R? I saw something about "modules".
+Also cant work out why when the code is called from Rscript, the libraries and load bit do not run.I have spent hours searching for an answer to that question, but got nowhere.
+
+I took the prgramme out of the module/function format (Autocorr in Code)- it got very long and ugly - I duplicated the calculation for autocorrelation coefficient in the random part. Yuk. I was trying to generate a script that would run from the Rscript, but it wouldnt anyway, because I cant load the file outside the console.
+
+I checked, and my code  gives exactly the same value as the R acf function, with lag 1. Therefore wrote AutoCorr3, Sandbox, which takes advantage of the R function.
+
+
+
+
+

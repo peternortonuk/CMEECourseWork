@@ -1,6 +1,6 @@
 #!usr/bin/python
 
-"""5.10 List comprehensions"""
+"""5.10.1. Oaks, Writing list comprehensions"""
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"

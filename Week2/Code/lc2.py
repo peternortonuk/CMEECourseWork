@@ -1,7 +1,7 @@
 #!usr/bin/python
 
-"""Chapter 5 Practicals, modify lc2.py"""
-"""Author Petra Guy. Writing list comprehensions and for loops to extract elements from a list"""
+"""Chapter 5 Practicals, modify lc2.py, Petra Guy
+	Writing list comprehensions and for loops to extract elements from a list"""
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"

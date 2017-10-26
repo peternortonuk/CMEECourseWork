@@ -1,5 +1,7 @@
 #!usr/bin/python
 
+#testing for align_seg_fasta
+
 
 #import the two files and turn into one long string
 gene1 = "'".join(line.rstrip("\n") for line in open("../../Week1/Data/407228326.fasta", "r"))

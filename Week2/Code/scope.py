@@ -27,8 +27,8 @@ print "Outside the function, the value of _a_global is", _a_global
 
 
 def a_function():
-		global _a_global
-		_a_global = 5
+		global _a_global # defining a global inside will make it global
+		_a_global = 5 
 		_a_local = 4
 		print "Inside the function _a_global is ", _a_global
 		print "Inside the function _a_local is ", _a_local

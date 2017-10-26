@@ -1,6 +1,7 @@
 #!usr/bin/python
 
-"""5.12.1 ALign DNA sequences"""
+"""5.12.1 Align DNA sequences"""
+	
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"
@@ -42,7 +43,7 @@ else:
 # starting from arbitrary startpoint - specified below
 
 def calculate_score(s1, s2, l1, l2, startpoint):
-	"""calculate_score matches strings from a startpoint"""
+	"""Calculate_score matches strings from a startpoint."""
 	matched = "" # contains string for alignement
 	score = 0
 	for i in range(l2):
