@@ -22,25 +22,47 @@ pdf("../Results/SizeRatio_Lattice.pdf", # Open blank pdf page
 densityplot(~log(Prey.mass/Predator.mass)| Type.of.feeding.interaction, data = Mydf)
 dev.off()
 
+
+# are all masses in same units?
+masses_not_g =  subset(Mydf, Prey.mass.unit != "g")
+length(unique(masses_not_g$Type.of.feeding.interaction)) # = 3, so there are three groups for mass of mg, that makes above calcs wrong.
+
+#if prey mass unit = mg, x prey mass by 1E-3
+l = length(Mydf$Prey.mass)
+for (i in 1:l){
+  if (Mydf$Prey.mass.unit[i] == "mg") {
+    Mydf$Prey.mass[i] = Mydf$Prey.mass[i] * 1e-3
+  }
+}
 #tapplys to get means and medians across feeding interaction
+# ps, log = ln, natural log
 groups = as.factor(Mydf$Type.of.feeding.interaction)
 
 Prey.mass.means = tapply(log(Mydf$Prey.mass), groups, mean)
 
 Predator.mass.means = tapply(log(Mydf$Predator.mass), groups, mean)
 
-PreyPred.mass.means = tapply(log(Mydf$Prey.mass/Mydf$Predator.mass), groups, mean)
+PredPrey.mass.means = tapply(log(Mydf$Predator.mass/Mydf$Prey.mass), groups, mean)
 
 Prey.mass.median = tapply(log(Mydf$Prey.mass), groups, median)
 
 Predator.mass.median = tapply(log(Mydf$Prey.mass), groups, median)
 
-PreyPred.mass.median = tapply(log(Mydf$Predator.mass/Mydf$Prey.mass), groups, mean)
+PredPrey.mass.median = tapply(log(Mydf$Predator.mass/Mydf$Prey.mass), groups, mean)
   
-stats = rbind(Prey.mass.means, Predator.mass.means, PreyPred.mass.means, Prey.mass.median, Predator.mass.median, PreyPred.mass.median)
+stats = rbind(Prey.mass.means, Predator.mass.means, PredPrey.mass.means, Prey.mass.median, Predator.mass.median, PredPrey.mass.median)
 
-write.csv(stats, "../Results/PP_Results.csv")
+#write.csv(stats, "../Results/PP_Results.csv")
+#another output with headers from StackO
 
+write.table_with_header <- function(x, file, header, ...){
+  cat(header, '\n',  file = file)
+  write.table(x, file, append = T, ...)
+}
+
+#Note that append is ignored in a write.csv call, so you simply need to call
+header = "All values are natural log"
+write.table_with_header(stats,"../Results/PP_Results.csv",header,sep=',') 
 
 
 

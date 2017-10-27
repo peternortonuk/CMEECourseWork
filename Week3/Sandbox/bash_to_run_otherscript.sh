@@ -22,8 +22,8 @@ Rscript try.R
 Rscript browse.R
 Rscript PP_Lattice.R
 Rscript TAutoCorr.R
-Rscript maps.R
-Rscript PP_Regress.R
+Rscript GPDD.R
+#Rscript PP_Regress.R
 #PP_Regress_loc.R.
 #DataWrang.R
 #DataWrangTidy.R.
