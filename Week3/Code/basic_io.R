@@ -1,4 +1,6 @@
 #7.12 Practising readin 
+# inputs trees.csv
+# outputs MyData.csv, Mydatacsv.csv, Mydatatable.csv
 
 MyData = read.csv("../Data/trees.csv")
 MyDataHeader = read.csv("../Data/trees.csv", header = TRUE)

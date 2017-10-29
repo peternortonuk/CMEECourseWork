@@ -21,35 +21,6 @@
 \begin{document}
 \maketitle
 
-\section{Introduction - about the code}
-I have three scripts (so far!). Initially I wrote a python-ish functions script, 
-but I couldnt work out how to run this from Rscript.
-I therefore rewrote this as a long ugly code, thinking that if I ran that
-from Rscript it would simple run through line by line. But the 
-load command would not work. I also checked the results of my 
-calculations against the R acf() function, and they were the same, 
-so I wrote another script using that and dplyr pipes.
-
-\begin{minipage}{\linewidth}
-\begin{center}
-\includegraphics[width=.5\linewidth]{AutoCorr2.pdf}
-\captionof{figure}{Code written in functions}
-\end{center}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-\begin{center}
-\includegraphics[width=.5\linewidth]{TAutoCorr.pdf}
-\captionof{figure}{Long ugly script}
-\end{center}
-\end{minipage}
-
-\begin{minipage}{\linewidth}
-\begin{center}
-\includegraphics[width=.5\linewidth]{AutoCorr3.pdf}
-\captionof{figure}{Using R acf() and dplyr}
-\end{center}
-\end{minipage}
 
 \section{Graphs}
 The time series shows an upward trend. The next four scatter plots

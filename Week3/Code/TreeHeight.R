@@ -4,7 +4,7 @@
 
 #arguments: angle of elevation
 #distance : distance to tree base
-#Output: height of the tree
+#Output: height of the tree, TreeHts.csv
 
 
 MyData = read.csv("../Data/trees.csv")

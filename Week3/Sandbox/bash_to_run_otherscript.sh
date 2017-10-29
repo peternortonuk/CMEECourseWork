@@ -17,13 +17,13 @@ Rscript Vectorize1.R
 Rscript Vectorize2.R
 python Vectorize1.py
 python Vectorize2.py
-Rscript sample.R
+Rscript Sample.R
 Rscript try.R
 Rscript browse.R
-Rscript PP_Lattice.R
-Rscript TAutoCorr.R
-Rscript GPDD.R
-#Rscript PP_Regress.R
+Rscript PP_Lattice.R #uses /ecol Archives.csv
+Rscript TAutoCorr.R #uses/Data/KeyWest.csv
+Rscript GPDD.R #uses GPDD.csv
+Rscript PP_Regress.R #uses /ecol Archives.csv
 #PP_Regress_loc.R.
 #DataWrang.R
 #DataWrangTidy.R.

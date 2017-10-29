@@ -97,7 +97,7 @@ for (i in seq_along((Temps))) {
   write(output,'../Results/pvalue.txt' )
 
  pdf("../Results/TAutocorrHist.pdf")
-hist(acfs, main = paste("distribution of random acfs. acf for sequential data 0.309"))
+ hist(acfs, main = paste("distribution of random acfs. acf for sequential data 0.309"))
   #Since p value indicates correlation between points, lets look at moving average
   #and plot a trend line
 dev.off()
@@ -107,6 +107,7 @@ dev.off()
   MyData = as.data.frame(cbind(MyData,ma)) # need a dataframe for ggplot
 
   lm = summary(lm(MyData$ma ~ MyData$Year, MyData)) #a linear model of moving averages
+  
   pdf("../Results/TAutocorrmovingavg.pdf")
   ggplot(MyData, aes(y = MyData$ma, x = MyData$Year , colour  = abs(lm$residuals)))+
   geom_point()+

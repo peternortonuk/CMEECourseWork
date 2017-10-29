@@ -1,5 +1,5 @@
 #InputFileName = "test.csv"
-
+#output trees_gettree height, ish
 args <- commandArgs(TRUE)
 InputFileName <- as.character(args[1])
 

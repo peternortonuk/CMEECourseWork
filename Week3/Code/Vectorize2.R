@@ -19,3 +19,5 @@ for (yr in 2:numyears) {
 MyMatrix =  stochricknew
 # print("Vectorized Stochastic Ricker takes:")
 print(system.time(stochricknew()))
+
+# try this again with rapply - apply with iterations

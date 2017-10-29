@@ -11,12 +11,15 @@
 # I put FirstExample in Data dir
 #Remember you need the biblio graphy to be created
 
-pdflatex $1.tex
-pdflatex $1.tex
+pdflatex Autocorrlatex2.tex # does something
+pdflatex Autocorrlatex2.tex #compiles it
+#pdflatex $1.tex # if this was bibtex, you'd need 2 more statements again
+#pdflatex $1.tex
+#pdflatex $1.tex
 
-evince $1.pdf &
+evince Autocorrlatex2.pdf &
 
-#clean up - this deletes all the files created to make the document
+#clean up - this deletes all the files created to make the documentd
 #rm *~ # too scary
 rm *.aux
 #rm *.dvi
