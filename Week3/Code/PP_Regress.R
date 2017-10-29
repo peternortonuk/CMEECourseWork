@@ -1,7 +1,6 @@
 # Practical Chapter 9
-#Using dplyr, but cant get dplyr to load anymore. hace removed and reinstalled Rcpp, changed file acces for Rcpp and reinstalled dplyr
-#several times. 
-# so cant check this script anymore.
+#Using dplyr, doesnt always load
+
 library(dplyr) # need for filter
 library(ggplot2)
 library(plyr) # need for count
@@ -27,7 +26,10 @@ for (i in 1:l){
     Mydf$Prey.mass[i] = Mydf$Prey.mass[i] * 1e-3
   }
 }
-
+logsPredMass = log(Mydf$Predator.mass)
+Mydf[["Predator.mass"]] = logsPredMass
+logsPreyMass = log(Mydf$Prey.mass)
+Mydf[["Prey.mass"]] = logsPreyMass
 
 #models = Mydf %>%  filter(Type.of.feeding.interaction == "insectivorous") %>%  group_by(Predator.lifestage) %>%  do(lm(log(Predator.mass) ~ log(Prey.mass)))
 
@@ -41,9 +43,9 @@ for (i in 1:l){
 
 #Start again using filters etc. Part of the issue is that I am trying to automate everything, as if I dont know what each grpup will throw out. To make
 #program generic. Difficulty is that I then need to introduce separate functions to assess each subset created. For how many Lifestages for example.
-#Wont continue with that for this exercise, but in future, I'd need to address that. Using key below to attach labesl to subsets etc.
+#Won't continue with that for this exercise, but in future, I'd need to address that. Using key below to attach labesl to subsets etc.
 
-convertoutput <-function(x){ # this makes output of summary look ok, otherwise nonsense when written to csv
+convertoutput <-function(x){ # this makes output of summary look ok, otherwise nonsense when written to csv, but still not right
   res<-c(paste(as.character(summary(x)$call),collapse=" "),
          x$coefficients[1],
          x$coefficients[2],
@@ -101,7 +103,7 @@ for (i in 1:n){
                  col.names=T )
   
 }
-#this gives an output, but its nasty to read. Spent 3 days on these. Need to move on fopr now. Going to try in python
+
 print(insectivors)
 n = length(insectivors)
 for (i in 1:n){
@@ -155,4 +157,7 @@ for (i in 1:n){
                col.names=T )
   
 }
+
+#### This script needs modifying as: For loops for the lm section. Output is not in legible format.
+
 

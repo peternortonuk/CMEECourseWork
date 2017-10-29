@@ -14,8 +14,9 @@ GPDDMap <- get_map(location = c(lon = mean(MyData$long), lat = mean(MyData$lat))
                       maptype = "satellite", scale = 1)
 
 # plotting the map with some points on it
+pdf("../Results/GDPPMap.pdf")
 ggmap(GPDDMap) +
   geom_point(data = MyData, aes(x = long, y = lat, fill = "red", alpha = 0.8), size = 5, shape = 21) +
   guides(fill=FALSE, alpha=FALSE, size=FALSE)
-
+dev.off()
 # appear to only be northern hemisphere data. 

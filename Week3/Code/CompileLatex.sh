@@ -11,6 +11,13 @@
 # I put FirstExample in Data dir
 #Remember you need the biblio graphy to be created
 
+mv  Autocorrlatex2.tex ../Results
+#mv ../Results/TAutocorrHist.pdf ../Code
+#mv ../Results/TAutocorrtimeseries2.pdf ../Code
+#mv ../Results/TAutocorrtimeseries1.pdf ../Code
+#mv ../Results/TAutocorrmovingavg.pdf ../Code
+
+cd ../Results
 pdflatex Autocorrlatex2.tex # does something
 pdflatex Autocorrlatex2.tex #compiles it
 #pdflatex $1.tex # if this was bibtex, you'd need 2 more statements again
