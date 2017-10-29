@@ -1,11 +1,11 @@
 #!/bin/bash
-# Author pg5117@ic.ac.uk
-# Script: CompileLatex
-# Desc: 
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 21th October 2017
 # runs the commands to compile the latex document then opens the document. 
 # Make sure you've created the bibliography
 # Arguments:Requires FirstExample a tex file in Data directory
-#					 FirstBiblio.bib in Data directory		
+# FirstBiblio.bib in Data directory		
 # #Date October 2017
 
 # I put FirstExample in Data dir

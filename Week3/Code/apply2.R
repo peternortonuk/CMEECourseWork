@@ -1,4 +1,8 @@
 #Exercise 9.1.1 apply family
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 20th October 2017
+
 
 SomeOperation = function(v) {
   if (sum(v) > 0)

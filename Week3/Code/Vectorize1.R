@@ -1,4 +1,7 @@
 ##Exercise 9.1
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 23th October 2017
 
 M = matrix(runif(1000000), 1000,1000)
 

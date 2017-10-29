@@ -1,5 +1,7 @@
 #Chapter 9, 9.1.2
-
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 26th October 2017
 
 rm(list = ls())
 

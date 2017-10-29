@@ -1,4 +1,8 @@
 #7.12 Practising readin 
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 20th October 2017
+
 # inputs trees.csv
 # outputs MyData.csv, Mydatacsv.csv, Mydatatable.csv
 

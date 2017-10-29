@@ -1,12 +1,13 @@
 # Practical Chapter 9
 
-# trying loops again.
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 27th October 2017
+
+# Trying loops again
 
 library(ggplot2)
 library(plyr)
-#library(magrittr)
-#library(tidyr)
-#library(sqldf)
 rm(list = ls())
 
 Mydf = as.data.frame(read.csv("../Data/EcolArchives-E089-51-D1.csv"))
@@ -19,7 +20,7 @@ plot = ggplot(Mydf, aes(x = log(Prey.mass), y = log(Predator.mass) ) )+
 print(plot)
 dev.off()
 
-# convert to g and log everything 
+# convert to g mg
 l = length(Mydf$Prey.mass)
 for (i in 1:l){
   if (Mydf$Prey.mass.unit[i] == "mg") {
@@ -73,6 +74,8 @@ for (i in 1:length(Mydfs_FeedGroups)){
   
  }
 ##the above loop works, but Lms is only the intercept and gradient. Would need summary and more subsetting to
-#get R2, F and p. Problem is that if each summary is added whole, then the list produced is always messy nonsense
+#get R2, F and p. Summary itself produces horrid output, so need to get at the elements of it, but it was tricky to work out what they were
+#Partly because the Model seemed excessively nested. The above for loop shows where I get confuesd with indexing in R - I seem to turn everything
+#into a nested list of lists and I can work out how to get at the data anymore.
 #I cant work out how to rbind new summaries in a sensible way.
-#Combine the file output function of PP_Rgress4 with this loop
+#Combine the file output function of PP_Rgress4 with this loop??

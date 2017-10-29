@@ -1,6 +1,9 @@
 ################################################################
 ################## Wrangling the Pound Hill Dataset ############
 ################################################################
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 24th October 2017
 
 ############# Load the dataset ###############
 # header = false because the raw data don't have real headers

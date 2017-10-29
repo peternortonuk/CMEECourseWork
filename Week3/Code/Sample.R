@@ -1,4 +1,7 @@
 # Exercise 9.3.1 Random numbers
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 26th October 2017
 
 x = rnorm(50)
 

@@ -1,4 +1,7 @@
 # Practical Chapter 9
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 27th October 2017
 
 # trying loops again, plus output, just put entiire summary in a csv which avoids all the tricky subsetting
 #come back to that later
@@ -18,7 +21,7 @@ plot = ggplot(Mydf, aes(x = log(Prey.mass), y = log(Predator.mass) ) )+
 print(plot)
 dev.off()
 
-# convert to g and log everything 
+# convert to g to mg
 l = length(Mydf$Prey.mass)
 for (i in 1:l){
   if (Mydf$Prey.mass.unit[i] == "mg") {
@@ -35,25 +38,34 @@ get_model = function(x,y){
 #dafr = Mydfs_FeedGroups[[2]]
 #testmod = lm(log(dafr$Predator.mass) ~ log(dafr$Prey.mass), subset = (dafr$Predator.lifestage == keyPredLifeStage[2]))
 ##
+
+#just to get how many factors there are and what exactly are they
 keyFeedGroups = as.character(unique(Mydf$Type.of.feeding.interaction))
 keyPredLifeStage = as.character(unique(Mydf$Predator.lifestage))
 numsFeedgroups = as.numeric(unique(Mydf$Type.of.feeding.interaction))
 numsPredLifestage = as.numeric(unique(Mydf$Pedator.lifestage))
-key_to_Feedlevels = rbind(keyFeedGroups, numsFeedgroups) #so i know what i is!
+#so i know what i is! I could print this as a key
+key_to_Feedlevels = rbind(keyFeedGroups, numsFeedgroups) 
 key_to_Lifestage = rbind(keyPredLifeStage, numsPredLifestage)
 
+
+#Subset the Type.of.feeding.interaction. Would be better if this was a function
 
 Mydfs_FeedGroups =  vector(mode = "list")
 for (i in 1:length(keyFeedGroups)){
   Mydfs_FeedGroups[[i]]= subset(Mydf, Mydf$Type.of.feeding.interaction == keyFeedGroups[i])
 }
 
+#What lifestages exist in a subset
 get_LifeStages = function(dataframe){
   LifeStages = as.character(unique(dataframe$Predator.lifestage))
 }
+#How many lifestages are there in a subset
 get_numberLifeStages = function(dataframe){
   No_Stages = sum(count(unique(dataframe$Predator.lifestage))$freq)
 }
+
+# function to make summary look ok on output
 
 convertoutput <-function(x){
   res<-c(paste(as.character(summary(x)$call),collapse=" "),
@@ -69,10 +81,10 @@ convertoutput <-function(x){
                 "F-statistic","numdf","dendf","p.value")
   return(res)} 
 
-
+#This is supposed to be the main bit.
 
 for (i in 1:length(Mydfs_FeedGroups)){
-  browser()
+  #browser()
   n = get_numberLifeStages(Mydfs_FeedGroups[[i]])
   St = get_LifeStages(Mydfs_FeedGroups[[i]])
   for (j in 1:n){
@@ -86,4 +98,5 @@ for (i in 1:length(Mydfs_FeedGroups)){
   
 
 #Above is kind of working - but the indexes are out, so that "get_model" is running on i=2, j=3, 
-#for which there arent any variables.
+#for which there arent any variables. Havent worked out whats goin on there
+#This is closer to what I wanted to do with for loops

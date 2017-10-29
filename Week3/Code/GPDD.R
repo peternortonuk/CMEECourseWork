@@ -1,5 +1,8 @@
 
-#Chapt * extra Credit Mapping
+#Chapt 9 extra Credit Mapping
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 23th October 2017
 
 rm(list = ls())
 MyData = read.csv("../Data/GPDD.csv")

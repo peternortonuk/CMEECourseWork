@@ -1,7 +1,16 @@
 # Practical Chapter 9
+#Biological Computing Boot Camp
+#R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
+#Author Petra Guy 20th October 2017
 
-# horrid long winded way because dplyr stopped working and I found subsets in loops/list indexing etc
-#insurmountable!
+#The program reads in data with predator and prey masses, type of feeding, eg insectivorous, piscivororous, and predator life stage, eg, adult, larva etc. 
+# The last two are in two columns of factors with 5 and 6 levels respectively. The task is to produce linear models FOR EACH predator lifestage, BY Feeding interaction.
+# I.e., subset by Type.of.feeding.interaction. The subset this by Predator.lifestae. Then plot a linear model for each. Potentially 30, but not every lifestage is present in
+#each feeding interaction
+
+#Got desperate to have something to upload for coursework, so wrote everything out in full!!!
+
+
 library(ggplot2)
 #library(dplyr)
 #library(magrittr)
