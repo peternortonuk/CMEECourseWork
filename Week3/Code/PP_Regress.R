@@ -73,7 +73,7 @@ convertoutput <-function(x){
 keyFeedGroups = as.character(unique(Mydf$Type.of.feeding.interaction))
 keyPredLifeStage = as.character(unique(Mydf$Predator.lifestage))
 
-#Loosing the will to live, I have just filtered to get the 5 feeding groups. Would rather have made
+#Losing the will to live, I have just filtered to get the 5 feeding groups. Would rather have made
 #FOR loops than hard coded for each type
 
 insectivors = filter(Mydf, Type.of.feeding.interaction == "insectivorous")
