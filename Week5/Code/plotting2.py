@@ -11,6 +11,6 @@ import pylab
 
 
 df = pd.read_csv("../../Week3/Data/KeyWest.CSV")
-
-plt.plot(x = Year,y  = Temp)
+print(df)
+plt.plot(Year,Temp)
 plt.show()
