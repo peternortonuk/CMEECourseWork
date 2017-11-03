@@ -10,7 +10,7 @@ import pandas as pd
 import pylab
 
 
-df = pd.read_csv("../../Week3/Data/KeyWest.CSV")
+df = pd.read_csv("C:\dev\code\petra\Week3\Data\KeyWest.CSV")
 print(df)
-plt.plot(Year,Temp)
+plt.plot(df['Year'],df['Temp'])
 plt.show()
