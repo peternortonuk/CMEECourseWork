@@ -42,17 +42,40 @@ assert getOSGridReference(96000, 906000) == 'NA960060'
 assert getOSGridReference(465149, 1214051) == 'HP651141'
 
 # import the file
+<<<<<<< HEAD
 woodLocs = pd.read_csv(r'../Data/Area_Site.csv')
 
 # add easting and northings; *by100 to make 6 fig
+=======
+woodLocs = pd.read_csv(r'C:\dev\code\petra\Week5\Data\Area_Site.csv')
+
+# add easting and northings; why by a factor of x100?
+>>>>>>> f785fca1b7eabc70c0739dc98e92fe56a31c77a8
 woodLocs['Easting'] = woodLocs['Easting'] * 100
 woodLocs['Northing'] = woodLocs['Northing'] * 100
 
 woodLocsOS = woodLocs
 
+<<<<<<< HEAD
 # this is a bit like R apply
 woodLocsOS['OS'] = woodLocsOS.apply(lambda x: getOSGridReference(x['Easting'], x['Northing']), axis=1)
 
+=======
+# three different ways to modify
+# (1) use a lambda function
+# woodLocsOS['OS'] = woodLocsOS.apply(lambda x: getOSGridReference(x['Easting'], x['Northing']), axis=1)
+
+# (2) sledgehammer
+# x = [getOSGridReference(woodLocsOS.Easting.iloc[i], woodLocsOS.Northing.iloc[i]) for i in range(len(woodLocsOS.Easting))]
+# woodLocsOS['OS'] = x
+
+# (3) pandas row iterator
+# You should never modify something you are iterating over; so create a new list
+x = []
+for index, row in woodLocsOS.iterrows():
+    x.append(getOSGridReference(row['Easting'], row['Northing']))
+woodLocsOS['OS'] = x
+>>>>>>> f785fca1b7eabc70c0739dc98e92fe56a31c77a8
 
 print woodLocsOS.head()
 
