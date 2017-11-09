@@ -1,29 +1,20 @@
 
 
+Week 5.
+Mapping.
 
-TAutocorr - Firstly wrote this like a python script, with functions and set of calls in a "main" (Autocorr1 in Sandbox) -but that didnt work - I have to run each function in the console. Is this different in R? I saw something about "modules".
+Went through a practical then decided to try mapping the locations of the woodlands that I am studying for my project.
+These were in eastings and northings, and despite following proceedures in QGIS tutorials from various websites, I struggled to get these mapped and projected. I could map them on their own, but I couldnt tie them up with a proper UK map.
 
-I took the prgramme out of the module/function format (Autocorr in Code)- it got very long and ugly - I duplicated the calculation for autocorrelation coefficient in the random part. Yuk. I was trying to generate a script that would run from the Rscript, but it wouldnt anyway, because I cant load the file outside the console.
+Next I decided to try mapping in R, but I couldnt download "gdal" and other libraries that were required.
 
-I checked, and my code  gives exactly the same value as the R acf function, with lag 1. Therefore wrote AutoCorr3, Sandbox, which takes advantage of the R function.
+Next I tried mapping in python - similar story.
 
-PP_Regress. Omg. Spent so long on this and got into so many massive pickles. Versions in Sandbox, 1 - just got panicky and did a long hand version so that I had something that would output something. " 2 and 4. Trying to use loops, but the indexing kept getting messy. Using dplyr was OK for subsetting, but didnt work out how to pipe through the data labels, so that I knew what the lm was of. This program was conceptually very straight forward: 
-For (feeds in Type.of.feeding.interaction)
-	For (stages in Predator.life.stages)
-		summary(lm(logpredmass ~ logpreymass)
-		make a nice output
+The R packages would not work with 3.8.3, they wanted older versions. The python packages had many dependencies that needed to be downloaded from github, and I wasnt sure I was setting up the paths correctly etc. This prompted me to look at my pythin libraries and directory structure and realise that it seems to be a bit mangled.
 
-But somehow I found it really hard. I kept creating nasty lists which were horrible to access, I found it difficult to initialise my variables, I couldn,t get a nice output.
+After 3 days of mapping I had achieved nothing! 
 
-I am going to try the whole thing again in python. I wonder if me and R dont understand each other.
-
-Vecorise - I want to come back to this with rapply - an interative apply! 
-
-Latex, got a nice latex script together, bash collects the data from data, compiles the latex pdf etc.
-
-
-
-
+Found/adapted slightly a program to change eastings and northings to OS grid refs
 
 
 
