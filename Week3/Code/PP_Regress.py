@@ -10,7 +10,7 @@ import numpy as np
 from pprint import pprint as pp
 
 # convert mg to grams
-mydata = pd.read_csv("../Data/EcolArchives-E089-51-D1.csv")
+mydata = pd.read_csv("C:\dev\code\petra\Week3\Data\EcolArchives-E089-51-D1.csv")
 mask = mydata['Prey.mass.unit'] == 'mg'
 mydata.loc[mydata['Prey.mass.unit'] == 'mg', 'Prey.mass'] = mydata['Prey.mass']*1e-3
 
@@ -18,4 +18,6 @@ mydata.loc[mydata['Prey.mass.unit'] == 'mg', 'Prey.mass'] = mydata['Prey.mass']*
 logPreyMass =  np.log(mydata['Prey.mass'])
 logPredMass = np.log(mydata['Predator.mass'])
 
-Feeding = mydata.Type.of.Feeding.interaction.values.unique()
+Feeding = mydata[u'Type.of.feeding.interaction'].unique()
+print Feeding
+pass
