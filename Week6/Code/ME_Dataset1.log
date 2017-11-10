@@ -1,0 +1,15 @@
+PLINK v1.90b4.10 64-bit (3 Nov 2017)
+Options in effect:
+  --bfile ME_Dataset1
+  --freqx
+  --out ME_Dataset1
+
+Hostname: petra
+Working directory: /home/petra/Documents/CMEECourseWork/Week6/Code
+Start time: Fri Nov 10 10:33:29 2017
+
+Random number seed: 1510310009
+7862 MB RAM detected; reserving 3931 MB for main workspace.
+Error: Failed to open ME_Dataset1.bed.
+
+End time: Fri Nov 10 10:33:29 2017
