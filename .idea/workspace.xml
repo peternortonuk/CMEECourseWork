@@ -2,15 +2,102 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c976a421-f312-4696-8fbf-0337751cafd6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Code/NA" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Code/Rplots.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Code/pathnameout" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Results/Test101" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Results/Test102" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Results/Test99" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/Dataset2/ME_Dataset2.bed" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/Dataset2/ME_Dataset2.bim" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/Dataset2/ME_Dataset2.fam" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/Dataset3/ME_Dataset3.bed" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/Dataset3/ME_Dataset3.bim" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/Dataset3/ME_Dataset3.fam" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/H938_chr15.geno" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/ME_Full_Dataset/ME_full_data.bed" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/ME_Full_Dataset/ME_full_data.bim" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/ME_Full_Dataset/ME_full_data.fam" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/ME_Sample_Localities.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/ME_Sample_Localities.gif.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Data/ME_popinfo.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/01_LD_Trim_Dataset1_2015/.pversion" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/01_LD_Trim_Dataset1_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/01_LD_Trim_Dataset1_2015/scripts/LDprune.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/02_MDS_Dataset1_2015/.pversion" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/02_MDS_Dataset1_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/02_MDS_Dataset1_2015/scripts/MDS.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/02_MDS_Dataset1_2015/scripts/MDSPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/02_MDS_Dataset1_2015/scripts/plinkMDS2R.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/AdPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/R_code_backup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/admixCV.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/admixPlot.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/admixPlot_old.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/admixture2R.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/errorPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/03_ADMIXTURE_Dataset1_2015/scripts/snpexclude.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/04_ADMIX_Datset1_Pretty_Plot_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/04_ADMIX_Datset1_Pretty_Plot_2015/ordered_popdata.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/04_ADMIX_Datset1_Pretty_Plot_2015/scripts/plotcsv.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset1_Analysis/04_ADMIX_Datset1_Pretty_Plot_2015/scripts/structure_plots.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/01_LD_Trim_Dataset2_2015/.pversion" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/01_LD_Trim_Dataset2_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/01_LD_Trim_Dataset2_2015/scripts/LDprune.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/02_MDS_Dataset2_2015/.pversion" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/02_MDS_Dataset2_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/02_MDS_Dataset2_2015/scripts/MDS.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/02_MDS_Dataset2_2015/scripts/MDSPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/02_MDS_Dataset2_2015/scripts/plinkMDS2R.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/AdPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/R_code_backup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/admixCV.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/admixPlot.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/admixPlot_old.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/admixture2R.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/errorPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/03_ADMIXTURE_Dataset2_2015/scripts/snpexclude.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/04_ADMIX_Datset2_Pretty_Plot_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/04_ADMIX_Datset2_Pretty_Plot_2015/ordered_popdata.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/04_ADMIX_Datset2_Pretty_Plot_2015/scripts/plotcsv.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset2_Analysis/04_ADMIX_Datset2_Pretty_Plot_2015/scripts/structure_plots.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/01_LD_Trim_Dataset3_2015/.pversion" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/01_LD_Trim_Dataset3_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/01_LD_Trim_Dataset3_2015/scripts/LDprune.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/02_MDS_Dataset3_2015/.pversion" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/02_MDS_Dataset3_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/02_MDS_Dataset3_2015/scripts/MDS.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/02_MDS_Dataset3_2015/scripts/MDSPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/02_MDS_Dataset3_2015/scripts/plinkMDS2R.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/AdPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/R_code_backup.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/admixCV.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/admixPlot.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/admixPlot_old.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/admixture2R.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/errorPlot.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/03_ADMIXTURE_Dataset3_2015/scripts/snpexclude.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/04_ADMIX_Datset3_Pretty_Plot_2015/Rakefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/04_ADMIX_Datset3_Pretty_Plot_2015/ordered_popdata.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/04_ADMIX_Datset3_Pretty_Plot_2015/scripts/plotcsv.pl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/Dataset3_Analysis/04_ADMIX_Datset3_Pretty_Plot_2015/scripts/structure_plots.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/HWE_analysis_pipe.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/scripts/HWE_analysis_pipe.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/scripts/Moving_F.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Bioinformatics/Updated_Practical_3/scripts/Ob_v_Ex_het.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Data/ME_Dataset1.frqx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Data/ME_Dataset1.geno" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Data/ME_Dataset1.hwe" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Data/ME_Dataset1.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Data/ME_Dataset1.nosex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Data/ME_Dataset1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Results/MA.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Results/ME_Dataset1.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Results/Obv.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Sandbox/ME_Dataset1.geno" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Sandbox/ME_Dataset1a.frqx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Sandbox/ME_Dataset1h.hwe" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Week6/Sandbox/ME_Dataset1h_hwe_outliers.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Week3/Code/PP_Regress.py" afterPath="$PROJECT_DIR$/Week3/Code/PP_Regress.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Week6/Code/Ob_v_Ex_het.R" afterPath="$PROJECT_DIR$/Week6/Code/Ob_v_Ex_het.R" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Week3/Sandbox/slicingdataframe.py" afterPath="$PROJECT_DIR$/Week3/Sandbox/slicingdataframe.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,7 +111,20 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="450" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
+      <file leaf-file-name="PP_Regress.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Week3/Code/PP_Regress.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="478">
+              <caret line="58" column="28" lean-forward="true" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+              <folding>
+                <element signature="e#472#482#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,15 +141,16 @@
       <list>
         <option value="$PROJECT_DIR$/Week5/Code/GridRefConverter.py" />
         <option value="$PROJECT_DIR$/Week5/Code/matplotlib_box.py" />
+        <option value="$PROJECT_DIR$/Week3/Sandbox/slicingdataframe.py" />
         <option value="$PROJECT_DIR$/Week3/Code/PP_Regress.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="110" />
-    <option name="y" value="107" />
-    <option name="width" value="1397" />
-    <option name="height" value="863" />
+    <option name="x" value="45" />
+    <option name="y" value="24" />
+    <option name="width" value="1875" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -140,6 +241,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Sandbox" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMEECourseWork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMEECourseWork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Week3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Code" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -201,6 +320,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CMEECourseWork" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Week3/Code/PP_Regress.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="slicingdataframe" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Week3/Sandbox" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="CMEECourseWork" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Week3/Sandbox/slicingdataframe.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -347,16 +483,18 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python.GridRefConverter" />
       <item index="1" class="java.lang.String" itemvalue="Python.matplotlib_box" />
       <item index="2" class="java.lang.String" itemvalue="Python.PP_Regress" />
+      <item index="3" class="java.lang.String" itemvalue="Python.slicingdataframe" />
     </list>
     <recent_temporary>
-      <list size="3">
+      <list size="4">
         <item index="0" class="java.lang.String" itemvalue="Python.PP_Regress" />
-        <item index="1" class="java.lang.String" itemvalue="Python.matplotlib_box" />
-        <item index="2" class="java.lang.String" itemvalue="Python.GridRefConverter" />
+        <item index="1" class="java.lang.String" itemvalue="Python.slicingdataframe" />
+        <item index="2" class="java.lang.String" itemvalue="Python.matplotlib_box" />
+        <item index="3" class="java.lang.String" itemvalue="Python.GridRefConverter" />
       </list>
     </recent_temporary>
   </component>
@@ -374,21 +512,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="110" y="107" width="1397" height="863" extended-state="0" />
+    <frame x="45" y="24" width="1875" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25125268" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.208" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44459102" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39050132" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36803365" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39011568" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5764294" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.59393233" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.59305996" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -403,19 +541,80 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Week3/Code/PP_Regress.py</url>
+          <line>71</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="8" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Week3/Code/PP_Regress.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#472#482#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Sandbox/practise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Sandbox/slicingdataframe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="3" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Code/PP_Regress.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#472#482#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Sandbox/practise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Sandbox/slicingdataframe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="3" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Code/PP_Regress.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#472#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -423,7 +622,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -431,7 +629,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#472#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -439,7 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -447,7 +646,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#472#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -534,19 +735,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Week3/Code/PP_Regress.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Week3/Code/PP_Regress.R">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1273">
           <caret line="127" column="40" lean-forward="true" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Sandbox/practise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Sandbox/slicingdataframe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="3" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/pandas/core/internals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="4279" column="0" lean-forward="false" selection-start-line="4279" selection-start-column="0" selection-end-line="4279" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Week3/Code/PP_Regress.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="58" column="28" lean-forward="true" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+          <folding>
+            <element signature="e#472#482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
