@@ -11,30 +11,29 @@ import pylab as p  # Contains matplotlib for plotting
 import pandas as pd
 
 
-
-
-
-columns = ['R','C']
-results = pd.DataFrame()
-
 def dR_dt(z0, r,a,z,e):
     """ Returns the growth rate of predator and prey populations at any
     given time step """
-    R = z0[0]
-    C = z0[1]
-    for t in range(1,1000):
-        R = R + R*r -R*R*r - a*C
-        C = C - C*z+C*e*a*R
-        df = pd.DataFrame({'R':R, 'C':C})
-        results = results.append(df, ignore_index=True,)
-        R = R+t
-        C = C+t
+    #results = results.append(z0, index)
+    y0 = 0; x0 = 0
+    columns = ['R', 'C']
+    results = pd.DataFrame({'R':y0, 'C':x0}, index=[0])
+    for t in range(0,1000):
+        t=0
+        Rt = results.loc[t,'R']
+        Ct = results.loc[t,'C']
+        R = Rt + Rt*r -Rt*Rt*r - a*Ct
+        C = Ct - Ct*z+Ct*e*a*Rt
+        df = pd.DataFrame({'R':R, 'C':C}, index=[0])
+        print df
+        results = results.append(df, ignore_index=True)
     return results
 
 def main(argv):
     x0 = 10
     y0 = 5
     z0 = sc.array([x0, y0])
+    z0 = pd.DataFrame(data = z0)
     r = 1.  # Resource growth rate
     a = 0.1  # Consumer search rate (determines consumption rate)
     z = 1.5  # Consumer mortality rate
