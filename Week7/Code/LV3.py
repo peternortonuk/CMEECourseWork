@@ -23,12 +23,12 @@ def dR_dt(z0, r,a,z,e):
     R = z0[0]
     C = z0[1]
     for t in range(1,1000):
-        Rnew = R + R*r -R*R*r - a*C
-        Cnew = C - C*z+C*e*a*R
+        R = R + R*r -R*R*r - a*C
+        C = C - C*z+C*e*a*R
+        df = pd.DataFrame({'R':R, 'C':C})
+        results = results.append(df, ignore_index=True,)
         R = R+t
         C = C+t
-        df = pd.DataFrame({'R':Rnew, 'C':Cnew})
-        results = results.append(df, ignore_index=True,)
     return results
 
 def main(argv):
