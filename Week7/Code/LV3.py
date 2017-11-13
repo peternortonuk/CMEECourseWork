@@ -14,19 +14,18 @@ import pandas as pd
 
 
 
-columns = ['R','C']
-results = pd.DataFrame({'R':y0, 'C':x0}, index=[0])
-def dR_dt(z0, r,a,z,e):
+
+def dR_dt(results, r,a,z,e):
+
     """ Returns the growth rate of predator and prey populations at any
     given time step """
     #results = results.append(z0, index)
     for t in range(0,1000):
-        t=0
-        Rt = results[t][1]
-        Ct = results[t][1]
+        Rt = results.iloc[2]['R']
+        Ct = results.iloc[2]['C']
         R = Rt + Rt*r -Rt*Rt*r - a*Ct
         C = Ct - Ct*z+Ct*e*a*Rt
-        df = pd.DataFrame({'R':Rt, 'C':Ct}, index=[0])
+        df = pd.DataFrame({'R':R, 'C':C}, index=[0])
         print df
         results = results.append(df, ignore_index=True)
     return results
@@ -34,13 +33,15 @@ def dR_dt(z0, r,a,z,e):
 def main(argv):
     x0 = 10
     y0 = 5
-    z0 = sc.array([x0, y0])
-    z0 = pd.DataFrame(data = z0)
+    #z0 = sc.array([x0, y0])
+    #z0 = pd.DataFrame(data=z0)
+    columns = ['R', 'C']
+    results = pd.DataFrame({'R': y0, 'C': x0}, index=[0])
     r = 1.  # Resource growth rate
     a = 0.1  # Consumer search rate (determines consumption rate)
     z = 1.5  # Consumer mortality rate
     e = 0.75
-    dR_dt(z0, r,a,z,e)
+    dR_dt(results, r,a,z,e)
     print results[columns].head()
 
 if (__name__ == "__main__"):
