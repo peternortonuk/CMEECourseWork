@@ -6,15 +6,13 @@ import pylab as p #Contains matplotlib for plotting
 
 # import matplotlip.pylab as p #Some people might need to do this
 
-def dR_dt(pops, t=0):
+def dR_dt(z0, t=0):
     """ Returns the growth rate of predator and prey populations at any 
     given time step """
-    
-    R = pops[0]
-    C = pops[1]
+    R = z0[0]
+    C = z0[1]
     dRdt = r*R - a*R*C 
     dydt = -z*C + e*a*R*C
-    
     return sc.array([dRdt, dydt])
 
 # Define parameters:
@@ -30,7 +28,7 @@ x0 = 10
 y0 = 5 
 z0 = sc.array([x0, y0]) # initials conditions: 10 prey and 5 predators per unit area
 
-pops, infodict = integrate.odeint(dR_dt, z0, t, full_output=True)
+pops, infodict = integrate.odeint(dR_dt, z0,t, full_output=True)
 
 infodict['message']     # >>> 'Integration successful.'
 
