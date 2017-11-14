@@ -35,4 +35,4 @@ movingavg <- function(x, n=5){stats::filter(x, rep(1/n,n), sides = 2)}
 pdf(pathnameOut,11.7, 8.3)
 Myplot = plot(movingavg(MyData$F), xlab="SNP number") 
 print(Myplot)
-dev.off()
+

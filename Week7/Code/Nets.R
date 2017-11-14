@@ -19,17 +19,17 @@ nodes <- read.csv("../Data/QMEE_Net_Mat_nodes.csv", header=T, row.names = 1)
 net <- graph.adjacency(as.matrix(links), mode = "directed", weighted=TRUE, diag=F)
         
 #Test plot
-# plot(net, edge.arrow.size=1, edge.curved=.1,
-#      vertex.color="orange", vertex.frame.color="#555555",
-#      vertex.label=V(net)$Type, vertex.label.color="black",
-#      vertex.label.cex=.7) 
+plot(net, edge.arrow.size=1, edge.curved=.1,
+    vertex.color="orange", vertex.frame.color="#555555",
+      vertex.label=V(net)$Type, vertex.label.color="black",
+      vertex.label.cex=.7) 
 
 # Generate colors based on partner type:
 colrs <- c("green", "red", "blue")
 V(net)$color <- colrs[V(net)$Type]
 
 # Set node size based on Number of PIs:
-# V(net)$size <- V(net)$Pis*0.9
+V(net)$size <- V(net)$Pis*0.9
 
 V(net)$size <- 50
 

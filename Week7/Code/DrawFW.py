@@ -13,11 +13,11 @@ import matplotlib.pyplot as plt
 def GenRdmAdjList(N, C):
     Ids = range(N)
     ALst = []
-    #for i in Ids: #do this N times ...Why N times? If we're just selecting random
-    if sc.random.uniform(0,1,1) < C:
-        Lnk = sc.random.choice(Ids,2).tolist() #selects 2 nos from range N
-    if Lnk[0] != Lnk[1]:
-        ALst.append(Lnk)
+    for i in range(N): #do this N times ...Why N times? If we're just selecting random
+        if sc.random.uniform(0,1,1) < C:
+            Lnk = sc.random.choice(Ids,2).tolist() #selects 2 nos from range N
+            if Lnk[0] != Lnk[1]:
+                ALst.append(Lnk)
     return ALst
 ## Assign body mass range
 SizRan = ([-10,10]) #use log scale
