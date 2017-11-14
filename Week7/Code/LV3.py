@@ -5,43 +5,42 @@ ___version___ = "2.7"
 
 """ The typical Lotka-Volterra Model simulated using scipy """
 import sys
-import scipy as sc
-import scipy.integrate as integrate
 import pylab as p  # Contains matplotlib for plotting
 import pandas as pd
+import numpy as np
 
 
 
-
-
-
-def dR_dt(results, r,a,z,e):
-
+def dR_dt(y0,x0, r,a,z,e):
+    import pdb; pdb.set_trace()
+    results = pd.DataFrame({'R': y0, 'C': x0}, index=[0])
+    R=0
+    C=0
     """ Returns the growth rate of predator and prey populations at any
     given time step """
-    #results = results.append(z0, index)
     for t in range(0,1000):
-        Rt = results.iloc[2]['R']
-        Ct = results.iloc[2]['C']
-        R = Rt + Rt*r -Rt*Rt*r - a*Ct
-        C = Ct - Ct*z+Ct*e*a*Rt
-        df = pd.DataFrame({'R':R, 'C':C}, index=[0])
-        print df
+        if np.isinf(R) or np.isinf(C):
+            print "values too large"
+            break
+        else:
+            Rt = results.iloc[t]['R']
+            Ct = results.iloc[t]['C']
+            R = Rt + Rt*r -Rt*Rt*r - a*Ct
+            C = Ct - Ct*z+Ct*e*a*Rt
+            df = pd.DataFrame({'R':R, 'C':C}, index=[0])
+            print df
         results = results.append(df, ignore_index=True)
     return results
 
 def main(argv):
-    x0 = 10
-    y0 = 5
-    #z0 = sc.array([x0, y0])
-    #z0 = pd.DataFrame(data=z0)
+    r = float(sys.argv[1])
+    a = float(sys.argv[2])
+    z = float(sys.argv[3])
+    e = float(sys.argv[4])
+    x0 = float(sys.argv[5])
+    y0 = float(sys.argv[6])
     columns = ['R', 'C']
-    results = pd.DataFrame({'R': y0, 'C': x0}, index=[0])
-    r = 1.  # Resource growth rate
-    a = 0.1  # Consumer search rate (determines consumption rate)
-    z = 1.5  # Consumer mortality rate
-    e = 0.75
-    dR_dt(results, r,a,z,e)
+    results = dR_dt(y0,x0, r,a,z,e)
     print results[columns].head()
 
 if (__name__ == "__main__"):
