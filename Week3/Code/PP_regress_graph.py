@@ -11,9 +11,12 @@ ___author___ = "Petra Guy, pg5117@ic.ac.uk"
 ___version___ = "2.7"
 
 import pdb
+import matplotlib.pyplot as plt
 from scipy import stats
 import pandas as pd
 import numpy as np
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 from pprint import pprint as pp
 
 # convert mg to grams
@@ -37,29 +40,14 @@ for key in feeding_dict.keys():
     mask = mydata[u'Type.of.feeding.interaction'] == key
     feeding_dict[key] = mydata[mask]
 
-###### graphing to be adapted from iris practice ###
-
-# create dataframe from numpy arrays
-df_data = pd.DataFrame(data=iris.data, columns=iris.feature_names)
-df_target = pd.DataFrame(data=iris.target, columns=['target'])
-df = pd.concat([df_data, df_target], axis=1)
-
-# create one figure
-fig = Figure(figsize=(8, 6))
-FigureCanvas(fig)
-ax = fig.add_subplot(111)
-
-# find all unique values of target
-levels = df.groupby(['target']).all().index
-
-for target in levels:
-    # select the data
-    mask = df['target'] == target
-    x, y = df[mask]['petal length (cm)'], df[mask]['petal width (cm)']
-    # add scatter to the axes
-    ax.scatter(x, y, edgecolor='k')
-    # fit and plot regression
-    fit = np.polyfit(x, y, deg=1)
-    ax.plot(x, fit[0] * x + fit[1])
-
-fig.savefig('../Results/test_regression_group')
+for key, value in feeding_dict.items():
+    y = feeding_dict[key]['logPredMass']
+    x = feeding_dict[key]['logPreyMass']
+    fig, ax = plt.subplots()
+    for stage in life_stages:
+        #need to assign random colour here
+        ax.plot(x,y, marker='o', linestyle='', c = stage, ms=12, label=key)
+        ax.legend()
+        plt.show()
+# this plots scatterplots for each feeding type - but each lifestage is is plotted together
+#if there was a colour by stage in the second for loop...
