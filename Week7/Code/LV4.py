@@ -12,7 +12,7 @@ import numpy as np
 
 
 def dR_dt(y0,x0, r,a,z,e):
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
     results = pd.DataFrame({'R': y0, 'C': x0}, index=[0])
     R=0
     C=0
