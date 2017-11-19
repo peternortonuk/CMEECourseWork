@@ -8,11 +8,11 @@ import sys
 import pylab as p  # Contains matplotlib for plotting
 import pandas as pd
 import numpy as np
-
+import random
 
 
 def dR_dt(y0,x0, r,a,z,e):
-    '''Iterative lotka volterrs model'''
+    '''Iterative Lotka Voltera equation with random gaussian addition'''
     #import pdb; pdb.set_trace()
     results = pd.DataFrame({'R': y0, 'C': x0}, index=[0])
     R=0
@@ -24,9 +24,10 @@ def dR_dt(y0,x0, r,a,z,e):
             print "values too large"
             break
         else:
+            eps = random.gauss(0,1)
             Rt = results.iloc[t]['R']
             Ct = results.iloc[t]['C']
-            R = Rt + Rt*r -Rt*Rt*r/10 - a*Ct
+            R = Rt*eps + Rt + Rt*r -Rt*Rt*r/35 - a*Ct
             C = Ct - Ct*z+Ct*e*a*Rt
             df = pd.DataFrame({'R':R, 'C':C}, index=[0])
             #print df
@@ -43,8 +44,8 @@ def main(argv):
     columns = ['R', 'C']
     results = dR_dt(y0,x0, r,a,z,e)
     print results[columns].head()
-    print len(results), "iterations in LV4"
+    print len(results), "iterations with random gaussian"
 
 if (__name__ == "__main__"):
 	status = main(sys.argv)
-	#sys.exit()
+	#sys.exit(0)

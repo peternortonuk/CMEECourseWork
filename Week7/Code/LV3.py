@@ -16,7 +16,7 @@ def dR_dt(z0, t, r,a,z,e):
     given time step """
     R = z0[0]
     C = z0[1]
-    dRdt = r * R - a * R * C
+    dRdt = r*R*(1-R/35)-a*C*R
     dydt = -z * C + e * a * R * C
     return sc.array([dRdt, dydt])
 
@@ -38,7 +38,7 @@ def main(argv):
     a = float(sys.argv[2])
     z = float(sys.argv[3])
     e = float(sys.argv[4])
-    t = sc.linspace(0, 15, 1000)
+    t = sc.linspace(0, 50, 1000)
     x0 = 10
     y0 = 5
     z0 = sc.array([x0, y0])
@@ -52,4 +52,4 @@ def main(argv):
 
 if (__name__ == "__main__"):
 	status = main(sys.argv)
-	sys.exit(status)
+	#sys.exit()

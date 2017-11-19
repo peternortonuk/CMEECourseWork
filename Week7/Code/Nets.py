@@ -1,6 +1,6 @@
 #!usr/bin/python
 
-"""Chapter 6 Rgular Expressions"""
+"""CUsing igraph to plot network"""
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"
@@ -8,6 +8,7 @@ __version__ = "2.7"
 import pandas as pd
 import numpy as np
 import igraph
+import pylab
 
 e = open('../Data/QMEE_Net_Mat_edges.csv', 'r')
 Adj = pd.read_csv(e) # this is the adjacency matrix
@@ -26,6 +27,7 @@ weights = a_numpy[conn_indices]
 edges = zip(*conn_indices)
 
 # initialize the graph from the edge sequence
+
 G = igraph.Graph(edges=edges, directed=True)
 
 # assign node names and weights to be attributes of the vertices and edges
@@ -35,7 +37,8 @@ G.es['width'] = weights
 G.vs['label'] = node_names
 G.es['weight'] = weights
 
-G.es['width'] = weights
+G.es['width'] = weights/10
 
-# plot the graph, just for fun
-igraph.plot(G, layout="rt", labels=True, margin=80)
+# plot the graph
+out = igraph.plot(G,'../Results/Netspy.pdf', layout="rt", labels=True, margin=80)
+print 'Netspy.pdf saved to Results'

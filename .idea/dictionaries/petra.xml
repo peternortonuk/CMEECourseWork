@@ -94,6 +94,8 @@
       <w>.__C__Cholesky</w>
       <w>.__C__CholeskyFactorization</w>
       <w>.__C__ClassUnionRepresentation</w>
+      <w>.__C__Comm</w>
+      <w>.__C__CommManager</w>
       <w>.__C__CsparseMatrix</w>
       <w>.__C__DBIConnection</w>
       <w>.__C__DBIDriver</w>
@@ -193,6 +195,10 @@
       <w>.__C__complex</w>
       <w>.__C__conditionalExtension</w>
       <w>.__C__corMatrix</w>
+      <w>.__C__cred_env</w>
+      <w>.__C__cred_ssh_key</w>
+      <w>.__C__cred_token</w>
+      <w>.__C__cred_user_pass</w>
       <w>.__C__dCHMsimpl</w>
       <w>.__C__dCHMsuper</w>
       <w>.__C__dMatrix</w>
@@ -240,6 +246,27 @@
       <w>.__C__generalMatrix</w>
       <w>.__C__genericFunction</w>
       <w>.__C__genericFunctionWithTrace</w>
+      <w>.__C__git_blame</w>
+      <w>.__C__git_blame_hunk</w>
+      <w>.__C__git_blob</w>
+      <w>.__C__git_branch</w>
+      <w>.__C__git_commit</w>
+      <w>.__C__git_diff</w>
+      <w>.__C__git_diff_file</w>
+      <w>.__C__git_diff_hunk</w>
+      <w>.__C__git_diff_line</w>
+      <w>.__C__git_fetch_head</w>
+      <w>.__C__git_merge_result</w>
+      <w>.__C__git_note</w>
+      <w>.__C__git_reference</w>
+      <w>.__C__git_reflog_entry</w>
+      <w>.__C__git_repository</w>
+      <w>.__C__git_signature</w>
+      <w>.__C__git_stash</w>
+      <w>.__C__git_tag</w>
+      <w>.__C__git_time</w>
+      <w>.__C__git_transfer_progress</w>
+      <w>.__C__git_tree</w>
       <w>.__C__glm</w>
       <w>.__C__glm.null</w>
       <w>.__C__groupGenericFunction</w>
@@ -492,6 +519,9 @@
       <w>.validateCsparse</w>
       <w>.valueClassTest</w>
       <w>.xts</w>
+      <w>.zmqopt_get</w>
+      <w>.zmqopt_init</w>
+      <w>.zmqopt_set</w>
       <w>ACF</w>
       <w>AES</w>
       <w>AIC</w>
@@ -519,6 +549,7 @@
       <w>BIC</w>
       <w>BJsales</w>
       <w>BOD</w>
+      <w>BROWSE</w>
       <w>Batting</w>
       <w>BattingPost</w>
       <w>Bechtoldt</w>
@@ -547,6 +578,7 @@
       <w>Compare</w>
       <w>Complex</w>
       <w>Conj</w>
+      <w>Context</w>
       <w>ContinuousRange</w>
       <w>ContourLines2SLDF</w>
       <w>Coord</w>
@@ -563,6 +595,7 @@
       <w>DBI</w>
       <w>DDT</w>
       <w>DEACTIVATED</w>
+      <w>DELETE</w>
       <w>DE_RB_2005</w>
       <w>DF2SpatialPointsDataFrame</w>
       <w>DNase</w>
@@ -592,6 +625,7 @@
       <w>Fix</w>
       <w>Formaldehyde</w>
       <w>GAGurine</w>
+      <w>GET</w>
       <w>GE_SpatialGrid</w>
       <w>Gamma</w>
       <w>Gasoline</w>
@@ -647,6 +681,7 @@
       <w>Gorsuch</w>
       <w>GridTopology</w>
       <w>Gun</w>
+      <w>HEAD</w>
       <w>HLS</w>
       <w>HSV</w>
       <w>HTML</w>
@@ -677,6 +712,8 @@
       <w>IDvaluesSpatialPixels</w>
       <w>IGF</w>
       <w>IQR</w>
+      <w>IRdisplay</w>
+      <w>IRkernel</w>
       <w>ISOdate</w>
       <w>ISOdatetime</w>
       <w>IdentifyPoints</w>
@@ -798,8 +835,11 @@
       <w>Ovary</w>
       <w>Oxboys</w>
       <w>Oxide</w>
+      <w>PATCH</w>
       <w>PBG</w>
+      <w>POST</w>
       <w>PP.test</w>
+      <w>PUT</w>
       <w>Phenobarb</w>
       <w>Pima.te</w>
       <w>Pima.tr</w>
@@ -855,7 +895,9 @@
       <w>R.version.string</w>
       <w>R6</w>
       <w>R6Class</w>
+      <w>RCMD</w>
       <w>RColorBrewer</w>
+      <w>RETRY</w>
       <w>RGB</w>
       <w>RGB2GRAY</w>
       <w>RNGkind</w>
@@ -984,6 +1026,7 @@
       <w>Sitka89</w>
       <w>Skye</w>
       <w>Sobj_SpatialGrid</w>
+      <w>Socket</w>
       <w>Soybean</w>
       <w>Spatial</w>
       <w>SpatialGrid</w>
@@ -1089,6 +1132,10 @@
       <w>Tile2R</w>
       <w>Titanic</w>
       <w>Toeplitz</w>
+      <w>Token</w>
+      <w>Token1.0</w>
+      <w>Token2.0</w>
+      <w>TokenServiceAccount</w>
       <w>ToothGrowth</w>
       <w>Trace</w>
       <w>Traffic</w>
@@ -1113,10 +1160,12 @@
       <w>UScereal</w>
       <w>UScitiesD</w>
       <w>UScrime</w>
+      <w>UUIDgenerate</w>
       <w>UseMethod</w>
       <w>V</w>
       <w>VA</w>
       <w>VADeaths</w>
+      <w>VERB</w>
       <w>VSS</w>
       <w>VSS.parallel</w>
       <w>VSS.plot</w>
@@ -1148,6 +1197,11 @@
       <w>Yule2tetra</w>
       <w>YuleBonett</w>
       <w>YuleCor</w>
+      <w>ZMQ.MC</w>
+      <w>ZMQ.PO</w>
+      <w>ZMQ.SO</w>
+      <w>ZMQ.SR</w>
+      <w>ZMQ.ST</w>
       <w>`!!!`</w>
       <w>`!!`</w>
       <w>`!.bit`</w>
@@ -1276,9 +1330,11 @@
       <w>`.__T__[[:base`</w>
       <w>`.__T__[[&lt;-:base`</w>
       <w>`.__T__^:base`</w>
+      <w>`.__T__add:git2r`</w>
       <w>`.__T__addAttrToGeom:sp`</w>
       <w>`.__T__addNextMethod:methods`</w>
       <w>`.__T__adjust_closure:intervals`</w>
+      <w>`.__T__ahead_behind:git2r`</w>
       <w>`.__T__all.equal:base`</w>
       <w>`.__T__all:base`</w>
       <w>`.__T__any:base`</w>
@@ -1292,11 +1348,25 @@
       <w>`.__T__as.vector:base`</w>
       <w>`.__T__band:Matrix`</w>
       <w>`.__T__bbox:sp`</w>
+      <w>`.__T__blame:git2r`</w>
+      <w>`.__T__blob_create:git2r`</w>
       <w>`.__T__body&lt;-:base`</w>
+      <w>`.__T__branch_create:git2r`</w>
+      <w>`.__T__branch_delete:git2r`</w>
+      <w>`.__T__branch_get_upstream:git2r`</w>
+      <w>`.__T__branch_remote_name:git2r`</w>
+      <w>`.__T__branch_remote_url:git2r`</w>
+      <w>`.__T__branch_rename:git2r`</w>
+      <w>`.__T__branch_set_upstream:git2r`</w>
+      <w>`.__T__branch_target:git2r`</w>
+      <w>`.__T__branches:git2r`</w>
+      <w>`.__T__bundle_r_package:git2r`</w>
       <w>`.__T__cbind2:methods`</w>
       <w>`.__T__centroid:geosphere`</w>
+      <w>`.__T__checkout:git2r`</w>
       <w>`.__T__chol2inv:base`</w>
       <w>`.__T__chol:base`</w>
+      <w>`.__T__clone:git2r`</w>
       <w>`.__T__close_intervals:intervals`</w>
       <w>`.__T__closed:intervals`</w>
       <w>`.__T__closed&lt;-:intervals`</w>
@@ -1307,14 +1377,20 @@
       <w>`.__T__coerce&lt;-:methods`</w>
       <w>`.__T__colMeans:base`</w>
       <w>`.__T__colSums:base`</w>
+      <w>`.__T__commit:git2r`</w>
+      <w>`.__T__commits:git2r`</w>
       <w>`.__T__confint:stats`</w>
+      <w>`.__T__content:git2r`</w>
       <w>`.__T__contract:intervals`</w>
+      <w>`.__T__contributions:git2r`</w>
       <w>`.__T__coordinates:sp`</w>
       <w>`.__T__coordinates&lt;-:sp`</w>
       <w>`.__T__coordnames:sp`</w>
       <w>`.__T__coordnames&lt;-:sp`</w>
       <w>`.__T__coords:colorspace`</w>
       <w>`.__T__cov2cor:stats`</w>
+      <w>`.__T__cred_env:git2r`</w>
+      <w>`.__T__cred_user_pass:git2r`</w>
       <w>`.__T__crepuscule:maptools`</w>
       <w>`.__T__crossprod:base`</w>
       <w>`.__T__dbBegin:DBI`</w>
@@ -1356,6 +1432,8 @@
       <w>`.__T__dbUnloadDriver:DBI`</w>
       <w>`.__T__dbWithTransaction:DBI`</w>
       <w>`.__T__dbWriteTable:DBI`</w>
+      <w>`.__T__default_signature:git2r`</w>
+      <w>`.__T__descendant_of:git2r`</w>
       <w>`.__T__determinant:base`</w>
       <w>`.__T__diag:base`</w>
       <w>`.__T__diag&lt;-:base`</w>
@@ -1366,6 +1444,7 @@
       <w>`.__T__dimnames:base`</w>
       <w>`.__T__dimnames&lt;-:base`</w>
       <w>`.__T__disaggregate:sp`</w>
+      <w>`.__T__discover_repository:git2r`</w>
       <w>`.__T__distance_to_nearest:intervals`</w>
       <w>`.__T__drop:base`</w>
       <w>`.__T__elide:maptools`</w>
@@ -1375,6 +1454,8 @@
       <w>`.__T__expm:Matrix`</w>
       <w>`.__T__facmul:Matrix`</w>
       <w>`.__T__fetch:DBI`</w>
+      <w>`.__T__fetch:git2r`</w>
+      <w>`.__T__fetch_heads:git2r`</w>
       <w>`.__T__forceSymmetric:Matrix`</w>
       <w>`.__T__formals&lt;-:base`</w>
       <w>`.__T__format:base`</w>
@@ -1385,9 +1466,14 @@
       <w>`.__T__getDynLib:inline`</w>
       <w>`.__T__gridded:sp`</w>
       <w>`.__T__gridded&lt;-:sp`</w>
+      <w>`.__T__hash:git2r`</w>
+      <w>`.__T__hashfile:git2r`</w>
       <w>`.__T__head:utils`</w>
       <w>`.__T__idw:gstat`</w>
       <w>`.__T__image:graphics`</w>
+      <w>`.__T__in_repository:git2r`</w>
+      <w>`.__T__index_remove_bypath:git2r`</w>
+      <w>`.__T__init:git2r`</w>
       <w>`.__T__initialize:methods`</w>
       <w>`.__T__interval_complement:intervals`</w>
       <w>`.__T__interval_difference:intervals`</w>
@@ -1403,6 +1489,14 @@
       <w>`.__T__isSQLKeyword:DBI`</w>
       <w>`.__T__isSymmetric:base`</w>
       <w>`.__T__isTriangular:Matrix`</w>
+      <w>`.__T__is_bare:git2r`</w>
+      <w>`.__T__is_binary:git2r`</w>
+      <w>`.__T__is_detached:git2r`</w>
+      <w>`.__T__is_empty:git2r`</w>
+      <w>`.__T__is_head:git2r`</w>
+      <w>`.__T__is_local:git2r`</w>
+      <w>`.__T__is_merge:git2r`</w>
+      <w>`.__T__is_shallow:git2r`</w>
       <w>`.__T__krige.cv:gstat`</w>
       <w>`.__T__krige:gstat`</w>
       <w>`.__T__kronecker:base`</w>
@@ -1410,17 +1504,26 @@
       <w>`.__T__length:base`</w>
       <w>`.__T__loadMethod:methods`</w>
       <w>`.__T__logLik:stats`</w>
+      <w>`.__T__lookup:git2r`</w>
       <w>`.__T__lu:Matrix`</w>
       <w>`.__T__make.db.names:DBI`</w>
       <w>`.__T__mean:base`</w>
       <w>`.__T__merge:base`</w>
+      <w>`.__T__merge_base:git2r`</w>
       <w>`.__T__nnzero:Matrix`</w>
       <w>`.__T__nobs:stats`</w>
       <w>`.__T__norm:base`</w>
+      <w>`.__T__note_create:git2r`</w>
+      <w>`.__T__note_default_ref:git2r`</w>
+      <w>`.__T__note_remove:git2r`</w>
+      <w>`.__T__notes:git2r`</w>
+      <w>`.__T__odb_blobs:git2r`</w>
+      <w>`.__T__odb_objects:git2r`</w>
       <w>`.__T__open_intervals:intervals`</w>
       <w>`.__T__over:sp`</w>
       <w>`.__T__pack:Matrix`</w>
       <w>`.__T__package.skeleton:utils`</w>
+      <w>`.__T__parents:git2r`</w>
       <w>`.__T__perimeter:geosphere`</w>
       <w>`.__T__plot:graphics`</w>
       <w>`.__T__polygons:sp`</w>
@@ -1431,6 +1534,9 @@
       <w>`.__T__proj4string:sp`</w>
       <w>`.__T__proj4string&lt;-:sp`</w>
       <w>`.__T__prompt:utils`</w>
+      <w>`.__T__pull:git2r`</w>
+      <w>`.__T__punch_card:git2r`</w>
+      <w>`.__T__push:git2r`</w>
       <w>`.__T__qr.Q:base`</w>
       <w>`.__T__qr.R:base`</w>
       <w>`.__T__qr.coef:base`</w>
@@ -1443,7 +1549,20 @@
       <w>`.__T__rcond:base`</w>
       <w>`.__T__recenter:sp`</w>
       <w>`.__T__reduce:intervals`</w>
+      <w>`.__T__references:git2r`</w>
+      <w>`.__T__reflog:git2r`</w>
+      <w>`.__T__remote_add:git2r`</w>
+      <w>`.__T__remote_ls:git2r`</w>
+      <w>`.__T__remote_remove:git2r`</w>
+      <w>`.__T__remote_rename:git2r`</w>
+      <w>`.__T__remote_set_url:git2r`</w>
+      <w>`.__T__remote_url:git2r`</w>
+      <w>`.__T__remotes:git2r`</w>
       <w>`.__T__rep:base`</w>
+      <w>`.__T__repository:git2r`</w>
+      <w>`.__T__reset:git2r`</w>
+      <w>`.__T__revparse_single:git2r`</w>
+      <w>`.__T__rm_file:git2r`</w>
       <w>`.__T__rowMeans:base`</w>
       <w>`.__T__rowSums:base`</w>
       <w>`.__T__setCMethod:inline`</w>
@@ -1471,6 +1590,10 @@
       <w>`.__T__sqlData:DBI`</w>
       <w>`.__T__sqlInterpolate:DBI`</w>
       <w>`.__T__sqlParseVariables:DBI`</w>
+      <w>`.__T__stash:git2r`</w>
+      <w>`.__T__stash_drop:git2r`</w>
+      <w>`.__T__stash_list:git2r`</w>
+      <w>`.__T__status:git2r`</w>
       <w>`.__T__stbox:spacetime`</w>
       <w>`.__T__stplot:spacetime`</w>
       <w>`.__T__sum:base`</w>
@@ -1479,10 +1602,14 @@
       <w>`.__T__surfaceArea:sp`</w>
       <w>`.__T__symmpart:Matrix`</w>
       <w>`.__T__t:base`</w>
+      <w>`.__T__tag:git2r`</w>
+      <w>`.__T__tag_delete:git2r`</w>
+      <w>`.__T__tags:git2r`</w>
       <w>`.__T__tail:utils`</w>
       <w>`.__T__tcrossprod:base`</w>
       <w>`.__T__timeMatch:spacetime`</w>
       <w>`.__T__toeplitz:stats`</w>
+      <w>`.__T__tree:git2r`</w>
       <w>`.__T__tril:Matrix`</w>
       <w>`.__T__triu:Matrix`</w>
       <w>`.__T__type:intervals`</w>
@@ -1492,8 +1619,10 @@
       <w>`.__T__update:stats`</w>
       <w>`.__T__updown:Matrix`</w>
       <w>`.__T__vcov:stats`</w>
+      <w>`.__T__when:git2r`</w>
       <w>`.__T__which:base`</w>
       <w>`.__T__which_nearest:intervals`</w>
+      <w>`.__T__workdir:git2r`</w>
       <w>`.__T__writeMM:Matrix`</w>
       <w>`.__T__zapsmall:base`</w>
       <w>`.index&lt;-`</w>
@@ -1704,6 +1833,9 @@
       <w>absolute.size</w>
       <w>acast</w>
       <w>accdeaths</w>
+      <w>accept</w>
+      <w>accept_json</w>
+      <w>accept_xml</w>
       <w>accumarray</w>
       <w>accumulate</w>
       <w>accumulate_right</w>
@@ -1743,9 +1875,11 @@
       <w>add_count_</w>
       <w>add_datalist</w>
       <w>add_edges</w>
+      <w>add_headers</w>
       <w>add_layout_</w>
       <w>add_margins</w>
       <w>add_op_single</w>
+      <w>add_path</w>
       <w>add_row</w>
       <w>add_rownames</w>
       <w>add_shape</w>
@@ -1768,6 +1902,13 @@
       <w>aes_</w>
       <w>aes_all</w>
       <w>aes_auto</w>
+      <w>aes_cbc_decrypt</w>
+      <w>aes_cbc_encrypt</w>
+      <w>aes_ctr_decrypt</w>
+      <w>aes_ctr_encrypt</w>
+      <w>aes_gcm_decrypt</w>
+      <w>aes_gcm_encrypt</w>
+      <w>aes_keygen</w>
       <w>aes_q</w>
       <w>aes_string</w>
       <w>affect</w>
@@ -1785,6 +1926,7 @@
       <w>agrep</w>
       <w>agrepl</w>
       <w>agriculture</w>
+      <w>ahead_behind</w>
       <w>aids</w>
       <w>air</w>
       <w>aircondit</w>
@@ -2048,6 +2190,8 @@
       <w>as.difftime</w>
       <w>as.directed</w>
       <w>as.dist</w>
+      <w>as.document_position</w>
+      <w>as.document_range</w>
       <w>as.double</w>
       <w>as.double.DMS</w>
       <w>as.double.POSIXlt</w>
@@ -2112,6 +2256,7 @@
       <w>as.owin.SpatialGridDataFrame</w>
       <w>as.owin.SpatialPixelsDataFrame</w>
       <w>as.owin.SpatialPolygons</w>
+      <w>as.package</w>
       <w>as.package_version</w>
       <w>as.pairlist</w>
       <w>as.person</w>
@@ -2230,6 +2375,8 @@
       <w>asind</w>
       <w>asinh</w>
       <w>asis_output</w>
+      <w>askForPassword</w>
+      <w>askpass</w>
       <w>asn_trans</w>
       <w>aspell</w>
       <w>aspell_package_C_files</w>
@@ -2281,6 +2428,7 @@
       <w>augment</w>
       <w>augment_columns</w>
       <w>austres</w>
+      <w>authenticate</w>
       <w>authority.score</w>
       <w>authority_score</w>
       <w>autoR</w>
@@ -2334,7 +2482,9 @@
       <w>barylag2d</w>
       <w>base</w>
       <w>base64_dec</w>
+      <w>base64_decode</w>
       <w>base64_enc</w>
+      <w>base64_encode</w>
       <w>base64decode</w>
       <w>base64enc</w>
       <w>base64encode</w>
@@ -2350,6 +2500,7 @@
       <w>baseenv</w>
       <w>basehaz</w>
       <w>basename</w>
+      <w>bash</w>
       <w>batchSOM</w>
       <w>battingLabels</w>
       <w>battingStats</w>
@@ -2405,6 +2556,10 @@
       <w>biconnected_components</w>
       <w>bifactor</w>
       <w>bigcity</w>
+      <w>bignum</w>
+      <w>bignum_mod_exp</w>
+      <w>bignum_mod_inv</w>
+      <w>bind.socket</w>
       <w>bind_cols</w>
       <w>bind_rows</w>
       <w>bindingIsActive</w>
@@ -2456,10 +2611,14 @@
       <w>bkfe</w>
       <w>black</w>
       <w>bladder</w>
+      <w>blake2b</w>
+      <w>blake2s</w>
+      <w>blame</w>
       <w>blanks</w>
       <w>blant</w>
       <w>blkdiag</w>
       <w>blob</w>
+      <w>blob_create</w>
       <w>block.random</w>
       <w>blockGraphs</w>
       <w>blocks</w>
@@ -2490,6 +2649,15 @@
       <w>bquote</w>
       <w>br</w>
       <w>brambles</w>
+      <w>branch_create</w>
+      <w>branch_delete</w>
+      <w>branch_get_upstream</w>
+      <w>branch_remote_name</w>
+      <w>branch_remote_url</w>
+      <w>branch_rename</w>
+      <w>branch_set_upstream</w>
+      <w>branch_target</w>
+      <w>branches</w>
       <w>break</w>
       <w>brent</w>
       <w>brentDekker</w>
@@ -2514,11 +2682,17 @@
       <w>bubbleMap</w>
       <w>bubbleSort</w>
       <w>bug.report</w>
+      <w>build</w>
       <w>buildVignette</w>
       <w>buildVignettes</w>
+      <w>build_github_devtools</w>
       <w>build_sql</w>
+      <w>build_url</w>
+      <w>build_vignettes</w>
+      <w>build_win</w>
       <w>builtins</w>
       <w>bulirsch_stoer</w>
+      <w>bundle_r_package</w>
       <w>burt</w>
       <w>bvp</w>
       <w>bw.SJ</w>
@@ -2548,10 +2722,12 @@
       <w>cBind</w>
       <w>cSplineDes</w>
       <w>caTools</w>
+      <w>ca_bundle</w>
       <w>cabbages</w>
       <w>cacheGenericsMetaData</w>
       <w>cacheMetaData</w>
       <w>cacheMethod</w>
+      <w>cache_info</w>
       <w>cairo_pdf</w>
       <w>cairo_ps</w>
       <w>caith</w>
@@ -2561,6 +2737,7 @@
       <w>calcium</w>
       <w>call</w>
       <w>callCC</w>
+      <w>callFun</w>
       <w>callGeneric</w>
       <w>callNextMethod</w>
       <w>call_depth</w>
@@ -2642,6 +2819,7 @@
       <w>centralize</w>
       <w>centralize.scores</w>
       <w>centroid</w>
+      <w>cert_verify</w>
       <w>cfunction</w>
       <w>cgd</w>
       <w>cgmin</w>
@@ -2662,6 +2840,7 @@
       <w>chebApprox</w>
       <w>chebCoeff</w>
       <w>chebPoly</w>
+      <w>check</w>
       <w>check.derivatives</w>
       <w>check.options</w>
       <w>checkAtAssignment</w>
@@ -2690,11 +2869,16 @@
       <w>checkUsageEnv</w>
       <w>checkUsagePackage</w>
       <w>checkVignettes</w>
+      <w>check_built</w>
+      <w>check_cran</w>
       <w>check_dbplyr</w>
+      <w>check_failures</w>
+      <w>check_man</w>
       <w>check_mnsl</w>
       <w>check_packages_in_dir</w>
       <w>check_packages_in_dir_changes</w>
       <w>check_tzones</w>
+      <w>checkout</w>
       <w>chem</w>
       <w>chgroup</w>
       <w>chi2r</w>
@@ -2763,7 +2947,10 @@
       <w>className</w>
       <w>classesToAM</w>
       <w>clean_cache</w>
+      <w>clean_dll</w>
       <w>clean_site</w>
+      <w>clean_source</w>
+      <w>clean_vignettes</w>
       <w>clear</w>
       <w>clearPushBack</w>
       <w>clenshaw_curtis</w>
@@ -2898,10 +3085,13 @@
       <w>combine_words</w>
       <w>combn</w>
       <w>combs</w>
+      <w>comm_manager</w>
       <w>comma</w>
       <w>comma_format</w>
       <w>commandArgs</w>
       <w>comment</w>
+      <w>commit</w>
+      <w>commits</w>
       <w>common_by</w>
       <w>common_env</w>
       <w>communities</w>
@@ -2919,7 +3109,9 @@
       <w>compile</w>
       <w>compileAttributes</w>
       <w>compilePKGS</w>
+      <w>compile_dll</w>
       <w>compiler</w>
+      <w>compiler_flags</w>
       <w>complement</w>
       <w>complement_slice</w>
       <w>complementer</w>
@@ -2947,6 +3139,7 @@
       <w>conditionCall.condition</w>
       <w>conditionMessage</w>
       <w>conditionMessage.condition</w>
+      <w>config</w>
       <w>confint</w>
       <w>confint.default</w>
       <w>confint.lm</w>
@@ -2956,12 +3149,17 @@
       <w>congeneric.sim</w>
       <w>connect</w>
       <w>connect.neighborhood</w>
+      <w>connect.socket</w>
       <w>consensus_tree</w>
       <w>console</w>
       <w>constantFold</w>
       <w>constrOptim</w>
       <w>constraint</w>
       <w>contains</w>
+      <w>content</w>
+      <w>content_type</w>
+      <w>content_type_json</w>
+      <w>content_type_xml</w>
       <w>context</w>
       <w>continuous_scale</w>
       <w>contour</w>
@@ -2978,6 +3176,7 @@
       <w>contract.vertices</w>
       <w>contrasts</w>
       <w>contrib.url</w>
+      <w>contributions</w>
       <w>contributors</w>
       <w>control</w>
       <w>conv</w>
@@ -2992,6 +3191,7 @@
       <w>convex.hull</w>
       <w>convex_hull</w>
       <w>convolve</w>
+      <w>cookies</w>
       <w>cooks.distance</w>
       <w>coop</w>
       <w>coord_cartesian</w>
@@ -3110,11 +3310,18 @@
       <w>crabs</w>
       <w>cranknic</w>
       <w>crayon</w>
+      <w>create</w>
       <w>create.communities</w>
       <w>create.post</w>
+      <w>createProjectTemplate</w>
+      <w>create_description</w>
       <w>create_env</w>
       <w>create_progress_bar</w>
       <w>create_traceback</w>
+      <w>cred_env</w>
+      <w>cred_ssh_key</w>
+      <w>cred_token</w>
+      <w>cred_user_pass</w>
       <w>crepuscule</w>
       <w>crime</w>
       <w>crimtab</w>
@@ -3156,7 +3363,20 @@
       <w>cumsum</w>
       <w>cumsumexact</w>
       <w>cumtrapz</w>
+      <w>curl</w>
       <w>curlGetHeaders</w>
+      <w>curl_docs</w>
+      <w>curl_download</w>
+      <w>curl_echo</w>
+      <w>curl_escape</w>
+      <w>curl_fetch_disk</w>
+      <w>curl_fetch_memory</w>
+      <w>curl_fetch_multi</w>
+      <w>curl_fetch_stream</w>
+      <w>curl_options</w>
+      <w>curl_symbols</w>
+      <w>curl_unescape</w>
+      <w>curl_version</w>
       <w>current.column</w>
       <w>current.panel.limits</w>
       <w>current.parent</w>
@@ -3314,11 +3534,13 @@
       <w>decompose</w>
       <w>decompose.graph</w>
       <w>deconv</w>
+      <w>decrypt_envelope</w>
       <w>deeve</w>
       <w>default.stringsAsFactors</w>
       <w>defaultDumpName</w>
       <w>defaultPrototype</w>
       <w>default_output_format</w>
+      <w>default_signature</w>
       <w>defaults</w>
       <w>defer</w>
       <w>defer_parent</w>
@@ -3368,6 +3590,7 @@
       <w>deriv3</w>
       <w>desaturate</w>
       <w>desc</w>
+      <w>descendant_of</w>
       <w>descentDetails</w>
       <w>describe</w>
       <w>describe.by</w>
@@ -3404,9 +3627,17 @@
       <w>dev.size</w>
       <w>dev2bitmap</w>
       <w>devAskNewPage</w>
+      <w>dev_example</w>
+      <w>dev_help</w>
+      <w>dev_meta</w>
+      <w>dev_mode</w>
+      <w>dev_package_deps</w>
+      <w>dev_packages</w>
       <w>deval</w>
       <w>deviance</w>
       <w>deviceIsInteractive</w>
+      <w>devtest</w>
+      <w>devtools</w>
       <w>dexp</w>
       <w>df</w>
       <w>df.kernel</w>
@@ -3470,12 +3701,23 @@
       <w>disaggregate</w>
       <w>disassemble</w>
       <w>discard</w>
+      <w>discover_repository</w>
       <w>discoveries</w>
       <w>discrete_scale</w>
       <w>disjoint_union</w>
       <w>disp</w>
+      <w>display</w>
       <w>display.brewer.all</w>
       <w>display.brewer.pal</w>
+      <w>display_html</w>
+      <w>display_javascript</w>
+      <w>display_jpeg</w>
+      <w>display_json</w>
+      <w>display_latex</w>
+      <w>display_markdown</w>
+      <w>display_pdf</w>
+      <w>display_png</w>
+      <w>display_svg</w>
       <w>dist</w>
       <w>dist2Line</w>
       <w>dist2gc</w>
@@ -3520,6 +3762,11 @@
       <w>doPrimitiveMethod</w>
       <w>doRenderTags</w>
       <w>do_</w>
+      <w>document</w>
+      <w>documentSave</w>
+      <w>documentSaveAll</w>
+      <w>document_position</w>
+      <w>document_range</w>
       <w>dogs</w>
       <w>dollar</w>
       <w>dollar_format</w>
@@ -3543,6 +3790,7 @@
       <w>downViewport</w>
       <w>download.file</w>
       <w>download.packages</w>
+      <w>download_ssl_cert</w>
       <w>downs.bc</w>
       <w>dpih</w>
       <w>dpik</w>
@@ -3550,7 +3798,9 @@
       <w>dplyr</w>
       <w>dpois</w>
       <w>dput</w>
+      <w>dr_devtools</w>
       <w>dr_dplyr</w>
+      <w>dr_github</w>
       <w>draft</w>
       <w>draw.colorkey</w>
       <w>draw.cor</w>
@@ -3587,6 +3837,7 @@
       <w>droplevels.data.frame</w>
       <w>droplevels.factor</w>
       <w>dropterm</w>
+      <w>dsa_keygen</w>
       <w>dscale</w>
       <w>dsignrank</w>
       <w>dsurvreg</w>
@@ -3622,6 +3873,8 @@
       <w>each_edge</w>
       <w>eagles</w>
       <w>eapply</w>
+      <w>ec_dh</w>
+      <w>ec_keygen</w>
       <w>eccentricity</w>
       <w>ecdf</w>
       <w>economics</w>
@@ -3686,6 +3939,7 @@
       <w>enc2utf8</w>
       <w>encodeString</w>
       <w>encoded_text_to_latex</w>
+      <w>encrypt_envelope</w>
       <w>end</w>
       <w>endpoints</w>
       <w>ends</w>
@@ -3770,12 +4024,14 @@
       <w>evalOnLoad</w>
       <w>evalSource</w>
       <w>eval_bare</w>
+      <w>eval_clean</w>
       <w>eval_tbls</w>
       <w>eval_tbls2</w>
       <w>eval_tidy</w>
       <w>eval_tidy_</w>
       <w>evalq</w>
       <w>evalqOnLoad</w>
+      <w>evalq_clean</w>
       <w>evaluate</w>
       <w>evaluate_promise</w>
       <w>evcent</w>
@@ -3953,6 +4209,7 @@
       <w>fdHess</w>
       <w>fderiv</w>
       <w>fetch</w>
+      <w>fetch_heads</w>
       <w>fft</w>
       <w>fftshift</w>
       <w>fgl</w>
@@ -4000,6 +4257,7 @@
       <w>find.package</w>
       <w>findClass</w>
       <w>findDependencies</w>
+      <w>findFun</w>
       <w>findFuncLocals</w>
       <w>findFunction</w>
       <w>findGlobals</w>
@@ -4022,14 +4280,17 @@
       <w>find_root</w>
       <w>find_root_file</w>
       <w>find_rstudio_root_file</w>
+      <w>find_rtools</w>
       <w>find_test_scripts</w>
       <w>find_testthat_root_file</w>
+      <w>find_topic</w>
       <w>findintervals</w>
       <w>findmins</w>
       <w>findpeaks</w>
       <w>finds</w>
       <w>findstr</w>
       <w>findzeros</w>
+      <w>fingerprint</w>
       <w>finish</w>
       <w>finish_glance</w>
       <w>fintersect</w>
@@ -4110,6 +4371,8 @@
       <w>forget</w>
       <w>fork</w>
       <w>formXtViX</w>
+      <w>form_data</w>
+      <w>form_file</w>
       <w>formalArgs</w>
       <w>formals</w>
       <w>format</w>
@@ -4131,6 +4394,7 @@
       <w>format.pval</w>
       <w>format.summaryDefault</w>
       <w>format.yearqtr</w>
+      <w>format2repr</w>
       <w>formatC</w>
       <w>formatDL</w>
       <w>formatOL</w>
@@ -4343,6 +4607,8 @@
       <w>get0</w>
       <w>getAICc</w>
       <w>getAccess</w>
+      <w>getActiveDocumentContext</w>
+      <w>getActiveProject</w>
       <w>getAllConnections</w>
       <w>getAllMethods</w>
       <w>getAllSuperClasses</w>
@@ -4361,6 +4627,7 @@
       <w>getCol</w>
       <w>getCompilerOption</w>
       <w>getConnection</w>
+      <w>getConsoleEditorContext</w>
       <w>getCovariate</w>
       <w>getCovariateFormula</w>
       <w>getDLLRegisteredRoutines</w>
@@ -4425,6 +4692,7 @@
       <w>getPackageName</w>
       <w>getParseData</w>
       <w>getParseText</w>
+      <w>getPersistentValue</w>
       <w>getPlugin</w>
       <w>getPolygonAreaSlot</w>
       <w>getPolygonCoordsSlot</w>
@@ -4446,6 +4714,7 @@
       <w>getSLLinesIDSlots</w>
       <w>getSLlinesSlot</w>
       <w>getSlots</w>
+      <w>getSourceEditorContext</w>
       <w>getSpPPolygonsIDSlots</w>
       <w>getSpPPolygonsLabptSlots</w>
       <w>getSpPnHoles</w>
@@ -4461,16 +4730,19 @@
       <w>getSrcref</w>
       <w>getSubclasses</w>
       <w>getTaskCallbackNames</w>
+      <w>getThemeInfo</w>
       <w>getTkProgressBar</w>
       <w>getTxtProgressBar</w>
       <w>getValidity</w>
       <w>getVarCov</w>
+      <w>getVersion</w>
       <w>getVignetteInfo</w>
       <w>getVirtual</w>
       <w>get_Polypath</w>
       <w>get_PolypathRule</w>
       <w>get_ReplCRS_warn</w>
       <w>get_all_vars</w>
+      <w>get_callback</w>
       <w>get_cloudmademap</w>
       <w>get_col_regions</w>
       <w>get_config</w>
@@ -4485,6 +4757,7 @@
       <w>get_nanotime</w>
       <w>get_navermap</w>
       <w>get_openstreetmap</w>
+      <w>get_path</w>
       <w>get_reporter</w>
       <w>get_root_desc</w>
       <w>get_stamenmap</w>
@@ -4512,7 +4785,11 @@
       <w>gilgais</w>
       <w>ginv</w>
       <w>girth</w>
+      <w>git2r</w>
       <w>github_document</w>
+      <w>github_pat</w>
+      <w>github_pull</w>
+      <w>github_release</w>
       <w>givens</w>
       <w>gives_warning</w>
       <w>gl</w>
@@ -4795,6 +5072,7 @@
       <w>gtable_show_layout</w>
       <w>gtable_trim</w>
       <w>gtable_width</w>
+      <w>guess_media</w>
       <w>guess_type</w>
       <w>guide_colorbar</w>
       <w>guide_colourbar</w>
@@ -4814,11 +5092,21 @@
       <w>hadley</w>
       <w>halley</w>
       <w>hampel</w>
+      <w>handle</w>
+      <w>handle_cookies</w>
+      <w>handle_data</w>
+      <w>handle_find</w>
+      <w>handle_reset</w>
+      <w>handle_setform</w>
+      <w>handle_setheaders</w>
+      <w>handle_setopt</w>
       <w>hankel</w>
       <w>harmmean</w>
       <w>harmonic.mean</w>
       <w>has.multiple</w>
       <w>hasArg</w>
+      <w>hasColorConsole</w>
+      <w>hasFun</w>
       <w>hasLoadAction</w>
       <w>hasMethod</w>
       <w>hasMethods</w>
@@ -4827,12 +5115,15 @@
       <w>has_args</w>
       <w>has_attr</w>
       <w>has_color</w>
+      <w>has_content</w>
+      <w>has_devel</w>
       <w>has_dir</w>
       <w>has_dirname</w>
       <w>has_element</w>
       <w>has_extension</w>
       <w>has_file</w>
       <w>has_file_pattern</w>
+      <w>has_internet</w>
       <w>has_lahman</w>
       <w>has_length</w>
       <w>has_name</w>
@@ -4840,6 +5131,9 @@
       <w>has_nycflights13</w>
       <w>has_rownames</w>
       <w>has_style</w>
+      <w>has_tests</w>
+      <w>hash</w>
+      <w>hashfile</w>
       <w>haskey</w>
       <w>hat</w>
       <w>hatvalues</w>
@@ -4854,6 +5148,7 @@
       <w>head_of</w>
       <w>head_print</w>
       <w>head_while</w>
+      <w>headers</w>
       <w>headtail</w>
       <w>heapSort</w>
       <w>heart</w>
@@ -4895,6 +5190,7 @@
       <w>history</w>
       <w>histss</w>
       <w>hmac</w>
+      <w>hmac_sha1</w>
       <w>hms</w>
       <w>hook_ffmpeg_html</w>
       <w>hook_movecode</w>
@@ -4957,6 +5253,14 @@
       <w>html_print</w>
       <w>html_vignette</w>
       <w>htmltools</w>
+      <w>http_condition</w>
+      <w>http_date</w>
+      <w>http_error</w>
+      <w>http_status</w>
+      <w>http_type</w>
+      <w>httr</w>
+      <w>httr_dr</w>
+      <w>httr_options</w>
       <w>hub.score</w>
       <w>hub_score</w>
       <w>huber</w>
@@ -4993,6 +5297,8 @@
       <w>idivide</w>
       <w>idw</w>
       <w>idw0</w>
+      <w>ie_get_proxy_for_url</w>
+      <w>ie_proxy_info</w>
       <w>if_else</w>
       <w>ifelse</w>
       <w>ifelse.zoo</w>
@@ -5044,10 +5350,13 @@
       <w>implicitGeneric</w>
       <w>import</w>
       <w>importIntoEnv</w>
+      <w>imports_env</w>
       <w>in.out</w>
       <w>inSide</w>
       <w>in_circle</w>
+      <w>in_dir</w>
       <w>in_gamut</w>
+      <w>in_repository</w>
       <w>in_schema</w>
       <w>incgam</w>
       <w>incident</w>
@@ -5072,6 +5381,7 @@
       <w>indexClass</w>
       <w>indexFormat</w>
       <w>indexTZ</w>
+      <w>index_remove_bypath</w>
       <w>indices</w>
       <w>induced.subgraph</w>
       <w>induced_subgraph</w>
@@ -5084,11 +5394,17 @@
       <w>inform</w>
       <w>inheritedSlotNames</w>
       <w>inherits</w>
+      <w>init</w>
+      <w>init.context</w>
+      <w>init.socket</w>
       <w>initExtension</w>
       <w>initFieldArgs</w>
       <w>initRefFields</w>
+      <w>init_oauth1.0</w>
+      <w>init_oauth2.0</w>
       <w>initial.sp</w>
       <w>initialize</w>
+      <w>initializeProject</w>
       <w>inject_funs</w>
       <w>inline</w>
       <w>inline_expr</w>
@@ -5096,18 +5412,34 @@
       <w>inplace</w>
       <w>inpolygon</w>
       <w>inrange</w>
+      <w>insensitive</w>
       <w>insertClassMethods</w>
       <w>insertMethod</w>
       <w>insertSource</w>
+      <w>insertText</w>
       <w>insertionSort</w>
       <w>inset</w>
       <w>inset2</w>
       <w>inset_ggmap</w>
       <w>inset_raster</w>
       <w>inspect</w>
+      <w>inst</w>
+      <w>install</w>
       <w>install.packages</w>
       <w>installFoundDepends</w>
+      <w>install_bioc</w>
+      <w>install_bitbucket</w>
+      <w>install_cran</w>
+      <w>install_deps</w>
+      <w>install_dev_deps</w>
+      <w>install_git</w>
+      <w>install_github</w>
+      <w>install_local</w>
+      <w>install_svn</w>
+      <w>install_url</w>
+      <w>install_version</w>
       <w>installed.packages</w>
+      <w>installspec</w>
       <w>int</w>
       <w>intToBits</w>
       <w>intToUtf8</w>
@@ -5171,6 +5503,7 @@
       <w>ioslides_presentation</w>
       <w>iqitems</w>
       <w>irbinom</w>
+      <w>irdisplay_option_defaults</w>
       <w>iread.table</w>
       <w>ireadLines</w>
       <w>iris</w>
@@ -5220,6 +5553,8 @@
       <w>is.dir</w>
       <w>is.directed</w>
       <w>is.discrete</w>
+      <w>is.document_position</w>
+      <w>is.document_range</w>
       <w>is.double</w>
       <w>is.element</w>
       <w>is.empty.model</w>
@@ -5284,6 +5619,7 @@
       <w>is.numeric_version</w>
       <w>is.object</w>
       <w>is.ordered</w>
+      <w>is.package</w>
       <w>is.package_version</w>
       <w>is.pairlist</w>
       <w>is.primitive</w>
@@ -5336,6 +5672,7 @@
       <w>is.writeable</w>
       <w>is.xts</w>
       <w>is.zoo</w>
+      <w>isAvailable</w>
       <w>isBalanced</w>
       <w>isBaseNamespace</w>
       <w>isClass</w>
@@ -5372,6 +5709,7 @@
       <w>isXS3Class</w>
       <w>is_a</w>
       <w>is_atomic</w>
+      <w>is_bare</w>
       <w>is_bare_atomic</w>
       <w>is_bare_bytes</w>
       <w>is_bare_character</w>
@@ -5386,8 +5724,11 @@
       <w>is_bare_raw</w>
       <w>is_bare_string</w>
       <w>is_bare_vector</w>
+      <w>is_binary</w>
       <w>is_binary_lang</w>
       <w>is_bipartite</w>
+      <w>is_blob</w>
+      <w>is_branch</w>
       <w>is_bytes</w>
       <w>is_call</w>
       <w>is_call_stack</w>
@@ -5396,6 +5737,7 @@
       <w>is_chordal</w>
       <w>is_chr_na</w>
       <w>is_closure</w>
+      <w>is_commit</w>
       <w>is_connected</w>
       <w>is_copyable</w>
       <w>is_cpl_na</w>
@@ -5403,6 +5745,7 @@
       <w>is_dbl_na</w>
       <w>is_definition</w>
       <w>is_degseq</w>
+      <w>is_detached</w>
       <w>is_dictionary</w>
       <w>is_dictionaryish</w>
       <w>is_directed</w>
@@ -5421,6 +5764,7 @@
       <w>is_graphical</w>
       <w>is_greater_than</w>
       <w>is_grouped_df</w>
+      <w>is_head</w>
       <w>is_hierarchical</w>
       <w>is_identical_to</w>
       <w>is_igraph</w>
@@ -5434,9 +5778,11 @@
       <w>is_less_than</w>
       <w>is_lgl_na</w>
       <w>is_list</w>
+      <w>is_local</w>
       <w>is_logical</w>
       <w>is_matching</w>
       <w>is_max_matching</w>
+      <w>is_merge</w>
       <w>is_min_separator</w>
       <w>is_missing</w>
       <w>is_more_than</w>
@@ -5472,6 +5818,7 @@
       <w>is_scalar_vector</w>
       <w>is_scoped</w>
       <w>is_separator</w>
+      <w>is_shallow</w>
       <w>is_simple</w>
       <w>is_spliced</w>
       <w>is_spliced_bare</w>
@@ -5518,6 +5865,7 @@
       <w>item.lookup</w>
       <w>item.sim</w>
       <w>iter</w>
+      <w>iteratelist</w>
       <w>iterators</w>
       <w>itersolve</w>
       <w>ivs</w>
@@ -5538,6 +5886,7 @@
       <w>julian</w>
       <w>julian.Date</w>
       <w>julian.POSIXt</w>
+      <w>jupyter_option_defaults</w>
       <w>k.regular.game</w>
       <w>k3.linear</w>
       <w>kable</w>
@@ -5792,6 +6141,9 @@
       <w>lh</w>
       <w>li</w>
       <w>libcurlVersion</w>
+      <w>libgit2_features</w>
+      <w>libgit2_sha</w>
+      <w>libgit2_version</w>
       <w>library</w>
       <w>library.dynam</w>
       <w>library.dynam.unload</w>
@@ -5823,6 +6175,7 @@
       <w>linetype_pal</w>
       <w>linprog</w>
       <w>linspace</w>
+      <w>lint</w>
       <w>liply</w>
       <w>list</w>
       <w>list.dirs</w>
@@ -5870,9 +6223,14 @@
       <w>loadRcppClass</w>
       <w>loadRcppModules</w>
       <w>loadRdMacros</w>
+      <w>load_all</w>
       <w>load_cache</w>
+      <w>load_code</w>
+      <w>load_data</w>
+      <w>load_dll</w>
       <w>loadcmp</w>
       <w>loadedNamespaces</w>
+      <w>loaded_packages</w>
       <w>loadhistory</w>
       <w>loadingNamespaceInfo</w>
       <w>loadings</w>
@@ -5911,6 +6269,9 @@
       <w>logLik</w>
       <w>logLik.gam</w>
       <w>log_breaks</w>
+      <w>log_debug</w>
+      <w>log_error</w>
+      <w>log_info</w>
       <w>log_trans</w>
       <w>logan</w>
       <w>logb</w>
@@ -5982,6 +6343,7 @@
       <w>magic.post.proc</w>
       <w>magrittr</w>
       <w>mahalanobis</w>
+      <w>main</w>
       <w>maintainer</w>
       <w>make.congeneric</w>
       <w>make.db.names</w>
@@ -6153,6 +6515,8 @@
       <w>mcnemar.test</w>
       <w>mcparallel</w>
       <w>mcycle</w>
+      <w>md4</w>
+      <w>md5</w>
       <w>md5sum</w>
       <w>md_document</w>
       <w>mday</w>
@@ -6202,6 +6566,7 @@
       <w>mergeMethods</w>
       <w>mergeOrdered</w>
       <w>mergeSort</w>
+      <w>merge_base</w>
       <w>merge_coords</w>
       <w>mergeorder</w>
       <w>merges</w>
@@ -6209,6 +6574,7 @@
       <w>mergesortorder</w>
       <w>meshgrid</w>
       <w>message</w>
+      <w>message_for_status</w>
       <w>metaNameUndo</w>
       <w>metadata</w>
       <w>method.skeleton</w>
@@ -6235,6 +6601,7 @@
       <w>midpoint</w>
       <w>midwest</w>
       <w>mime</w>
+      <w>mime2repr</w>
       <w>mimemap</w>
       <w>min</w>
       <w>min.bit</w>
@@ -6257,6 +6624,7 @@
       <w>missing</w>
       <w>missingArg</w>
       <w>missing_arg</w>
+      <w>missing_s3</w>
       <w>mixcolor</w>
       <w>mixed.cor</w>
       <w>mixedCor</w>
@@ -6293,9 +6661,11 @@
       <w>moderate.diagram</w>
       <w>modify</w>
       <w>modifyList</w>
+      <w>modifyRange</w>
       <w>modify_at</w>
       <w>modify_depth</w>
       <w>modify_if</w>
+      <w>modify_url</w>
       <w>modularity</w>
       <w>modularity_matrix</w>
       <w>moler</w>
@@ -6330,6 +6700,12 @@
       <w>mtext</w>
       <w>muller</w>
       <w>multi.hist</w>
+      <w>multi_add</w>
+      <w>multi_cancel</w>
+      <w>multi_fdset</w>
+      <w>multi_list</w>
+      <w>multi_run</w>
+      <w>multi_set</w>
       <w>multicore</w>
       <w>multiedit</w>
       <w>multilevel.community</w>
@@ -6364,6 +6740,8 @@
       <w>mvfft</w>
       <w>mvn</w>
       <w>mvrnorm</w>
+      <w>my_key</w>
+      <w>my_pubkey</w>
       <w>mypolygon</w>
       <w>n</w>
       <w>n2mfrow</w>
@@ -6416,6 +6794,7 @@
       <w>nasa</w>
       <w>navbar_html</w>
       <w>navbar_links_html</w>
+      <w>navigateToFile</w>
       <w>nb</w>
       <w>nbMult</w>
       <w>nchar</w>
@@ -6468,9 +6847,11 @@
       <w>new_environment</w>
       <w>new_formula</w>
       <w>new_function</w>
+      <w>new_handle</w>
       <w>new_language</w>
       <w>new_output_handler</w>
       <w>new_overscope</w>
+      <w>new_pool</w>
       <w>new_quosure</w>
       <w>newcomb</w>
       <w>newmark</w>
@@ -6558,6 +6939,10 @@
       <w>notLog</w>
       <w>notLog2</w>
       <w>not_empty</w>
+      <w>note_create</w>
+      <w>note_default_ref</w>
+      <w>note_remove</w>
+      <w>notes</w>
       <w>nottem</w>
       <w>nowrapRecenter</w>
       <w>nowrapSpatialLines</w>
@@ -6572,6 +6957,7 @@
       <w>ns_imports_env</w>
       <w>nseconds</w>
       <w>nsl</w>
+      <w>nslookup</w>
       <w>nth</w>
       <w>nthroot</w>
       <w>nties</w>
@@ -6602,11 +6988,26 @@
       <w>nzMapEnv</w>
       <w>nzchar</w>
       <w>oats</w>
+      <w>oauth1.0_token</w>
+      <w>oauth2.0_access_token</w>
+      <w>oauth2.0_authorize_url</w>
+      <w>oauth2.0_token</w>
+      <w>oauth_app</w>
+      <w>oauth_callback</w>
+      <w>oauth_endpoint</w>
+      <w>oauth_endpoints</w>
+      <w>oauth_exchanger</w>
+      <w>oauth_header</w>
+      <w>oauth_listener</w>
+      <w>oauth_service_token</w>
+      <w>oauth_signature</w>
       <w>obj_sum</w>
       <w>object.size</w>
       <w>objects</w>
       <w>ocat</w>
       <w>occupationalStatus</w>
+      <w>odb_blobs</w>
+      <w>odb_objects</w>
       <w>ode23</w>
       <w>ode23s</w>
       <w>ode45</w>
@@ -6628,6 +7029,7 @@
       <w>onGreatCircle</w>
       <w>on_failure</w>
       <w>on_grid</w>
+      <w>on_path</w>
       <w>on_sphere</w>
       <w>one_of</w>
       <w>onenormest</w>
@@ -6646,7 +7048,10 @@
       <w>open.srcfile</w>
       <w>open.srcfilealias</w>
       <w>open.srcfilecopy</w>
+      <w>openProject</w>
       <w>open_intervals</w>
+      <w>openssl</w>
+      <w>openssl_config</w>
       <w>optim</w>
       <w>optimHess</w>
       <w>optimal.community</w>
@@ -6704,6 +7109,8 @@
       <w>packageStatus</w>
       <w>packageVersion</w>
       <w>package_dependencies</w>
+      <w>package_deps</w>
+      <w>package_file</w>
       <w>package_version</w>
       <w>packet.number</w>
       <w>packet.panel.default</w>
@@ -6844,18 +7251,28 @@
       <w>parent</w>
       <w>parent.env</w>
       <w>parent.frame</w>
+      <w>parents</w>
       <w>parse</w>
       <w>parseLatex</w>
       <w>parseNamespaceFile</w>
       <w>parse_Rd</w>
       <w>parse_all</w>
+      <w>parse_date</w>
+      <w>parse_deps</w>
       <w>parse_expr</w>
       <w>parse_exprs</w>
       <w>parse_format</w>
+      <w>parse_headers</w>
+      <w>parse_headers_list</w>
       <w>parse_html_notebook</w>
+      <w>parse_http_date</w>
+      <w>parse_media</w>
       <w>parse_multipart</w>
+      <w>parse_ns_file</w>
       <w>parse_quosure</w>
       <w>parse_quosures</w>
+      <w>parse_url</w>
+      <w>parsed_content</w>
       <w>partial</w>
       <w>partial.r</w>
       <w>partial_eigen</w>
@@ -6880,6 +7297,8 @@
       <w>pathListing</w>
       <w>paulsen</w>
       <w>pbc</w>
+      <w>pbdZMQ</w>
+      <w>pbd_opt</w>
       <w>pbeta</w>
       <w>pbinom</w>
       <w>pbirthday</w>
@@ -7157,6 +7576,7 @@
       <w>prepanel.spline</w>
       <w>prepanel.tmd.default</w>
       <w>prepanel.tmd.qqmath</w>
+      <w>prepare_mimebundle</w>
       <w>prepend</w>
       <w>preplot</w>
       <w>presidential</w>
@@ -7167,7 +7587,9 @@
       <w>pretty.default</w>
       <w>prettyNum</w>
       <w>pretty_breaks</w>
+      <w>previewRd</w>
       <w>prim_name</w>
+      <w>primary_selection</w>
       <w>primes</w>
       <w>principal</w>
       <w>princomp</w>
@@ -7242,6 +7664,7 @@
       <w>procrustes</w>
       <w>prod</w>
       <w>profile</w>
+      <w>progress</w>
       <w>progressBar</w>
       <w>progress_estimated</w>
       <w>progress_none</w>
@@ -7284,10 +7707,13 @@
       <w>psych.misc</w>
       <w>pt</w>
       <w>ptukey</w>
+      <w>publish_mimebundle</w>
       <w>pull</w>
+      <w>punch_card</w>
       <w>punif</w>
       <w>purl</w>
       <w>purrr</w>
+      <w>push</w>
       <w>push.viewport</w>
       <w>pushBack</w>
       <w>pushBackLength</w>
@@ -7407,6 +7833,7 @@
       <w>rBind</w>
       <w>rTweedie</w>
       <w>rWishart</w>
+      <w>r_env_vars</w>
       <w>r_pal</w>
       <w>r_ply</w>
       <w>rad2deg</w>
@@ -7422,6 +7849,8 @@
       <w>ramsort</w>
       <w>ramsortorder</w>
       <w>rand</w>
+      <w>rand_bytes</w>
+      <w>rand_num</w>
       <w>rand_seed</w>
       <w>randcomb</w>
       <w>randi</w>
@@ -7429,6 +7858,8 @@
       <w>random.effects</w>
       <w>random.graph.game</w>
       <w>randomCoordinates</w>
+      <w>random_open_port</w>
+      <w>random_port</w>
       <w>random_walk</w>
       <w>randomly</w>
       <w>randortho</w>
@@ -7563,6 +7994,7 @@
       <w>readMM</w>
       <w>readNEWS</w>
       <w>readPNG</w>
+      <w>readPreference</w>
       <w>readRDS</w>
       <w>readRGB</w>
       <w>readRenviron</w>
@@ -7571,15 +8003,23 @@
       <w>readShapePoly</w>
       <w>readShapeSpatial</w>
       <w>readSplus</w>
+      <w>read_cert</w>
+      <w>read_cert_bundle</w>
       <w>read_chunk</w>
       <w>read_demo</w>
       <w>read_graph</w>
       <w>read_json</w>
+      <w>read_key</w>
+      <w>read_p12</w>
+      <w>read_p7b</w>
+      <w>read_pem</w>
+      <w>read_pubkey</w>
       <w>read_rforge</w>
       <w>readhex</w>
       <w>readline</w>
       <w>recalc</w>
       <w>recast</w>
+      <w>receive.socket</w>
       <w>recenter</w>
       <w>reciprocal_trans</w>
       <w>reciprocity</w>
@@ -7601,8 +8041,10 @@
       <w>reduce2_right</w>
       <w>reduce_right</w>
       <w>refEllipsoids</w>
+      <w>references</w>
       <w>refindall</w>
       <w>reflect</w>
+      <w>reflog</w>
       <w>reformulate</w>
       <w>reg.finalizer</w>
       <w>regex</w>
@@ -7625,11 +8067,21 @@
       <w>regularCoordinates</w>
       <w>rel</w>
       <w>relative_to</w>
+      <w>release</w>
+      <w>release_checks</w>
       <w>relevel</w>
       <w>relist</w>
+      <w>reload</w>
       <w>rem</w>
       <w>rematchDefinition</w>
       <w>remission</w>
+      <w>remote_add</w>
+      <w>remote_ls</w>
+      <w>remote_remove</w>
+      <w>remote_rename</w>
+      <w>remote_set_url</w>
+      <w>remote_url</w>
+      <w>remotes</w>
       <w>remove</w>
       <w>remove.duplicates</w>
       <w>remove.edge.attribute</w>
@@ -7695,10 +8147,24 @@
       <w>replicate</w>
       <w>replications</w>
       <w>repmat</w>
+      <w>repository</w>
+      <w>repr</w>
+      <w>repr_html</w>
+      <w>repr_javascript</w>
+      <w>repr_jpg</w>
+      <w>repr_json</w>
+      <w>repr_latex</w>
+      <w>repr_markdown</w>
+      <w>repr_option_defaults</w>
+      <w>repr_pdf</w>
+      <w>repr_png</w>
+      <w>repr_svg</w>
+      <w>repr_text</w>
       <w>representation</w>
       <w>require</w>
       <w>requireMethods</w>
       <w>requireNamespace</w>
+      <w>rerequest</w>
       <w>rerun</w>
       <w>resaveRdaFiles</w>
       <w>rescale</w>
@@ -7709,6 +8175,7 @@
       <w>reset</w>
       <w>resetClass</w>
       <w>resetGeneric</w>
+      <w>reset_config</w>
       <w>reshape</w>
       <w>reshape2</w>
       <w>resid</w>
@@ -7727,6 +8194,7 @@
       <w>response.frequencies</w>
       <w>restartDescription</w>
       <w>restartFormals</w>
+      <w>restartSession</w>
       <w>restarting</w>
       <w>restorePreserveChunks</w>
       <w>restore_raw_output</w>
@@ -7740,9 +8208,19 @@
       <w>rev.rlepack</w>
       <w>rev.zoo</w>
       <w>revalue</w>
+      <w>revdep</w>
+      <w>revdep_check</w>
+      <w>revdep_check_print_problems</w>
+      <w>revdep_check_reset</w>
+      <w>revdep_check_resume</w>
+      <w>revdep_check_save_summary</w>
+      <w>revdep_email</w>
+      <w>revdep_maintainers</w>
       <w>reverse.code</w>
       <w>reverse_trans</w>
       <w>revgeocode</w>
+      <w>revoke_all</w>
+      <w>revparse_single</w>
       <w>rewire</w>
       <w>rex</w>
       <w>rex_</w>
@@ -7764,6 +8242,7 @@
       <w>rig</w>
       <w>right_join</w>
       <w>ring</w>
+      <w>ripemd160</w>
       <w>rivers</w>
       <w>rjson</w>
       <w>rk4</w>
@@ -7780,6 +8259,7 @@
       <w>rlogis</w>
       <w>rlply</w>
       <w>rm</w>
+      <w>rm_file</w>
       <w>rmarkdown</w>
       <w>rmarkdown_format</w>
       <w>rmnorm</w>
@@ -7829,6 +8309,7 @@
       <w>row.names.data.frame</w>
       <w>row.names.default</w>
       <w>rowMeans</w>
+      <w>rowSplit</w>
       <w>rowSums</w>
       <w>row_number</w>
       <w>rowid</w>
@@ -7848,6 +8329,9 @@
       <w>rprojroot</w>
       <w>rpubsUpload</w>
       <w>rref</w>
+      <w>rsa_decrypt</w>
+      <w>rsa_encrypt</w>
+      <w>rsa_keygen</w>
       <w>rsignrank</w>
       <w>rsparsematrix</w>
       <w>rsq.rpart</w>
@@ -7861,6 +8345,7 @@
       <w>rst_muffle</w>
       <w>rstandard</w>
       <w>rstudent</w>
+      <w>rstudioapi</w>
       <w>rt</w>
       <w>rtags</w>
       <w>rtf_document</w>
@@ -7868,6 +8353,7 @@
       <w>run</w>
       <w>runTestFile</w>
       <w>runTestSuite</w>
+      <w>run_examples</w>
       <w>runge</w>
       <w>runif</w>
       <w>runmad</w>
@@ -7939,6 +8425,7 @@
       <w>save</w>
       <w>save.image</w>
       <w>savePlot</w>
+      <w>savePlotAsImage</w>
       <w>saveRDS</w>
       <w>save_html</w>
       <w>savehistory</w>
@@ -8086,6 +8573,8 @@
       <w>select</w>
       <w>select.list</w>
       <w>select.spatial</w>
+      <w>selectDirectory</w>
+      <w>selectFile</w>
       <w>selectFromKeys</w>
       <w>selectMethod</w>
       <w>selectSuperClasses</w>
@@ -8106,6 +8595,8 @@
       <w>semi_join_query</w>
       <w>semilogx</w>
       <w>semilogy</w>
+      <w>send.socket</w>
+      <w>sendToConsole</w>
       <w>sentences</w>
       <w>separate</w>
       <w>separate_</w>
@@ -8129,6 +8620,7 @@
       <w>serialize</w>
       <w>serializeJSON</w>
       <w>sessionInfo</w>
+      <w>session_info</w>
       <w>set</w>
       <w>set.cor</w>
       <w>set.edge.attribute</w>
@@ -8146,6 +8638,7 @@
       <w>setCompilerOptions</w>
       <w>setCor</w>
       <w>setCor.diagram</w>
+      <w>setCursorPosition</w>
       <w>setDF</w>
       <w>setDT</w>
       <w>setDTthreads</w>
@@ -8153,6 +8646,7 @@
       <w>setDefaultCluster</w>
       <w>setDoPar</w>
       <w>setDoSeq</w>
+      <w>setDocumentContents</w>
       <w>setEPS</w>
       <w>setGeneric</w>
       <w>setGenericImplicit</w>
@@ -8171,11 +8665,13 @@
       <w>setOldClass</w>
       <w>setPS</w>
       <w>setPackageName</w>
+      <w>setPersistentValue</w>
       <w>setPrimitiveMethods</w>
       <w>setRcppClass</w>
       <w>setRefClass</w>
       <w>setReplaceMethod</w>
       <w>setRepositories</w>
+      <w>setSelectionRanges</w>
       <w>setSessionTimeLimit</w>
       <w>setTimeLimit</w>
       <w>setTkProgressBar</w>
@@ -8186,11 +8682,13 @@
       <w>set_ReplCRS_warn</w>
       <w>set_alias</w>
       <w>set_attrs</w>
+      <w>set_callback</w>
       <w>set_chr_encoding</w>
       <w>set_col_regions</w>
       <w>set_colnames</w>
       <w>set_config</w>
       <w>set_config_in</w>
+      <w>set_cookies</w>
       <w>set_edge_attr</w>
       <w>set_env</w>
       <w>set_expr</w>
@@ -8203,6 +8701,7 @@
       <w>set_names</w>
       <w>set_op_query</w>
       <w>set_parent</w>
+      <w>set_path</w>
       <w>set_reporter</w>
       <w>set_rownames</w>
       <w>set_str_encoding</w>
@@ -8220,10 +8719,18 @@
       <w>setnames</w>
       <w>setorder</w>
       <w>setorderv</w>
+      <w>setup</w>
+      <w>setup_rtools</w>
       <w>setwd</w>
       <w>sgd</w>
       <w>shQuote</w>
       <w>sha1</w>
+      <w>sha1_hash</w>
+      <w>sha2</w>
+      <w>sha224</w>
+      <w>sha256</w>
+      <w>sha384</w>
+      <w>sha512</w>
       <w>shannon</w>
       <w>shape_noclip</w>
       <w>shape_noplot</w>
@@ -8254,16 +8761,20 @@
       <w>showClass</w>
       <w>showConnections</w>
       <w>showDefault</w>
+      <w>showDialog</w>
       <w>showExtends</w>
       <w>showGrob</w>
       <w>showMethods</w>
       <w>showMlist</w>
       <w>showNonASCII</w>
       <w>showNonASCIIfile</w>
+      <w>showPrompt</w>
+      <w>showQuestion</w>
       <w>showTree</w>
       <w>showViewport</w>
       <w>show_ansi_colors</w>
       <w>show_col</w>
+      <w>show_news</w>
       <w>show_query</w>
       <w>show_trace</w>
       <w>shows_message</w>
@@ -8273,8 +8784,12 @@
       <w>sigToEnv</w>
       <w>sigmoid</w>
       <w>sign</w>
+      <w>sign_oauth1.0</w>
+      <w>sign_oauth2.0</w>
       <w>signalCondition</w>
       <w>signature</w>
+      <w>signature_create</w>
+      <w>signature_verify</w>
       <w>signif</w>
       <w>signm</w>
       <w>silhouette</w>
@@ -8435,9 +8950,12 @@
       <w>sortrows</w>
       <w>source</w>
       <w>sourceCpp</w>
+      <w>sourceMarkers</w>
       <w>source_dir</w>
       <w>source_file</w>
+      <w>source_gist</w>
       <w>source_test_helpers</w>
+      <w>source_url</w>
       <w>sov.expand</w>
       <w>sp</w>
       <w>sp.grid</w>
@@ -8474,6 +8992,7 @@
       <w>spec.pgram</w>
       <w>spec.taper</w>
       <w>spectrum</w>
+      <w>spell_check</w>
       <w>sph2cart</w>
       <w>sphercov</w>
       <w>spi</w>
@@ -8585,6 +9104,7 @@
       <w>srcfilealias</w>
       <w>srcfilecopy</w>
       <w>srcref</w>
+      <w>ssl_cert_locations</w>
       <w>ssvd</w>
       <w>stConstruct</w>
       <w>stCuts</w>
@@ -8606,6 +9126,9 @@
       <w>startsWith</w>
       <w>starts_with</w>
       <w>starwars</w>
+      <w>stash</w>
+      <w>stash_drop</w>
+      <w>stash_list</w>
       <w>stat.anova</w>
       <w>stat_bin</w>
       <w>stat_bin2d</w>
@@ -8648,6 +9171,8 @@
       <w>statsBy</w>
       <w>statsBy.boot</w>
       <w>statsBy.boot.summary</w>
+      <w>status</w>
+      <w>status_code</w>
       <w>stbox</w>
       <w>std</w>
       <w>std_err</w>
@@ -8670,6 +9195,7 @@
       <w>stogo</w>
       <w>stop</w>
       <w>stopCluster</w>
+      <w>stop_for_status</w>
       <w>stopifnot</w>
       <w>storage.mode</w>
       <w>stormer</w>
@@ -8974,6 +9500,7 @@
       <w>subgraph_centrality</w>
       <w>subgraph_isomorphic</w>
       <w>subgraph_isomorphisms</w>
+      <w>submit_cran</w>
       <w>subset</w>
       <w>subset.data.frame</w>
       <w>subset.default</w>
@@ -9106,6 +9633,8 @@
       <w>system.file</w>
       <w>system.time</w>
       <w>system2</w>
+      <w>system_check</w>
+      <w>system_output</w>
       <w>t</w>
       <w>t.data.frame</w>
       <w>t.default</w>
@@ -9134,6 +9663,7 @@
       <w>tagHasAttribute</w>
       <w>tagList</w>
       <w>tagSetChildren</w>
+      <w>tag_delete</w>
       <w>tags</w>
       <w>tail</w>
       <w>tail.matrix</w>
@@ -9190,11 +9720,25 @@
       <w>tenberge</w>
       <w>tensor.prod.model.matrix</w>
       <w>tensor.prod.penalties</w>
+      <w>terminalActivate</w>
+      <w>terminalBuffer</w>
+      <w>terminalBusy</w>
+      <w>terminalClear</w>
+      <w>terminalContext</w>
+      <w>terminalCreate</w>
+      <w>terminalExecute</w>
+      <w>terminalExitCode</w>
+      <w>terminalKill</w>
+      <w>terminalList</w>
+      <w>terminalRunning</w>
+      <w>terminalSend</w>
+      <w>terminalVisible</w>
       <w>termplot</w>
       <w>terms</w>
       <w>terms.formula</w>
       <w>terrain.colors</w>
       <w>terrain_hcl</w>
+      <w>test</w>
       <w>test.all</w>
       <w>test.data.table</w>
       <w>test.irt</w>
@@ -9229,6 +9773,7 @@
       <w>textConnectionValue</w>
       <w>textGrob</w>
       <w>text_colour</w>
+      <w>text_content</w>
       <w>thayer</w>
       <w>theme</w>
       <w>theme_bw</w>
@@ -9274,6 +9819,7 @@
       <w>timeMatch</w>
       <w>time_bins</w>
       <w>time_trans</w>
+      <w>timeout</w>
       <w>times</w>
       <w>timestamp</w>
       <w>timetaken</w>
@@ -9693,6 +10239,7 @@
       <w>unfold_tree</w>
       <w>ungroup</w>
       <w>unidim</w>
+      <w>uninstall</w>
       <w>union</w>
       <w>unionSpatialPolygons</w>
       <w>union_all</w>
@@ -9724,6 +10271,7 @@
       <w>unix.time</w>
       <w>unlink</w>
       <w>unlist</w>
+      <w>unload</w>
       <w>unloadNamespace</w>
       <w>unlockBinding</w>
       <w>unname</w>
@@ -9748,15 +10296,18 @@
       <w>update.formula</w>
       <w>update.packageStatus</w>
       <w>update.packages</w>
+      <w>updateDialog</w>
       <w>update_geom_defaults</w>
       <w>update_labels</w>
       <w>update_list</w>
+      <w>update_packages</w>
       <w>update_pkg_po</w>
       <w>update_stat_defaults</w>
       <w>updateusr</w>
       <w>updown</w>
       <w>upgrade</w>
       <w>upgrade_graph</w>
+      <w>upload_file</w>
       <w>upper.to.lower.tri.inds</w>
       <w>upper.tri</w>
       <w>uq</w>
@@ -9766,16 +10317,49 @@
       <w>url</w>
       <w>url.show</w>
       <w>urlEncodePath</w>
+      <w>url_ok</w>
+      <w>url_success</w>
       <w>us.cities</w>
       <w>usaMapEnv</w>
       <w>use.reclass</w>
       <w>use.xts</w>
+      <w>use_appveyor</w>
+      <w>use_build_ignore</w>
       <w>use_catch</w>
+      <w>use_code_of_conduct</w>
+      <w>use_coverage</w>
+      <w>use_cran_badge</w>
+      <w>use_cran_comments</w>
+      <w>use_data</w>
+      <w>use_data_raw</w>
+      <w>use_dev_version</w>
+      <w>use_git</w>
+      <w>use_git_hook</w>
+      <w>use_github</w>
+      <w>use_github_links</w>
+      <w>use_gpl3_license</w>
+      <w>use_mit_license</w>
+      <w>use_news_md</w>
+      <w>use_package</w>
+      <w>use_package_doc</w>
+      <w>use_proxy</w>
+      <w>use_rcpp</w>
+      <w>use_readme_md</w>
+      <w>use_readme_rmd</w>
+      <w>use_revdep</w>
+      <w>use_rstudio</w>
       <w>use_series</w>
+      <w>use_test</w>
+      <w>use_testthat</w>
+      <w>use_travis</w>
+      <w>use_vignette</w>
+      <w>user_agent</w>
+      <w>uses_testthat</w>
       <w>uspop</w>
       <w>uspop2</w>
       <w>utf8ToInt</w>
       <w>utils</w>
+      <w>uuid</w>
       <w>vaggregate</w>
       <w>valid.just</w>
       <w>validDetails</w>
@@ -9819,7 +10403,10 @@
       <w>vector</w>
       <w>vectorfield</w>
       <w>ver</w>
+      <w>verbose</w>
+      <w>verifyAvailable</w>
       <w>version</w>
+      <w>versionInfo</w>
       <w>vertex</w>
       <w>vertex.attributes</w>
       <w>vertex.connectivity</w>
@@ -9839,6 +10426,7 @@
       <w>vgmArea</w>
       <w>vgmST</w>
       <w>vi</w>
+      <w>viewer</w>
       <w>viewport</w>
       <w>viewport.layout</w>
       <w>viewport.transform</w>
@@ -9866,11 +10454,13 @@
       <w>walker</w>
       <w>walktrap.community</w>
       <w>warn</w>
+      <w>warn_for_status</w>
       <w>warning</w>
       <w>warnings</w>
       <w>warpbreaks</w>
       <w>watch</w>
       <w>watts.strogatz.game</w>
+      <w>wd</w>
       <w>wday</w>
       <w>weather</w>
       <w>week</w>
@@ -9892,6 +10482,9 @@
       <w>which_multiple</w>
       <w>which_mutual</w>
       <w>which_nearest</w>
+      <w>whisker</w>
+      <w>whisker.escape</w>
+      <w>whisker.render</w>
       <w>white</w>
       <w>whiteside</w>
       <w>whittaker</w>
@@ -9927,6 +10520,8 @@
       <w>withVisible</w>
       <w>with_</w>
       <w>with_collate</w>
+      <w>with_config</w>
+      <w>with_debug</w>
       <w>with_dh</w>
       <w>with_dir</w>
       <w>with_drl</w>
@@ -9941,6 +10536,7 @@
       <w>with_igraph_opt</w>
       <w>with_kk</w>
       <w>with_lgl</w>
+      <w>with_lib</w>
       <w>with_libpaths</w>
       <w>with_locale</w>
       <w>with_makevars</w>
@@ -9959,6 +10555,7 @@
       <w>with_sugiyama</w>
       <w>with_temp_libpaths</w>
       <w>with_vars</w>
+      <w>with_verbose</w>
       <w>with_vertex_</w>
       <w>within</w>
       <w>within.data.frame</w>
@@ -9974,6 +10571,7 @@
       <w>word</w>
       <w>word_document</w>
       <w>words</w>
+      <w>workdir</w>
       <w>world.cities</w>
       <w>world.legacy</w>
       <w>world2MapEnv</w>
@@ -10011,11 +10609,21 @@
       <w>writePNG</w>
       <w>writePointsShape</w>
       <w>writePolyShape</w>
+      <w>writePreference</w>
       <w>writeSpatialShape</w>
       <w>write_PACKAGES</w>
       <w>write_bib</w>
+      <w>write_der</w>
+      <w>write_disk</w>
+      <w>write_function</w>
       <w>write_graph</w>
       <w>write_json</w>
+      <w>write_memory</w>
+      <w>write_p12</w>
+      <w>write_p7b</w>
+      <w>write_pem</w>
+      <w>write_ssh</w>
+      <w>write_stream</w>
       <w>writehex</w>
       <w>wrld</w>
       <w>wrld_simpl</w>
@@ -10104,6 +10712,34 @@
       <w>zip</w>
       <w>ziplss</w>
       <w>zips</w>
+      <w>zmq</w>
+      <w>zmq.bind</w>
+      <w>zmq.close</w>
+      <w>zmq.connect</w>
+      <w>zmq.ctx.destroy</w>
+      <w>zmq.ctx.new</w>
+      <w>zmq.disconnect</w>
+      <w>zmq.getsockopt</w>
+      <w>zmq.msg.recv</w>
+      <w>zmq.msg.send</w>
+      <w>zmq.poll</w>
+      <w>zmq.poll.free</w>
+      <w>zmq.poll.get.revents</w>
+      <w>zmq.poll.interrupt</w>
+      <w>zmq.poll.length</w>
+      <w>zmq.poll2</w>
+      <w>zmq.poll2.get.revents</w>
+      <w>zmq.poll2.interrupt</w>
+      <w>zmq.recv</w>
+      <w>zmq.recv.multipart</w>
+      <w>zmq.recvfile</w>
+      <w>zmq.send</w>
+      <w>zmq.send.multipart</w>
+      <w>zmq.sendfile</w>
+      <w>zmq.setsockopt</w>
+      <w>zmq.socket</w>
+      <w>zmq.strerror</w>
+      <w>zmq.version</w>
       <w>zoo</w>
       <w>zooreg</w>
     </words>

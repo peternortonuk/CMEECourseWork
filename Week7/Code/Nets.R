@@ -52,3 +52,4 @@ plot(net, edge.curved=0, vertex.label.color="black")
 #        col="#777777", pt.bg=colrs, pt.cex=2, cex=.8, bty="n", ncol=1)
 
 dev.off()
+print('QMEENet saved to results')

@@ -1,7 +1,7 @@
 #!usr/bin/python
 
 
-"""Chapter 6 Rgular Expressions"""
+"""Chapter 6 Regular Expressions"""
 
 __author__ = "Petra Guy, pg5117@ic.ac.uk"
 __version__ = "2.7"

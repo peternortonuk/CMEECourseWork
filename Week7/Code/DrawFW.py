@@ -35,6 +35,7 @@ plt.close('all')
 ## Calculate coordinates for circular configuration:
 ## (See networkx.layout for inbuilt functions to compute other types of node
 # coords)
+f1 = plt.figure()
 pos = nx.circular_layout(Sps)
 
 G = nx.Graph()
@@ -42,4 +43,5 @@ G.add_nodes_from(Sps)
 G.add_edges_from(tuple(AdjL))
 NodSizs= 10**-32 + (Sizs-min(Sizs))/(max(Sizs)-min(Sizs)) #node sizes in proportion to body sizes
 nx.draw(G, pos, node_size = NodSizs*1000)
-plt.show()
+#plt.show()
+f1.savefig('../Results/Drawpy.pdf')
