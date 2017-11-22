@@ -38,7 +38,6 @@ G.vs['label'] = node_names
 G.es['weight'] = weights
 
 G.es['width'] = weights/10
-
 # plot the graph
 out = igraph.plot(G,'../Results/Netspy.pdf', layout="rt", labels=True, margin=80)
 print 'Netspy.pdf saved to Results'
