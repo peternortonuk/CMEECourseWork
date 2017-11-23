@@ -1,0 +1,136 @@
+---
+title: "MiniProject"
+author: "PetraGuy"
+date: "23 November 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+clear the workspace
+```{r}
+
+rm(list = ls())
+cat("\014")
+```
+Get the data , enter input CSV file name here, for data in data dicerctory
+```{r}
+inputfile = 'SorariaCompact1.csv'
+Dataname = strsplit(inputfile, "\\.")[[1]][[1]]
+fullfile = paste("../Data",inputfile,sep = '/')
+Data = read.csv(fullfile)
+```
+
+Do some median imputations if necessary
+```{r}
+median_replace1 = function(x){
+  ifelse(is.na(x), median(x,na.rm = TRUE), x)
+ }
+
+median_replace2 = function(x){
+  apply(x,2,median_replace1)
+}
+
+Imputed_list = lapply(split.data.frame(Data[,2:12], Data$Species), FUN = median_replace2)
+```
+
+The imputed dataframe is a list with species as the elements, the following sticks it back together with a different name so both optiona are available
+
+```{r}
+temp = do.call(rbind, Imputed_list)
+Imputed_df = cbind(Data[1], temp)
+```
+
+Its worth creating a scaled dataframe too for some of the analysis and ploting
+```{r}
+Scaled_df = scale(Imputed_df[-1])
+Scaled_df = cbind(Data[1], Scaled_df)
+```
+
+
+PLOTTING
+
+Execute the first section to save the data, or go straight to plotting to view graphs in document
+```{r}
+out = paste(Dataname, "pairs", sep = "_")
+out= paste('../Results',out,sep = '/')
+out = paste(out,'.pdf')
+
+```
+Pairs Plots, unhash pdf to save data to file. Not all pairs plotted beacuse there are so many the plot becomes too difficult to read and therefore uninformative
+
+```{r}
+#pdf(out)
+reduced_df = Imputed_df[-c(4,5,6,7,8,9,12)]
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
+{
+  usr <- par("usr"); on.exit(par(usr))
+  par(usr = c(0, 1, 0, 1))
+  r <- abs(cor(x, y))
+  txt <- format(c(r, 0.123456789), digits = digits)[1]
+  txt <- paste0(prefix, txt)
+  if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+  text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+pairs(reduced_df[-1], lower.panel = panel.smooth, upper.panel = panel.cor, col = Imputed_df$Species)
+mtext(Dataname, side = 1)
+```
+
+Look at scatter plots by species of main characters, run the following to get new filename if saving data
+```{r}
+out = paste(Dataname, "scatter", sep = "_")
+out= paste('../Results',out,sep = '/')
+out = paste(out,'.pdf')
+
+```
+
+Scatter plots, unhash pdf to save data to file
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+#pdf(out)
+plot1= ggplot(Imputed_df, aes(x= LeafLength, y = LeafWidth, col = Species))+
+  geom_point()
+plot2 = ggplot(Imputed_df, aes(x= FruitLength, y = FruitWidth, col = Species))+
+  geom_point()
+
+grid.arrange(plot1,plot2)
+```
+
+Box plots
+```{r}
+out = paste(Dataname, "box", sep = "_")
+out= paste('../Results',out,sep = '/')
+out = paste(out,'.pdf')
+```
+
+
+```{r}
+#pdf(out)
+col_names = colnames(Data)
+col_names = col_names[-1]
+plotlist = list()
+library(grid)
+for (i in seq_along(col_names)){
+  plot = ggplot(Imputed_df, (aes_string(x='Species', y=col_names[i])))+
+                 geom_boxplot()
+  plotlist = rbind(plotlist,  plot)
+  grid.draw(plot)
+}
+
+```
+
+Try ggplot option for boxplots, but they'll need scaling because facet wrap will use same scale for all
+
+```{r}
+library(reshape2)
+melted = melt(Imputed_df)
+
+ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value)) +   facet_wrap(~variable)
+```
+
+
