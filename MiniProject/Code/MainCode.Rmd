@@ -60,7 +60,7 @@ out= paste('../Results',out,sep = '/')
 out = paste(out,'.pdf')
 
 ```
-Pairs Plots, unhash pdf to save data to file. Not all pairs plotted beacuse there are so many the plot becomes too difficult to read and therefore uninformative
+Pairs Plots, unhash pdf to save data to file. Not all pairs plotted beacuse there are so many the plot becomes too difficult to read and therefore uninformative. The pairs plot
 
 ```{r}
 #pdf(out)
@@ -78,6 +78,17 @@ panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
 pairs(reduced_df[-1], lower.panel = panel.smooth, upper.panel = panel.cor, col = Imputed_df$Species)
 mtext(Dataname, side = 1)
 ```
+
+Repeat the pairs plots using ggplot
+
+```{r}
+library(GGally)
+ggpairs(data = Imputed_df[,2:6])
+
+ggpairs(Imputed_df[,7:12])
+```
+
+
 
 Look at scatter plots by species of main characters, run the following to get new filename if saving data
 ```{r}
@@ -128,9 +139,32 @@ Try ggplot option for boxplots, but they'll need scaling because facet wrap will
 
 ```{r}
 library(reshape2)
-melted = melt(Imputed_df)
+melted = melt(Scaled_df)
 
-ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value)) +   facet_wrap(~variable)
+ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) +   facet_wrap(~variable) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
 ```
 
+Th scatter plots and pairs plots indicate that only leaf length, leaf width and widest point are correlated with a correlation coefficient of 0.9. Two of these variables might then be removed from the analysis.
+
+Lets look at anovas for each feature
+
+```{r}
+
+col_names = colnames(Data)
+col_names = col_names[-1]
+anova_data = data_frame()
+model = list()
+for (i in seq_along(col_names)){
+    m = lm(formula = paste(col_names[i], "~ Species"), data =  Imputed_df)
+    ANOVA <- anova(m)
+    r2 <- summary(m)$r.squared
+    data = data.frame(col_names[i], ANOVA[[4]][1], ANOVA[[5]][1], r2)
+    anova_data = rbind(anova_data,data)
+    
+    
+  }
+names(anova_data) = c("Feature","F", "p", "r2")
+print(anova_data)
+```
 

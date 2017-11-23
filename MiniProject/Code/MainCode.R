@@ -37,6 +37,7 @@ Soraria_Imputed = cbind(Soraria_Data[1], temp)
 temp = scale(Imputed_df)
 Soraria_Imputed_sc = cbind(Soraria_Data[1],temp)
 ##Pairs
+pdf('../Results/')
 panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
 {
   usr <- par("usr"); on.exit(par(usr))
@@ -50,9 +51,12 @@ panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
 pairs(Soraria_Imputed_sc[-1], lower.panel = panel.smooth, upper.panel = panel.cor)
 
 ##scatterplots by species
-library(ggplot)
 
 ggplot(Soraria_Imputed, aes(x= LeafLength, y = LeafWidth, col = Species))+
+  geom_point()
+ggplot(Soraria_Imputed, aes(x= FruitLength, y = FruitWidth, col = Species))+
+  geom_point()
+ggplot(Soraria_Imputed, aes(x= Lobing, y = Veins, col = Species))+
   geom_point()
 
 ##Box plots for everything
@@ -69,3 +73,33 @@ for (i in seq_along(Soraria_col_names)){
 }
 
 
+####examine clustering 
+ration_ss =rep(0,8)
+for (k in 1:8){
+  soraria_km = kmneans(Soraria_Imputed, k, nstarts = 20)
+  ratio_ss[k] = soraria_km$tot.withinss/soraria_km$totss
+}
+
+plot(ration_ss, type = 'b', xlab = 'k')
+  
+# try on scaled data
+
+ration_sc_ss =rep(0,8)
+for (k in 1:8){
+  soraria_sc_km = kmneans(Soraria_Imputed_sc, k, nstarts = 20)
+  ratio_sc_ss[k] = soraria_sc_km$tot.withinss/soraria_sc_km$totss
+}
+
+plot(ration_ss, type = 'b', xlab = 'k')
+
+####examine classifications in hclust
+
+soraria_dist = dist(Soraria_Imputed_sc)
+
+soraria_single = hclust(soraria_dist, method = 'single')
+memb_single = cutree(soraria_single, k = 8)
+plot(soraria_single)
+
+soraria_complete = hclust(soraria_dist, method = 'complete')
+memb_complete = cutree(soraria_single, k = 8)
+plot(soraria_complete)
