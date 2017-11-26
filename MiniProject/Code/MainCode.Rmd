@@ -16,7 +16,7 @@ clear the workspace
 rm(list = ls())
 cat("\014")
 ```
-Get the data , enter input CSV file name here, for data in data dicerctory
+Get the data , enter input CSV file name here, for data in data directory
 ```{r}
 inputfile = 'SorariaCompact1.csv'
 Dataname = strsplit(inputfile, "\\.")[[1]][[1]]
@@ -104,7 +104,11 @@ Scatter plots, unhash pdf to save data to file
 library(ggplot2)
 library(gridExtra)
 #pdf(out)
-plot1= ggplot(Imputed_df, aes(x= LeafLength, y = LeafWidth, col = Species))+
+graphics.off()
+reduced_df = Imputed_df[Imputed_df$Species == "Arranensis",]
+ggplot(reduced_df,aes(x= LeafLength, y = LeafWidth)) +
+                 geom_point()
+plot1= ggplot(Imputed_df , aes(x= LeafLength, y = LeafWidth, col = Species))+
   geom_point()
 plot2 = ggplot(Imputed_df, aes(x= FruitLength, y = FruitWidth, col = Species))+
   geom_point()
@@ -138,6 +142,14 @@ for (i in seq_along(col_names)){
 Try ggplot option for boxplots, but they'll need scaling because facet wrap will use same scale for all
 
 ```{r}
+out = paste(Dataname, "scaledbox", sep = "_")
+out= paste('../Results',out,sep = '/')
+out = paste(out,'.pdf')
+```
+
+
+```{r}
+#pdf(out)
 library(reshape2)
 melted = melt(Scaled_df)
 
@@ -148,15 +160,22 @@ ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) + 
 Th scatter plots and pairs plots indicate that only leaf length, leaf width and widest point are correlated with a correlation coefficient of 0.9. Two of these variables might then be removed from the analysis.
 
 Lets look at anovas for each feature
+```{r}
+out = paste(Dataname, "anova", sep = "_")
+out= paste('../Results',out,sep = '/')
+out = paste(out,'.csv')
+
+```
+
 
 ```{r}
 
 col_names = colnames(Data)
 col_names = col_names[-1]
-anova_data = data_frame()
-model = list()
+anova_data = data.frame()
+
 for (i in seq_along(col_names)){
-    m = lm(formula = paste(col_names[i], "~ Species"), data =  Imputed_df)
+    m = lm(formula = paste(col_names[i],"~Species"), data =  Imputed_df)
     ANOVA <- anova(m)
     r2 <- summary(m)$r.squared
     data = data.frame(col_names[i], ANOVA[[4]][1], ANOVA[[5]][1], r2)
@@ -166,5 +185,111 @@ for (i in seq_along(col_names)){
   }
 names(anova_data) = c("Feature","F", "p", "r2")
 print(anova_data)
+write.csv(anova_data, out)
 ```
+
+But what happens if we need to scale the data, repeated anovas for scaled dataframe
+
+```{r}
+out = paste(Dataname, "anova_scaled", sep = "_")
+out= paste('../Results',out,sep = '/')
+out = paste(out,'.csv')
+```
+
+```{r}
+col_names = colnames(Data)
+col_names = col_names[-1]
+anova_data = data.frame()
+
+for (i in seq_along(col_names)){
+    m = lm(formula = paste(col_names[i],"~Species"), data =  Scaled_df)
+    ANOVA <- anova(m)
+    r2 <- summary(m)$r.squared
+    data = data.frame(col_names[i], ANOVA[[4]][1], ANOVA[[5]][1], r2)
+    anova_data = rbind(anova_data,data)
+    
+    
+  }
+names(anova_data) = c("Feature","F", "p", "r2")
+print(anova_data)
+write.csv(anova_data, out)
+```
+
+It looks like there is a difference with within group means and between group means, as we can see from the large F values, except in WidestPercent. LeafWidth, LeafLength and WidestPoint are highly correlated and may not all be requried in a model
+
+Some simple cluster analysis
+```{r}
+set.seed(1)
+library(ggplot2)
+library(gridExtra)
+graphics.off()
+
+Imputed_kmeans = kmeans(Imputed_df[-1], 7)
+table(Imputed_df$Species, Imputed_kmeans$cluster)
+
+plot1= ggplot(Imputed_df, aes(x= LeafLength, y = LeafWidth, col = Imputed_kmeans$cluster))+
+  geom_point()
+
+plot2= ggplot(Imputed_df, aes(x= LeafLength, y = LeafWidth, col = Species))+
+  geom_point()
+
+grid.arrange(plot1,plot2)
+```
+What about principle components?
+
+```{r}
+pc = princomp(Scaled_df[-1])
+plot(pc)
+plot(pc, type = 'l')
+
+```
+
+```{r}
+pc = prcomp(Scaled_df[-1])
+comp = data.frame(pc$x[,1:4])
+plot(comp)
+loadings = eigen(cov(Scaled_df[-1]))$vectors
+explvar = round((loadings^2),digits = 2)
+rownames(explvar) =  col_names
+print(explvar)
+
+```
+If leaf length is correlated with width and widest point and leaf width, AND pc shws that leafwidth, veins, leaf ratio, fruit length and widest percent together explain 80% of the variance, perhaps a model using only these is sufficient.
+
+```{r}
+reduced_data = Imputed_df[-c(1,2,4,5,8,11,12)]
+Imputed_kmeans = kmeans(reduced_data, 7, nstart = 7)
+table(Imputed_df$Species, Imputed_kmeans$cluster)
+```
+
+
+
+Supervised Learning 
+Create training and test sets. Cross validation will be used to train the model. The caret package is need to do this within the model fitting algorithm, otherwise you would need to write your own for loops for each fold of cross validation.
+
+```{r}
+
+```
+
+
+Classification 
+Random forest - many decision trees fittied by repeated bootstrapping.
+
+```{r}
+library(caret)
+set.seed(42)
+forest = train(Species~., data = Imputed_df, method = "ranger",
+               trControl= trainControl(method = "cv", number = 5))
+plot(forest)
+print(forest)
+
+
+
+```
+
+
+
+
+
+
 
