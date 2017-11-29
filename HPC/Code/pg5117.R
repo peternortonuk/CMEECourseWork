@@ -44,7 +44,7 @@ neutral_generation = function(x){
   print(comm)
 }
 
-#richness = vector()
+
 
 neutral_time_series = function(x,t){
   rich = c(species_richness(x))
@@ -62,6 +62,7 @@ question_8 = function(){
        ylab = "species richness", sub = "Species richness will tend to 1 as all individuals eventually become the same")
 }
 
+# used by neutral generation speciation to create the new community with either death or offspring
 neutral_step_speciation = function(x,v){
   p = runif(1)
   if (v<p) {
@@ -75,6 +76,7 @@ neutral_step_speciation = function(x,v){
   }
   return(x)}
 
+#takes a community and outputs new community after a few generations with speciation
 neutral_generation_speciation = function(x,v){
   n =  round(length(x)/2)
   for (i in 1:n){
@@ -82,6 +84,7 @@ neutral_generation_speciation = function(x,v){
     } 
   return(x)}
 
+#takes community and outputs new community richness, so has t richnesses after t(n) time steps with speciation
 neutral_time_series_speciation = function(x,v,t){
  #browser()
    rich = vector()
@@ -115,6 +118,65 @@ species_abundance = function(x){
 }
 
 octaves = function(x){
-  octaves = tabulate(floor(log2(x))+1)
+  oct= tabulate(floor(log2(x))+1)
+  return(oct)
 }
+
+sum_vect = function(x,y) {
+     if (length(x) < length(y))    {
+      short = x
+      long =y 
+      newshort = c(x, rep(0, length(long)-length(short)))
+      sum = newshort + long 
+ }   else if (length(x) > length(y)) {
+      short = y
+      long = x
+      newshort = c(y, rep(0, length(long)-length(short)))
+      sum = newshort + long 
+ }   else  {
+    sum = x + y
+    }
+    return(sum)
+  }
+
+
+question_16 = function(){
+  octets = list()
+  x = initialise_min(100)
+  v = 0.1
+  i = 1
+  t = 100
+  # burn in
+  while (i < 20){
+    x = neutral_generation_speciation(x,v)
+    i = i + 1
+  }
+  # start of modelling
+  for ( j in 1:t){
+    #browser()
+    #catch richness 20 cycles, rih has 20 elements
+    for (k in 1:20) {
+        x = neutral_generation_speciation(x,v)
+        }
+    abundance = species_abundance(x)
+    octets[[j]] = octaves(abundance)
+  }
+  #find the average of the octaves which are list elements of octets
+  sum = vector()
+  for (l in 1:(t-1)){
+    oct_1 = octets[[l]]
+    oct_2 = octets[[l+1]]
+    tmp = sum_vect(oct_1, oct_2)
+    sum =  sum_vect(sum,tmp)
+    
+  }
+  ave = sum/t
+  names = names = c("1-3","4-7","8-31","32-63","64-127",">127")
+  barplot(ave,names.arg = names, main = "Frequency of abundances in octets", xlab = "abundances")
+  return(ave)   
+}
+ 
+  
+
+
 
