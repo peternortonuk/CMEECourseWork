@@ -44,27 +44,31 @@ neutral_generation_speciation = function(x,v){
   } 
   return(x)}
 
-cluster_run = function(speciation_rate = 0.002125, size = 100, wall_time = 30, interval_rich = 2, interval_oct = 0,burn_in_generation = 10) {
-  browser()
+
+cluster_run = function(speciation_rate = 0.002125,
+                       size = 100,
+                       wall_time = 10,
+                       interval_rich = 10,
+                       interval_oct = 0,
+                       burn_in_generation = 21) {
+  
   start = proc.time()[3]
-   comm = initialise_min(size)
-   rich = vector()
-   n = 0
-   int = 1
-   while(proc.time()[3]-start < wall_time) {
-     print(proc.time()[3]-start)n
-     print(n)
-     print(n < burn_in_generation)
-        if (n < burn_in_generation) {
-            comm = neutral_generation_speciation(comm, speciation_rate)
-            n = n + 1}
-            print(n) 
-       if (int %% interval_rich == 0) { 
-            rich = c(rich, species_richness(comm))}
-            int = int + 1
-            print(int)
-            }
-   return(rich)
+  comm = initialise_min(size)
+  rich = vector()
+  n = 0
+  
+  while (proc.time()[3] - start < wall_time) {
+    if (n < burn_in_generation) {
+      comm = neutral_generation_speciation(comm, speciation_rate)
+      
+      if (n %% interval_rich == 0) {
+        rich = c(rich, species_richness(comm))
+      }
+    }
+    n = n + 1
+    
+  }
+  return(rich)
 }
 
 

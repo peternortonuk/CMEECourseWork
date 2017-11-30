@@ -16,7 +16,10 @@ testloop = function(timer = 20, counter = 10, interval = 10) {
         xvect = c(xvect, sqrt(x))
         int = int + 1   }      
       print ("end of count")
-    }
+      
+  }
+  
  print("out of time")
+ return(xvect)
 }
 
