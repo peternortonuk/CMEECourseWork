@@ -96,3 +96,21 @@ This is simplistic, ugly and clunky, but I was mainly trying to see if I had the
 The next step, I think, is to extrapolate the above graph to get the estimate for species area??
 
 
+  print(x)
+  richness[i] = length(unique(x))
+  
+} 
+print(c("richness", richness))
+z2 = mean(richness)
+print(c("z2",z2))
+
+```
+What's the avergae number of species across all sites
+
+```{r}
+library(reshape)
+species = melt(Sites)
+richness = length(unique(species$value))
+z1 = mean(richness)/4
+print(c("z1", z1))
+```

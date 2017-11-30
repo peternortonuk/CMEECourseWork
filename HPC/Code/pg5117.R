@@ -9,7 +9,8 @@ rm(list = ls())
 graphics.off()
 
 generate_community = function(n){
-  sample(x = c(1:10), size = n, replace = TRUE)
+  comm = sample(x = c(1:10), size = n, replace = TRUE)
+  return(comm)
 }
 
 species_richness = function(x){
@@ -18,11 +19,13 @@ species_richness = function(x){
 }
 
 initialise_max = function(x){
-  seq(1:x)
+  comm = seq(1:x)
+  return(comm)
 }
 
 initialise_min = function(x){
-  rep(1,x)
+  comm = rep(1,x)
+  return(comm)
 }
 
 choose_two = function(x){
@@ -147,7 +150,7 @@ question_16 = function(){
   i = 1
   t = 100
   # burn in
-  while (i < 20){
+  while (i < 200){
     x = neutral_generation_speciation(x,v)
     i = i + 1
   }
@@ -176,7 +179,7 @@ question_16 = function(){
   return(ave)   
 }
  
-  
+
 
 
 

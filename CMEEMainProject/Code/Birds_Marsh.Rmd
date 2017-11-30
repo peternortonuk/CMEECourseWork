@@ -47,6 +47,7 @@ Need cummulative frequency of species for each nest
 
 
 ```{r}
+library(dplyr)
 species = mutate(group_by(species,Plot), cumsum = cumsum(frequency))
 colnames(species) = c("Plot","Nest","Freq","CumFreq")
 
