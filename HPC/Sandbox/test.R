@@ -23,3 +23,7 @@ testloop = function(timer = 20, counter = 10, interval = 10) {
  return(xvect)
 }
 
+mylist = list(c(1,2,3), c("A","B","c"))
+
+mylist[1] = "numbers"
+mylist[2] = "letters"

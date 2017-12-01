@@ -9,7 +9,7 @@
 rm(list = ls())
 graphics.off()
 
-iter = as.numeric(Sys.getenv(("PBS_ARRAY_INDEX")))
+#iter = as.numeric(Sys.getenv(("PBS_ARRAY_INDEX")))
 
 
 
@@ -83,12 +83,12 @@ sum_vect = function(x, y) {
 
 
 cluster_run = function(speciation_rate = 0.002125,
-                       size = 100,
-                       wall_time = 41000,
-                       interval_rich = 1,
-                       interval_oct = 10,
-                       burn_in_generation = 200,
-                       output_file_name = "my_test_file.rda") {
+                       size,
+                       wall_time = 10,
+                       interval_rich,
+                       interval_oct,
+                       burn_in_generation,
+                       output_file_name) {
   start = proc.time()[3]
   comm = initialise_min(size)
   rich = vector()
@@ -129,17 +129,17 @@ cluster_run = function(speciation_rate = 0.002125,
   
 }
 
+iter = 1
 outfile = paste("my_test_file_",iter, sep = "")
 outfile = paste(outfile, ".rda",sep = "")
 set.seed(iter)
-if (iter < 25) {
-  cluster_run(size = 500, interval_oct = 50, burn_in_generation = 4500, output_file_name = outfile)}
-if ((26 < iter)  &&  (iter < 50) ){
-  cluster_run(size = 1000,interval_oct = 100, burn_in_generation = 8000, output_file_name = outfile)}
-if ((51 < iter ) && (iter < 75)){
-  cluster_run(size = 2500, interval_oct = 250,burn_in_generation = 20000, output_file_name = outfile)}
+if (iter < 2) {
+  cluster_run(size = 5, interval_oct = 1, burn_in_generation = 10, output_file_name = outfile)}
+if ((3 < iter)  &&  (iter < 7) ){
+  cluster_run(size = 5,interval_oct = 1, burn_in_generation = 10, output_file_name = outfile)}
+if ((8< iter ) && (iter < 11)){
+  cluster_run(size = 5, interval_oct = 1,burn_in_generation = 10, output_file_name = outfile)}
 if ((76 < iter )&&( iter < 101)){
-  cluster_run(size = 5000, output_file_name = outfile)}
-
+  cluster_run(size = 5, output_file_name = outfile)}
 
 
