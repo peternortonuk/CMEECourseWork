@@ -5,7 +5,7 @@
 #R Studio Version 1.1.383 ubuntu 16.04 LTS 64bi
 #Author Petra Guy November 2017
 
-#Cluster run uses speciation rate, wall time, interval rich, interval oct, burn in generations, output file names.
+
 rm(list = ls())
 graphics.off()
 
@@ -89,31 +89,51 @@ cluster_run = function(speciation_rate,
                        interval_oct,
                        burn_in_generation,
                        output_file_name) {
-  start = proc.time()[3]
+  # Organise times
+  wall_time = wall_time*60
+  start = as.numeric(proc.time()[3])
+  
+  # initialise community
   comm = initialise_min(size)
   rich = vector()
-  n = 0
+  n = 1
+  index = 1
   octets = list()
-  mydata = list()
-  while (proc.time()[3] - start < wall_time) {
+  
+  while (as.numeric(proc.time()[3]) - start < wall_time) {
+    # update community
+    comm = neutral_generation_speciation(comm, speciation_rate)
+    # burn-in phase
     if (n < burn_in_generation) {
-      comm = neutral_generation_speciation(comm, speciation_rate)
-      
+      # sample
       if (n %% interval_rich == 0) {
+        # calculate richness and append
         rich = c(rich, species_richness(comm))
       }
     }
-    if (n > burn_in_generation) {
+    # after burn-in
+    else {
       abundance = species_abundance(comm)
-      
+      # sample
       if (n %% interval_oct == 0) {
-        octets[[n]] = octaves(abundance)
+        octets[[index]] = octaves(abundance)
+        index = index + 1
       }
     }
     n = n + 1
     
   }
-  run_time = (proc.time()[3] - start)
+  run_time = (as.numeric(proc.time()[3]) - start)/60
+  
+  #find the average of the octaves which are list elements of octets
+  len = length(octets)
+  sum = vector()
+  for (a in 1:len) {
+    sum = sum_vect(sum, octets[[a]])
+    
+  }
+  
+  state = sum / len
   
   save(
     speciation_rate,
@@ -124,59 +144,61 @@ cluster_run = function(speciation_rate,
     run_time,
     rich,
     octets,
+    state,
     file = output_file_name
   )
   
 }
 
 
+for (iter in 1:12){
+set.seed(iter)
+outfile = paste("../Results/pg5117_cluster_", iter, ".rda", sep = "")
 
-for (iter in 1:4) {
-  outfile = paste("my_test_file_", iter, sep = "")
-  outfile = paste(outfile, ".rda", sep = "")
-  set.seed(iter)
-  if (iter == 1) {
-    cluster_run(
-      speciation_rate = 0.002125,
-      size = 5,
-      wall_time = 10,
-      interval_rich = 1,
-      interval_oct = 1,
-      burn_in_generation = 10,
-      output_file_name = outfile
-    )
-  }
-  if (iter == 2) {
-    cluster_run(
-      speciation_rate = 0.002125,
-      size = 5,
-      wall_time = 10,
-      interval_rich = 1,
-      interval_oct = 1,
-      burn_in_generation = 10,
-      output_file_name = outfile
-    )
-  }
-  if (iter == 3) {
-    cluster_run(
-      speciation_rate = 0.002125,
-      size = 5,
-      wall_time = 10,
-      interval_rich = 1,
-      interval_oct = 1,
-      burn_in_generation = 10,
-      output_file_name = outfile
-    )
-  }
-  if (iter == 4) {
-    cluster_run(
-      speciation_rate = 0.002125,
-      size = 5,
-      wall_time = 10,
-      interval_rich = 1,
-      interval_oct = 1,
-      burn_in_generation = 10,
-      output_file_name = outfile
-    )
-  }
+if (iter < 4) {
+  cluster_run(
+    speciation_rate = 0.2125,
+    size = 100,
+    wall_time = 5,
+    interval_rich = 5,
+    interval_oct = 10,
+    burn_in_generation = 10,
+    output_file_name = outfile
+  )
+}
+
+if ((4 < iter)  &&  (iter < 9)) {
+  cluster_run(
+    speciation_rate = 0.2125,
+    size = 100,
+    wall_time = 5,
+    interval_rich = 5,
+    interval_oct = 10,
+    burn_in_generation = 10,
+    output_file_name = outfile
+  )
+}
+
+if ((9 < iter) && (iter < 13)) {
+  cluster_run(
+    speciation_rate = 0.2125,
+    size = 100,
+    wall_time = 5,
+    interval_rich = 5,
+    interval_oct = 10,
+    burn_in_generation = 10,
+    output_file_name = outfile
+  )
+}
+if ((13 < iter) && (iter < 17)) {
+  cluster_run(
+    speciation_rate = 0.2125,
+    size = 100,
+    wall_time = 5,
+    interval_rich = 1,
+    interval_oct = 10,
+    burn_in_generation = 10,
+    output_file_name = outfile
+  )
+}
 }

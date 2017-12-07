@@ -104,5 +104,9 @@ ggplot(reduced_species, aes(x=Nest, y = CumFreq)) + geom_point() + stat_smooth(m
     
    
 ```
+the next bit i will do 
+```{r}
+
+```
 
 
