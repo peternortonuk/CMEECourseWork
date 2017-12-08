@@ -9,7 +9,7 @@
 rm(list = ls())
 graphics.off()
 
-#iter = as.numeric(Sys.getenv(("PBS_ARRAY_INDEX")))
+iter = as.numeric(Sys.getenv(("PBS_ARRAY_INDEX")))
 
 
 
@@ -130,9 +130,7 @@ cluster_run = function(speciation_rate,
   sum = vector()
   for (a in 1:len) {
     sum = sum_vect(sum, octets[[a]])
-    
   }
-  
   state = sum / len
   
   save(
@@ -151,54 +149,54 @@ cluster_run = function(speciation_rate,
 }
 
 
-for (iter in 1:12){
-set.seed(iter)
-outfile = paste("../Results/pg5117_cluster_", iter, ".rda", sep = "")
 
-if (iter < 4) {
-  cluster_run(
-    speciation_rate = 0.2125,
-    size = 100,
-    wall_time = 5,
-    interval_rich = 5,
-    interval_oct = 10,
-    burn_in_generation = 10,
-    output_file_name = outfile
-  )
-}
-
-if ((4 < iter)  &&  (iter < 9)) {
-  cluster_run(
-    speciation_rate = 0.2125,
-    size = 100,
-    wall_time = 5,
-    interval_rich = 5,
-    interval_oct = 10,
-    burn_in_generation = 10,
-    output_file_name = outfile
-  )
-}
-
-if ((9 < iter) && (iter < 13)) {
-  cluster_run(
-    speciation_rate = 0.2125,
-    size = 100,
-    wall_time = 5,
-    interval_rich = 5,
-    interval_oct = 10,
-    burn_in_generation = 10,
-    output_file_name = outfile
-  )
-}
-if ((13 < iter) && (iter < 17)) {
-  cluster_run(
-    speciation_rate = 0.2125,
-    size = 100,
-    wall_time = 5,
-    interval_rich = 1,
-    interval_oct = 10,
-    burn_in_generation = 10,
-    output_file_name = outfile
-  )
-}
-}
+  set.seed(iter)
+  outfile = paste("pg5117_cluster_", iter, ".rda", sep = "")
+  
+  if (iter < 25) {
+    cluster_run(
+      speciation_rate = 0.002125,
+      size = 500,
+      wall_time = 30,
+      interval_rich = 1,
+      interval_oct = 50,
+      burn_in_generation = 4500,
+      output_file_name = outfile
+    )
+  }
+  
+  if ((26 < iter)  &&  (iter < 50)) {
+    cluster_run(
+      speciation_rate = 0.002125,
+      size = 1000,
+      wall_time = 30,
+      interval_rich = 1,
+      interval_oct = 100,
+      burn_in_generation = 8000,
+      output_file_name = outfile
+    )
+  }
+  
+  if ((51 < iter) && (iter < 75)) {
+    cluster_run(
+      speciation_rate = 0.002125,
+      size = 2500,
+      wall_time = 30,
+      interval_rich = 1,
+      interval_oct = 250,
+      burn_in_generation = 20000,
+      output_file_name = outfile
+    )
+  }
+  if ((76 < iter) && (iter < 101)) {
+    cluster_run(
+      speciation_rate = 0.002125,
+      size = 5000,
+      wall_time = 30,
+      interval_rich = 1,
+      interval_oct = 500,
+      burn_in_generation = 40000,
+      output_file_name = outfile
+    )
+  }
+  

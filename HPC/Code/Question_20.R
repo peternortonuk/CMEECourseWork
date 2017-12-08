@@ -33,7 +33,7 @@ get_quartile = function(i) {
   return(quartile)
 }
 
-# This function returns the sum and number of the octets in single file, to be found in path secified
+# This function returns the sum and number of the octets in single file, to be found in path specified
 get_sum_and_length_of_octet = function(i) {
   #browser()
   infile = paste("../Results/LocalResults/pg5117_cluster_", i, ".rda", sep = "")
