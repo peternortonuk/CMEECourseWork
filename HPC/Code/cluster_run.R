@@ -153,7 +153,7 @@ cluster_run = function(speciation_rate,
   set.seed(iter)
   outfile = paste("pg5117_cluster_", iter, ".rda", sep = "")
   
-  if (iter < 25) {
+  if (iter < 26) {
     cluster_run(
       speciation_rate = 0.002125,
       size = 500,
@@ -165,7 +165,7 @@ cluster_run = function(speciation_rate,
     )
   }
   
-  if ((26 < iter)  &&  (iter < 50)) {
+  if ((25 < iter)  &&  (iter < 51)) {
     cluster_run(
       speciation_rate = 0.002125,
       size = 1000,
@@ -177,7 +177,7 @@ cluster_run = function(speciation_rate,
     )
   }
   
-  if ((51 < iter) && (iter < 75)) {
+  if ((50 < iter) && (iter < 76)) {
     cluster_run(
       speciation_rate = 0.002125,
       size = 2500,
@@ -188,7 +188,7 @@ cluster_run = function(speciation_rate,
       output_file_name = outfile
     )
   }
-  if ((76 < iter) && (iter < 101)) {
+  if ((75 < iter) && (iter < 101)) {
     cluster_run(
       speciation_rate = 0.002125,
       size = 5000,

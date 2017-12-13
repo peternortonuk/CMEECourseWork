@@ -2,8 +2,8 @@
 
 #Using coalescence, ChallengeD
 rm(list = ls())
-sizes  = c(500, 1000, 2500, 5000)
-v = 0.002125
+sizes  = c(100, 1000, 2500, 5000)
+v = 0.1
 
 initialise_min = function(x) {
   comm = rep(1, x)
@@ -16,14 +16,15 @@ octaves = function(x) {
  
   Abundances = list()
   
+ 
+  for (i in 1:4){
   
-  for (i in 1:4) {
     #browser()
     octets = list()
-    size = sizes[i]
-    theta = 0.002125 * (size - 1) / (1 - v)
+    size = sizes[i]     # set size to 500,1000 etc
+    theta = v * (size - 1) / (1 - v)
     abundance = vector()
-    lineages = initialise_min(size)
+    lineages = initialise_min(size)  # initialise lineagse to min of size
     N = length(lineages)
     
     while (N > 1) {
@@ -32,16 +33,17 @@ octaves = function(x) {
       index = sample(N, 2)
       
       if (r < p) {
-        abundance = c(abundance, lineages[index[1]])
+        abundance = c(abundance, lineages[index[2]])
       }
       else {
-        lineages[index[1]] = lineages[index[1]] + lineages[index[2]]
-        lineages = lineages[-index[2]]
+        lineages[index[1]]=lineages[index[1]] + lineages[index[2]]
+        
       }
+      lineages = lineages[-index[2]]
       N = length(lineages)
     }
-    
-    abundance = c(abundance, lineages)
+   
+    abundance = sort(c(abundance, lineages), decreasing = TRUE)
     Abundances[[i]] = abundance
     octets[[i]] = octaves(abundance)
     print(length(octets[[i]]))
@@ -50,8 +52,8 @@ octaves = function(x) {
   octets = list()
   for (i in 1:4){
     octets[[i]]= octaves(Abundances[[i]])
-    
   }
+  
   par(mfrow = c(2, 2))
   y1 = octets[[1]]
   #names = names = c("1", "2", "3", "4", "5", "6","7","8","9")

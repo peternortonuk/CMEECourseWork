@@ -9,10 +9,9 @@ rm(list = ls())
 graphics.off()
 
 ## generate a random community of size n, varies due to input of seed
-generate_community = function(n,seed) {
-  set.seed(seed)
-  comm = sample(x = c(1:10),
-                size = n,
+generate_community = function(m,size) {
+  comm = sample(x = c(1:m),
+                size = size,
                 replace = TRUE)
   return(comm)
 }
@@ -233,268 +232,142 @@ get_series_average = function(richness_vector){
 
 ######################  Challenge A #######################################
 
-challenge_A = function() {
-  t = 200
-  v = 0.1
-  #get two starting communities
-  comm_max = initialise_max(100)
-  comm_min = initialise_min(100)
-  #get times series of richness for them both
+#Calculate species ricchness at each time interval and store the values.
+#Repeat.
+#Take average richness at each time step.
+
+challenge_A = function(){
+t = 200
+v = 0.1
+repeats = 500
+
+#get two starting communities
+comm_max = initialise_max(100)
+comm_min = initialise_min(100)
+
+#initialise richness vector
+richness_max_vect = vector(length = t)
+richness_min_vect = vector(length = t)
+
+#initialise df for storing output for laer calculations
+richness_df_max = data.frame()
+richness_df_min = data.frame()
+
+
+for (i in 1:repeats) {
+  
+  #get times series of richness for them both - repeat this and store values for each repeat
   rich_max = neutral_time_series_speciation(comm_max, v, t)
   rich_min = neutral_time_series_speciation(comm_min, v, t)
-  #get two sets of averages for the two richness vectors, then the for loop takes the average
-  #as you increment along the richness vector
-  avg_min = get_series_average(rich_min)
-  avg_max = get_series_average(rich_max)
   
-  #put averages in a dataframe
-  x = (1:t)
-  df = data.frame(max = avg_max, min = avg_min, time = x)
-  #create confidence intervals from variance, only using values after the burn-in
+  richness_df_max = rbind(richness_df_max,rich_max)
+  richness_df_min = rbind(richness_df_min,rich_min)
   
-  sd_max = sqrt(var(df$max[50:200]))
-  sd_min = sqrt(var(df$min[50:200]))
-  #for 97.2% CI we need 98.6th percentile = z of 2.2
-  CI_upper_max = df$max + 2.2*sd_max
-  CI_lower_max = df$max - 2.2*sd_max
-  
-  CI_upper_min = df$min + 2.2*sd_max
-  CI_lower_min = df$min - 2.2*sd_max
-  
-  #plot the graphs
-  titles = c("Max", "Min")
-  y =  cbind(avg_max, avg_min)
-  colnames(y) = titles
-  matplot (x, y, pch = 16, col = 1:2,
-           xlab = "generations", ylab = "average richness", main = "Average Species Richness")
-  legend(1,
-         50,
-         legend = colnames(y),
-         col = 1:2,
-         lty = 1:4)
-  
-  #add the CIs
-  lines(CI_upper_max)
-  lines(CI_lower_max)
-  lines(CI_upper_min, col = "red")
-  lines(CI_lower_min, col = "red")
   
 }
+#can be useful to name cols - otherwise first row can become a header
+cols = c(1:t)
+colnames(richness_df_max) = cols
+colnames(richness_df_min) = cols
+#calcualte the standard deviations and averages using the dataframe of stored richnesses
+#because each run is a row the cols are used for sd and ave.
+sd_max = sqrt(apply(richness_df_max,2,var))
+sd_min = sqrt(apply(richness_df_min,2,var))
+avg_max = colSums(richness_df_max)/repeats
+avg_min = colSums(richness_df_min)/repeats
 
+#for 97.2% CI we need 98.6th percentile = z of 2.2
+CI_upper_max = avg_max + 2.2*sd_max
+CI_lower_max = avg_max - 2.2*sd_max
+
+CI_upper_min = avg_min + 2.2*sd_min
+CI_lower_min = avg_min - 2.2*sd_min
+
+#plot the graphs
+
+x = (1:t)
+titles = c("Maximum initial richness", "Minimum initial richness")
+y =  cbind(avg_max, avg_min)
+
+matplot (x, y, pch = 20, col = 1:2, xlim = c(0,t), ylim = c(0,100),
+         xlab = "time", ylab = "Average species richness",
+         main = "Average species richness for 500 repeats of neutral_time_series_speciation")
+legend(50,
+       100,
+       legend = titles,
+       col = 1:2,
+       lty = 1:4)
+
+lines(CI_upper_max)
+lines(CI_lower_max)
+lines(CI_upper_min, col = "red")
+lines(CI_lower_min, col = "red")
+
+}
 ################ CHALLENGE B #############################
-
+# We want to repeat challenge A, but use different startting communities
+#not just min and max. The function generates a community with a random richness.
 challenge_B = function(){
-  #browser()
+  
   v = 0.1
   t = 200
   size = 100
-  richness_matrix = matrix(nrow = 200)
-  for (i in 1:10){
-    seed = i
-    community = generate_community(size,seed)
-    richness = neutral_time_series_speciation(community,v,t)
-    average_richness = get_series_average(richness)
-    richness_matrix = cbind(richness_matrix,average_richness)
-  }
+  repeats = 50
+  num_communties = 10
   
-  # plot the series
-  x = (1:t)
-  matplot (x, richness_matrix, pch = 16,
-           xlab = "generations", ylab = "average richness", main = "Average Species Richness")
-}
-################# QUESTION 17 AND 18 ####################################
-# THIS IS THE FULL PROGRAMME AS IT WAS LOADED ONTO THE HPC - SO SOME OF THESE FUNCTIONS ARE REPEATS
-
-iter = as.numeric(Sys.getenv(("PBS_ARRAY_INDEX")))
-
-
-
-initialise_min = function(x) {
-  comm = rep(1, x)
-  return(comm)
-}
-
-choose_two = function(x) {
-  two = sample(x, 2)
-  return(two)
-}
-
-
-neutral_step_speciation = function(x, v) {
-  p = runif(1)
-  if (v < p) {
-    index = choose_two(length(x))
-    x[index[1]] = x[index[2]]
-  }
-  else {
-    newspecies =  max(x) + 1
-    index = sample((length(x)), size = 1, replace = TRUE)
-    x[index] = newspecies
-  }
-  return(x)
-}
-
-species_richness = function(x) {
-  r = length(unique(x))
-  return(r)
-}
-
-neutral_generation_speciation = function(x, v) {
-  n =  round(length(x) / 2)
-  for (i in 1:n) {
-    x = neutral_step_speciation(x, v)
-  }
-  return(x)
-}
-
-
-species_abundance = function(x) {
-  abundance = as.numeric(sort(table(x), decreasing = TRUE))
-  return(abundance)
-}
-
-octaves = function(x) {
-  oct = tabulate(floor(log2(x)) + 1)
-  return(oct)
-}
-
-sum_vect = function(x, y) {
-  if (length(x) < length(y))    {
-    short = x
-    long = y
-    newshort = c(x, rep(0, length(long) - length(short)))
-    sum = newshort + long
-  }   else if (length(x) > length(y)) {
-    short = y
-    long = x
-    newshort = c(y, rep(0, length(long) - length(short)))
-    sum = newshort + long
-  }   else  {
-    sum = x + y
-  }
-  return(sum)
-}
-
-
-
-
-cluster_run = function(speciation_rate,
-                       size,
-                       wall_time,
-                       interval_rich,
-                       interval_oct,
-                       burn_in_generation,
-                       output_file_name) {
-  # Organise times
-  wall_time = wall_time*60
-  start = as.numeric(proc.time()[3])
+  communities = data.frame(row.names = FALSE)
   
-  # initialise community
-  comm = initialise_min(size)
-  rich = vector()
-  n = 1
-  index = 1
-  octets = list()
-  
-  while (as.numeric(proc.time()[3]) - start < wall_time) {
-    # update community
-    comm = neutral_generation_speciation(comm, speciation_rate)
-    # burn-in phase
-    if (n < burn_in_generation) {
-      # sample
-      if (n %% interval_rich == 0) {
-        # calculate richness and append
-        rich = c(rich, species_richness(comm))
-      }
-    }
-    # after burn-in
-    else {
-      abundance = species_abundance(comm)
-      # sample
-      if (n %% interval_oct == 0) {
-        octets[[index]] = octaves(abundance)
-        index = index + 1
-      }
-    }
-    n = n + 1
+  #generate some communites with random initial richnesses and store them
+  #in a datframe called communties. Because expected richness for 100 selected
+  #from 100 is 63.66, richness will always be around 64. To get a variety of richnesses
+  # the number out of wich to select is altered
+  for (i in 1:num_communties){
+    set.seed(i)
+    m = size/i
+    community = generate_community(m,size)
+    communities = cbind(communities, community)
     
   }
-  run_time = (as.numeric(proc.time()[3]) - start)/60
   
-  #find the average of the octaves which are list elements of octets
-  len = length(octets)
-  sum = vector()
-  for (a in 1:len) {
-    sum = sum_vect(sum, octets[[a]])
+  #create a list of dataframes of richnesses for each community in communities
+  #when is is processes through neutral_time_series_speciation repeat times
+  
+  richness_list = list()
+  
+  get_repeated_richnesses = function(a_comm,v,t){
+    richness_df = data.frame()
+    for (i in 1:repeats){
+      richness = neutral_time_series_speciation(a_comm, v, t)
+      richness_df = rbind(richness_df,richness, row.names = NULL)
+    }
+    return(richness_df)
   }
-  state = sum / len
   
-  save(
-    speciation_rate,
-    size,
-    interval_rich,
-    interval_oct,
-    burn_in_generation,
-    run_time,
-    rich,
-    octets,
-    state,
-    file = output_file_name
-  )
+  for (i in 1:num_communties){
+    richness_list[[i]] = get_repeated_richnesses(communities[,i],v,t)
+  }
+  
+  # we now have richness_list. Each element is a num repeats x t dataframe for each 
+  #initial community. Each row of the datafram is the richness value through time.
+  # There as many rows as we specified repeats to average over. As for challenge A
+  #we now take the  average for each column to give an average richness 
+  #over the time steps. No CI required this time
+  ave_df =  data.frame(row.names = FALSE)
+  for (i in 1:num_communties){
+    ave = colSums(richness_list[[i]])/repeats
+    ave_df = cbind(ave_df,ave,row.names = NULL)
+  }
+  
+  x = (1:t)
+  matplot (x, ave_df, pch = 19, cex = 0.3,
+           xlab = "generations", ylab = "average richness", 
+           main = "Average species richness for various starting communities",
+           sub = "v = 0.1, community size = 100")
   
 }
+################# QUESTION 17 AND 18 ####################################
+# THE FULL PROGRAMME AS IT WAS LOADED ONTO THE HPC SAVED SEPARATWLY
 
-
-
-set.seed(iter)
-outfile = paste("pg5117_cluster_", iter, ".rda", sep = "")
-
-if (iter < 25) {
-  cluster_run(
-    speciation_rate = 0.002125,
-    size = 500,
-    wall_time = 690,
-    interval_rich = 1,
-    interval_oct = 50,
-    burn_in_generation = 4500,
-    output_file_name = outfile
-  )
-}
-
-if ((26 < iter)  &&  (iter < 50)) {
-  cluster_run(
-    speciation_rate = 0.002125,
-    size = 1000,
-    wall_time = 690,
-    interval_rich = 1,
-    interval_oct = 100,
-    burn_in_generation = 8000,
-    output_file_name = outfile
-  )
-}
-
-if ((51 < iter) && (iter < 75)) {
-  cluster_run(
-    speciation_rate = 0.002125,
-    size = 2500,
-    wall_time = 690,
-    interval_rich = 1,
-    interval_oct = 250,
-    burn_in_generation = 20000,
-    output_file_name = outfile
-  )
-}
-if ((76 < iter) && (iter < 101)) {
-  cluster_run(
-    speciation_rate = 0.002125,
-    size = 5000,
-    wall_time = 690,
-    interval_rich = 1,
-    interval_oct = 500,
-    burn_in_generation = 40000,
-    output_file_name = outfile
-  )
-}
 ################ QUESTION 19 #######################################
 #BASH SCRIPT, 
 #R CODE
@@ -563,30 +436,36 @@ get_results = function() {
 plot_results = function(results) {
   par(mfrow = c(2, 2))
   ave1 = results[[1]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9")
+  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9")
   plot1 = barplot(ave1,
-                  names.arg = names,
-                  main = "Average abundances in octets",
+                  #names.arg = names,
+                  main = paste(round(results[[1]],3),collapse=","), cex.main = 0.75,
                   xlab = "abundances")
   ave2 = results[[2]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10")
+  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10")
   plot2 = barplot(ave2,
-                  names.arg = names,
-                  main = "Average abundances in octets",
+                  #names.arg = names,
+                  main = paste(round(results[[2]],3),collapse=","),cex.main = 0.75,
                   xlab = "abundances")
   ave3 = results[[3]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12")
+  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12")
   plot3 = barplot(ave3,
-                  names.arg = names,
-                  main = "Average abundances in octets",
+                  #names.arg = names,
+                  main = paste(round(results[[3]],3),collapse=","),cex.main = 0.75,
                   xlab = "abundances")
   ave4 = results[[4]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12")
+  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12","13")
   barplot(ave4,
-          names.arg = names,
-          main = "Average abundances in octets",
+          #names.arg = names,
+          main = paste(round(results[[4]],3),collapse=","),cex.main = 0.75,
           xlab = "abundances")
 }
+# Call results = get_results()
+# and plot_results(results)
+# to plot the barcharts and show the averages
+
+
+##########CHALLENGE C ##########################
 
 ######################## CHALLENGE D #################
 
@@ -610,7 +489,7 @@ Challengne_D = function() {
       index = sample(N, 2)
       
       if (r < p) {
-        abundance = c(abundance, lineages[index[1]])
+        abundance = c(species_abundance(abundance), lineages[index[1]])
       }
       else {
         lineages[index[1]] = lineages[index[1]] + lineages[index[2]]

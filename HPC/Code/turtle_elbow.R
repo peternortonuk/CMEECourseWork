@@ -12,14 +12,25 @@ turtle = function(start, distance, direction){
 }
 
 
+# elbow = function(start, distance, direction){
+#     #browser()
+#   coords = turtle(start, distance, direction)
+#   direction = -1* (pi - direction - pi/4)
+#   distance = 0.95*distance
+#   coords = turtle(coords, distance, direction)
+# 
+# }
+
 elbow = function(start, distance, direction){
-    #browser()
+  #browser()
   coords = turtle(start, distance, direction)
-  direction = -1* (pi - direction - pi/4)
+  direction = (direction  - pi/4)
   distance = 0.95*distance
   coords = turtle(coords, distance, direction)
   
 }
+
+  
 
 spiral = function(start, distance, direction){
   coords = turtle(start, distance, direction)
