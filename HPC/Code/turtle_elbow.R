@@ -34,10 +34,9 @@ elbow = function(start, distance, direction){
 
 spiral = function(start, distance, direction){
   coords = turtle(start, distance, direction)
-  direction = -1* (pi - direction - pi/4)
+  direction = (direction - pi/4)
   distance = 0.95*distance
-  #coords = turtle(coords, distance, direction)
-  if (distance > 0.1)
+ 
   spiral(coords,distance,direction)
   
 }
@@ -45,15 +44,14 @@ graphics.off()
 plot(NA, xlim=c(0,1), ylim=c(0,1), xlab="X", ylab="Y")
 
 spiral_2 = function(start, distance, direction){
-  coords = turtle(start, distance, direction)
-  
-  if (distance > 0.1){
-    #direction = -1* (pi - direction - pi/4)
+    coords = turtle(start, distance, direction)
+    direction = (direction - pi/4)
     distance = 0.95*distance
-    spiral(coords,distance = 0.95*distance, direction = (-1* (pi - direction - pi/4)))
-  
-}
-}
+    if (distance > 0.1){
+    spiral_2(coords,distance,direction)
+    }
+  }
+
 graphics.off()
 
 plot(NA, xlim=c(0,50), ylim=c(0,50), xlab="X", ylab="Y")
