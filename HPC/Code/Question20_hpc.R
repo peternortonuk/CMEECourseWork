@@ -23,16 +23,16 @@ sum_vect = function(x, y) {
 #couldnt work out easy wy of specifying files in each batch, so this
 get_quartile = function(i) {
   if (i == 1) {
-    quartile = c(1:24)
+    quartile = c(1:25)
   }
   else if (i == 2) {
-    quartile = c(27:49)
+    quartile = c(26:50)
   }
   else if (i == 3) {
-    quartile = c(52:74)
+    quartile = c(51:75)
   }
   else {
-    quartile = c(77:100)
+    quartile = c(76:100)
   }
   return(quartile)
 }
@@ -40,7 +40,7 @@ get_quartile = function(i) {
 # This function returns the sum and number of the octets in single file, to be found in path specified
 get_sum_and_length_of_octet = function(i) {
   #browser()
-  infile = paste("../Results/Cluster_1207/pg5117/pg5117_cluster_", i, ".rda", sep = "")
+  infile = paste("../Results/Unzipped/pg5117_cluster_", i, ".rda", sep = "")
   load(infile)
   len = length(octets)
   sum = vector()
@@ -77,29 +77,27 @@ get_results = function() {
 plot_results = function(results) {
   par(mfrow = c(2, 2))
   ave1 = results[[1]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9")
   plot1 = barplot(ave1,
-                  names.arg = names,
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(results[[1]], 3), collapse = ","),
+                  xlab = "abundances, size = 500")
+  
   ave2 = results[[2]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10")
   plot2 = barplot(ave2,
-                  names.arg = names,
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(results[[2]], 3), collapse = ","),
+                  xlab = "abundances, size = 1000")
+  
   ave3 = results[[3]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12")
   plot3 = barplot(ave3,
-                  names.arg = names,
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(results[[3]], 3), collapse = ","),
+                  xlab = "abundances, size = 2500")
+  
   ave4 = results[[4]]
-  names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12")
   barplot(ave4,
-          names.arg = names,
-          main = "Average abundances in octets",
-          xlab = "abundances")
+          main = paste(round(results[[4]], 3), collapse = ","),
+          xlab = "abundances, size = 5000")
 }
+results =  get_results()
+plot_results(results)
+
 
 #files = Sys.glob(file.path("/home/petra/Documents/CMEECourseWork/HPC/Results/LocalResults/", "*.rda"))

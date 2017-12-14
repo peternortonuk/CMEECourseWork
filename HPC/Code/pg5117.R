@@ -380,26 +380,26 @@ challenge_B = function(){
 ############# Question 20 ##########################################
 # Read in the files from the HPC
 #couldnt work out easy wy of specifying files in each batch, so this first function
+
 get_quartile = function(i) {
   if (i == 1) {
-    quartile = c(1:24)
+    quartile = c(1:25)
   }
   else if (i == 2) {
-    quartile = c(27:49)
+    quartile = c(26:50)
   }
   else if (i == 3) {
-    quartile = c(52:74)
+    quartile = c(51:75)
   }
   else {
-    quartile = c(77:100)
+    quartile = c(76:100)
   }
   return(quartile)
 }
-
 # This function returns the sum and number of the octets in single file, to be found in path specified
 get_sum_and_length_of_octet = function(i) {
   #browser()
-  infile = paste("../Results/Cluster_1207/pg5117/pg5117_cluster_", i, ".rda", sep = "")
+  infile = paste("../Results/Unzipped/pg5117_cluster_", i, ".rda", sep = "")
   load(infile)
   len = length(octets)
   sum = vector()
@@ -436,33 +436,27 @@ get_results = function() {
 plot_results = function(results) {
   par(mfrow = c(2, 2))
   ave1 = results[[1]]
-  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9")
   plot1 = barplot(ave1,
-                  #names.arg = names,
-                  main = paste(round(results[[1]],3),collapse=","), cex.main = 0.75,
-                  xlab = "abundances")
+                  main = paste(round(results[[1]], 3), collapse = ","),
+                  xlab = "abundances, size = 500")
+  
   ave2 = results[[2]]
-  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10")
   plot2 = barplot(ave2,
-                  #names.arg = names,
-                  main = paste(round(results[[2]],3),collapse=","),cex.main = 0.75,
-                  xlab = "abundances")
+                  main = paste(round(results[[2]], 3), collapse = ","),
+                  xlab = "abundances, size = 1000")
+  
   ave3 = results[[3]]
-  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12")
   plot3 = barplot(ave3,
-                  #names.arg = names,
-                  main = paste(round(results[[3]],3),collapse=","),cex.main = 0.75,
-                  xlab = "abundances")
+                  main = paste(round(results[[3]], 3), collapse = ","),
+                  xlab = "abundances, size = 2500")
+  
   ave4 = results[[4]]
-  #names = names = c("1", "2", "3", "4", "5", "6","7","8","9","10","11","12","13")
   barplot(ave4,
-          #names.arg = names,
-          main = paste(round(results[[4]],3),collapse=","),cex.main = 0.75,
-          xlab = "abundances")
+          main = paste(round(results[[4]], 3), collapse = ","),
+          xlab = "abundances, size = 5000")
 }
-# Call results = get_results()
-# and plot_results(results)
-# to plot the barcharts and show the averages
+#results =  get_results()
+#plot_results(results)
 
 
 ##########CHALLENGE C ##########################
@@ -473,36 +467,74 @@ plot_results = function(results) {
 Challengne_D = function() {
   sizes  = c(500, 1000, 2500, 5000)
   v = 0.002125
+  reps = 500
+  octets = rep(list(rep(0,6)),4)
   
-  Abundances = list()
-  
-  for (i in 1:4) {
-    size = sizes[i]
-    theta = 0.002125 * (size - 1) / (1 - v)
-    abundance = vector()
-    lineages = initialise_min(size)
-    N = length(lineages)
+  for (j in 1:reps){
+    #browser()
+    octet = list()
     
-    while (N > 1) {
-      p = theta / (theta + N - 1)
-      r = runif(1, 0:1)
-      index = sample(N, 2)
+    for (i in 1:4){
       
-      if (r < p) {
-        abundance = c(species_abundance(abundance), lineages[index[1]])
-      }
-      else {
-        lineages[index[1]] = lineages[index[1]] + lineages[index[2]]
+      size = sizes[i]     # set size to 500,1000 etc
+      theta = v * (size - 1) / (1 - v)
+      abundance = vector()
+      lineages = initialise_min(size)  # initialise lineagse to min of size
+      N = size
+      
+      while (N > 1) {
+        p = theta / (theta + N - 1)
+        r = runif(1, 0:1)
+        index = sample(N, 2)
+        
+        if (r < p) {
+          abundance = c(abundance, lineages[index[2]])
+        }
+        else {
+          lineages[index[1]]=lineages[index[1]] + lineages[index[2]]
+          
+        }
         lineages = lineages[-index[2]]
+        N = length(lineages)
       }
-      N = length(lineages)
+      
+      abundance = sort(c(abundance, lineages), decreasing = TRUE)
+      octet[[i]] = octaves(abundance)
+      x = octet[[i]]
+      y = octets[[i]]
+      sum = sum_vect(x,y)
+      octets[[i]] = sum
+      
     }
     
-    abundance = c(abundance, lineages)
-    Abundances[[i]] = abundance
   }
+  
+  
+  
+  par(mfrow = c(2, 2))
+  y1 = octets[[1]]/reps
+  
+  plot1 = barplot(y1,
+                  
+                  main = "Average abundances in octets",
+                  xlab = "abundances")
+  y2 = octets[[2]]/reps
+  
+  plot2 = barplot(y2,
+                  
+                  main = "Average abundances in octets",
+                  xlab = "abundances")
+  y3 = octets[[3]]/reps
+  
+  plot3 = barplot(y3,
+                  
+                  main = "Average abundances in octets",
+                  xlab = "abundances")
+  y4 = octets[[4]]/reps
+  
+  barplot(y4,
+          
+          main = "Average abundances in octets",
+          xlab = "abundances")
+
 }
-
-##################### FRACTALS SECTION ###############################
-
-
