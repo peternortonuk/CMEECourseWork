@@ -1,7 +1,7 @@
 ---
 title: "HPC Coursework"
 author: "PetraGuy"
-date: "4 December 2017"
+date: "14th December 2017"
 output: pdf_document
 ---
 
@@ -17,13 +17,13 @@ rm(list = ls())
 graphics.off()
 
 #generate random communities
-generate_community = function(n,seed) {
-  set.seed(seed)
-  comm = sample(x = c(1:10),
-                size = n,
+generate_community = function(m,size) {
+  comm = sample(c(1:m),
+                size = size,
                 replace = TRUE)
   return(comm)
 }
+
 
 #Q1 get species richness
 species_richness = function(x) {
@@ -94,7 +94,7 @@ question_8()
 ```
 
 
-The graph plots species richness of a community starting with 100 different species over 2000 generations. In this model new species are not introduced, so each step wither maintains the richness or reduces it. For example, if you begin with a community (1,2,3,4,5), one step could change this to (2,2,3,4,5) At the next step he community will either remain unchanged, or be reduced, for example (2,2,3,3,5). Since there is no mechanism to increase species richness, eventually, given enough steps, the richness will become 1.
+The graph plots species richness of a community starting with 100 different species over 2000 generations. In this model new species are not introduced, so each step either maintains the richness or reduces it. For example, if you begin with a community (1,2,3,4,5), one step could change this to (2,2,3,4,5) At the next step the community will either remain unchanged, or be reduced, for example (2,2,3,3,5). Since there is no mechanism to increase species richness, eventually, given enough steps, the richness will become 1.
 
 
 ```{r, echo = FALSE}
@@ -473,7 +473,7 @@ challenge_B = function(){
 challenge_B()
 ```
 
-
+A range of initial community richness were used here. The average was calculated over 50 repeats for the time series of species richness. The graph shows that whatever the initial richness, the same richness will be reached eventually for all communities, given that they were all the same size and same speciation rate.
 
 ```{r, echo = FALSE}
 ############# Question 20 ##########################################
@@ -561,19 +561,13 @@ plot_results(results)
 
 ```
 Question 20.
-These are the output avergae abundances, in octets, from the simulations run on the HPC.
-the values are shown again below for clarity.
-
-```{r}
-print(results)
-```
-
+These are the output average abundances, in octets, from the simulations run on the HPC.The values are shown again below for clarity. The speciation rate was very low for this simulation, therefore you would expect the final species richness to be low. The smaller communities show less richness than the larger ones, as shown in the graphs for question_12b above. With such a low speciation rate, even a community of 500 does not reach a very large final secies richness.
 
 
 
 ```{r, echo = FALSE}
 ### Coalescence simulation 
-Challenge_D = function() {
+challenge_D = function() {
 sizes  = c(500, 1000, 2500, 5000)
 v = 0.002125
 reps = 500
@@ -618,45 +612,48 @@ octets = rep(list(rep(0,6)),4)
   
    }
   
-
- 
   par(mfrow = c(2, 2))
   y1 = octets[[1]]/reps
   
   plot1 = barplot(y1,
-                 
-                  main = paste(round(results[[1]], 3), collapse = ","),
-                  xlab = "abundances")
+                  main = paste(round(y1, 3), collapse = ","),
+                  xlab = "abundances, size = 500")
   y2 = octets[[2]]/reps
- 
+  
   plot2 = barplot(y2,
-                 
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(y2, 3), collapse = ","),
+                  xlab = "abundances, size = 1000")
   y3 = octets[[3]]/reps
   
   plot3 = barplot(y3,
-                  
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(y3, 3), collapse = ","),
+                  xlab = "abundances, size = 2500")
   y4 = octets[[4]]/reps
   
-  barplot(y4,
-          
-          main = "Average abundances in octets",
-          xlab = "abundances")
+   plot4 = barplot(y4,
+                  main = paste(round(y4, 3), collapse = ","),
+                  xlab = "abundances, size = 5000")
+   
+print(y1)
+print(y2)
+print(y3)
+print(y4)
 }
 
 ```
  
 ```{r}
-Challenge_D()
+challenge_D()
 ```
 
 
 
-These are the octets from the coalescence simulation, which look very similar to the results of the simulation from the HPC (!).
+These are the octets from the coalescence simulation, which look very similar to the results of the simulation from the HPC.
 Not totally sure why one is quicker - except that in the coalescence model you generate one community, then do the size of the community calculations, so for our sizes,that's a maximum of 10,000 cyles in the loop. For the neutral model you generate a new community of size N many times during the burn in, then you continue recreating new communities for the presest time in order to take an average over all the cyles. Therefore there are many more calculations. 
+
+```{r}
+
+```
 
 Question 18
 
@@ -730,10 +727,24 @@ spiral(c(0,0),1,1)
 Q22 Fractals.
 The code produces a spiral, but includes a nested, recurssive loop because it continually calls itself. Putting an if (distance > 0.1) statement before calling spiral within spiral ensure that the programme will stop.
 
+The angle was too large in the above spiral - so here's another
+
 ```{r, echo=FALSE}
-graphics.off()
+plot(NA, xlim=c(0,2.5), ylim=c(0,3.5), xlab="X", ylab="Y")
+spiral_2 = function(start, distance, direction){
+    coords = turtle(start, distance, direction)
+    direction = (direction - pi/4)
+    distance = 0.95*distance
+    if (distance > 0.01){
+    spiral_2(coords,distance,direction)
+    }
+  }
+start = c(0,2)
+spiral_2(start,1,pi/4)
 
+```
 
+```{r, echo=FALSE}
 
 tree = function(start, distance, direction) {
   coords = turtle(start, distance, direction)
@@ -745,19 +756,29 @@ tree = function(start, distance, direction) {
     }
 }
 
-
-```
-
-```{r}
 plot(NA, xlim=c(0,50), ylim=c(0,50), xlab="X", ylab="Y")
 tree(c(25,0),30,1.5)
 ```
-
+In this code the direction is always plus or minus pi/4
 
 ```{r, echo=FALSE}
-graphics.off()
+plot(NA, xlim=c(0,10), ylim=c(0,10), xlab="X", ylab="Y")
+tree = function(start,distance,direction){
+  coords = turtle(start, distance, direction)
+  direction1 = (direction - pi/4)
+  direction2 = (direction + pi/4)
+  distance = 0.65*distance
+  if (distance > 0.1){
+    tree(coords,distance,direction1)
+    tree(coords,distance,direction2)
+  }
+}
+start = c(5,0)
+tree(start,3,pi/2)
+```
+Here, the new direction is changed within each recursion so that the branches curl - i.e the new direction is added to the previous one.
 
-
+```{r, echo=FALSE}
 
 fern = function(start, distance, direction) {
   coords = turtle(start, distance, direction)
@@ -770,20 +791,118 @@ fern = function(start, distance, direction) {
     fern(coords, distance= 0.87*distance2, direction = (pi/2) ) 
   }
 }
-
-```
-
-```{r}
-plot(NA, xlim=c(0,2), ylim=c(0,10), xlab="X", ylab="Y")
+plot(NA, xlim=c(1,1.6), ylim=c(0,10), xlab="X", ylab="Y")
 fern(c(1,0),1,1)
 ```
 
-
-
+Like the first tree, the direction here is always 3pi/4  or pi/2 because they are hard coded into the function argument.
 
 
 ```{r, echo = FALSE}
+plot(NA, xlim=c(2.5,9), ylim=c(0,5), xlab="X", ylab="Y")
+fern = function(start,distance,direction){
+  coords = turtle(start, distance, direction)
+  direction1 = direction + pi/4
+  direction2 = pi/2
+  if (distance > 0.1){
+    fern(coords,0.87*distance, direction1)
+    fern(coords,0.38*distance, direction2)
+  }
+}
+start = c(8,0)
+fern(start,2,pi/2)
+```
+In this code the direction changes within each recursion giving the curled head of an opening dryopteris fern.
+
+```{r,echo=FALSE}
+plot(NA, xlim=c(1,9), ylim=c(0,7), xlab="X", ylab="Y")
+fern_mod = function(start,distance,direction){
+  coords = turtle(start, distance, direction)
+  direction1 = (direction + pi/8)
+  direction2 = 0.9*direction
+  if (distance > 0.1){
+    fern_mod(coords,0.87*distance,direction1)
+    fern_mod(coords,0.5*distance,direction2)
+  }
+}
+start = c(8,0)
+fern_mod(start,2,pi/2)
+```
+By slightly changing direction2 each time the fern gently curls, and by increasing the multiplier for the length we get more iterations for the limit length.
+
+```{r, echo=FALSE}
+plot(NA, xlim=c(1,9), ylim=c(0,15), xlab="X", ylab="Y")
+fern_2 = function(start,distance,direction,dir){
+  
+  coords = turtle(start, distance, direction)
+  direction1 = direction - (pi/4)*dir
+  dir = dir*-1
+  if (distance > 0.1){
+    fern_2(coords,0.38*distance,direction1,dir)
+    fern_2(coords,0.87*distance,direction,dir)
+  }
+}
+start = c(5,0)
+fern_2(start,2,pi/2,-1)
+```
+
+Here the dir*-1 command changes the direction of the plotting.
+
+```{r, echo=FALSE}
+factor = 0.38
+plot(NA, xlim=c(0,40), ylim=c(0,40), xlab="X", ylab="Y")
+fern_2_mod = function(start,distance,direction,dir){
+  #browser()
+  coords = turtle(start, distance, direction)
+  factor = factor*1.2
+  direction1 = direction - (pi/4)*dir
+  dir = dir*-1
+  if (distance > 0.05){
+    fern_2_mod(coords,factor*distance,direction1,dir)
+    fern_2_mod(coords,0.87*distance,direction,dir)
+  }
+}
+start = c(20,0)
+fern_2_mod(start,5,pi/2,-1)
+```
+
+By adding a factor tht increases the size of the lateral branches, so that more occur befoer the limiting size, the fern can be made bushier.
+
+```{r, echo=FALSE}
+plot(NA, xlim=c(0,20), ylim=c(0,12), xlab="X", ylab="Y")
+turtle1 = function(start, distance, direction){
+  x1 = start[1]
+  y1 = start[2]
+  x2 = x1 + distance*cos(direction)
+  y2 = y1 + distance*sin(direction)
+  if (distance > 0.5){
+    col = "brown"
+    lwd = 3
+  }else {
+    col = "green"
+    lwd = 0.5
+  }
+  segments(x1,y1,x2,y2,col = col,lwd =lwd)
+  coords = c(x2,y2)
+  return(coords)
+}
+
+tree_mod = function(start,distance,direction){
+  coords = turtle1(start, distance, direction)
+  direction1 = (direction - pi/5)
+  direction2 = (direction + pi/5)
+  distance = 0.75*distance
+  if (distance > 0.05){
+    tree_mod(coords,distance,direction1)
+    tree_mod(coords,distance,direction2)
+  }
+}
+start = c(10,0)
+tree_mod(start,3,pi/2)
 
 ```
+Adding some lines to turtle to use different colours in segments depending on the length of the line
+
+
 
 

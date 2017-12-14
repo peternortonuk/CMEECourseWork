@@ -7,7 +7,7 @@ challenge_B = function(){
   repeats = 50
   num_communties = 10
   
-  communities = data.frame(row.names = FALSE)
+  communities = data.frame()
   
   #generate some communites with random initial richnesses and store them
   #in a datframe called communties. Because expected richness for 100 selected

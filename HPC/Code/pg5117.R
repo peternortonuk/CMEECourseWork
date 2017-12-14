@@ -10,7 +10,7 @@ graphics.off()
 
 ## generate a random community of size n, varies due to input of seed
 generate_community = function(m,size) {
-  comm = sample(x = c(1:m),
+  comm = sample(c(1:m),
                 size = size,
                 replace = TRUE)
   return(comm)
@@ -455,8 +455,9 @@ plot_results = function(results) {
           main = paste(round(results[[4]], 3), collapse = ","),
           xlab = "abundances, size = 5000")
 }
-#results =  get_results()
-#plot_results(results)
+#un-commentto run this funtion
+ 
+#plot_results(get_results())
 
 
 ##########CHALLENGE C ##########################
@@ -464,7 +465,7 @@ plot_results = function(results) {
 ######################## CHALLENGE D #################
 
 
-Challengne_D = function() {
+challenge_D = function() {
   sizes  = c(500, 1000, 2500, 5000)
   v = 0.002125
   reps = 500
@@ -509,32 +510,239 @@ Challengne_D = function() {
     
   }
   
-  
-  
   par(mfrow = c(2, 2))
   y1 = octets[[1]]/reps
   
   plot1 = barplot(y1,
-                  
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(y1, 3), collapse = ","),
+                  xlab = "abundances, size = 500")
   y2 = octets[[2]]/reps
   
   plot2 = barplot(y2,
-                  
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(y2, 3), collapse = ","),
+                  xlab = "abundances, size = 1000")
   y3 = octets[[3]]/reps
   
   plot3 = barplot(y3,
-                  
-                  main = "Average abundances in octets",
-                  xlab = "abundances")
+                  main = paste(round(y3, 3), collapse = ","),
+                  xlab = "abundances, size = 2500")
   y4 = octets[[4]]/reps
   
-  barplot(y4,
-          
-          main = "Average abundances in octets",
-          xlab = "abundances")
+   plot4 = barplot(y4,
+                  main = paste(round(y4, 3), collapse = ","),
+                  xlab = "abundances, size = 5000")
 
 }
+############## Fractals ###################################
+
+########## Question 19 Fractals ###########################
+
+
+
+chaos_game = function(){
+  graphics.off()
+  #browser()
+  x = vector()
+  y = vector()
+  X <- list(c(0,0),c(3,4),c(4,1))
+  coord = X[[1]]
+  x1 = coord[[1]]
+  y1 = coord[[2]]
+  plot(NA, xlim=c(0,5), ylim=c(0,5), xlab="X", ylab="Y")
+  points(x1,y1, cex = 0.2)
+  for (i in 1:1000){
+    index = sample((1:3),1)
+    coord = X[[index]]
+    x2 = coord[[1]]
+    y2 = coord[[2]]
+    x1 = (0.5*x2 + 0.5*x1)
+    y1 = (0.5*y2 + 0.5*y1)
+    x = c(x, x1)
+    y = c(y, y1)
+    
+  }
+  plot(x , y, cex = 0.2)
+}
+
+########## Question 20 Fractals #############
+
+turtle = function(start, distance, direction){
+  x1 = start[1]
+  y1 = start[2]
+  x2 = x1 + distance*cos(direction)
+  y2 = y1 + distance*sin(direction)
+  segments(x1,y1,x2,y2)
+  coords = c(x2,y2)
+  return(coords)
+}
+
+################ Question 21 Fractals ###########
+
+elbow = function(start, distance, direction){
+  coords = turtle(start, distance, direction)
+  direction = (direction  - pi/4)
+  distance = 0.95*distance
+  coords = turtle(coords, distance, direction)
+  
+}
+
+########### Question 22 fractals ############
+
+spiral = function(start, distance, direction){
+  coords = turtle(start, distance, direction)
+  direction = (direction - pi/4)
+  distance = 0.95*distance
+  spiral(coords,distance,direction)
+  
+}
+
+~############## Question 23 Fractals ############
+
+plot(NA, xlim=c(0,2.5), ylim=c(0,3.5), xlab="X", ylab="Y")
+spiral_2 = function(start, distance, direction){
+  coords = turtle(start, distance, direction)
+  direction = (direction - pi/4)
+  distance = 0.95*distance
+  if (distance > 0.01){
+    spiral_2(coords,distance,direction)
+  }
+}
+start = c(0,2)
+spiral_2(start,1,pi/4)
+
+############# Question 24 Fractals ##############
+
+#plot(NA, xlim=c(0,10), ylim=c(0,10), xlab="X", ylab="Y")
+tree = function(start,distance,direction){
+  coords = turtle(start, distance, direction)
+  direction1 = (direction - pi/4)
+  direction2 = (direction + pi/4)
+  distance = 0.65*distance
+  if (distance > 0.1){
+    tree(coords,distance,direction1)
+    tree(coords,distance,direction2)
+  }
+}
+#start = c(5,0)
+#tree(start,3,pi/2)
+
+###########Question 25 Fractals #########################
+
+#plot(NA, xlim=c(1,9), ylim=c(0,7), xlab="X", ylab="Y")
+fern = function(start,distance,direction){
+  coords = turtle(start, distance, direction)
+  direction1 = direction + pi/4
+  direction2 = pi/2
+  if (distance > 0.1){
+    fern(coords,0.87*distance, direction1)
+    fern(coords,0.38*distance, direction2)
+  }
+}
+#start = c(8,0)
+#fern(start,2,pi/2)
+
+############## Question 26 Fractals #######
+
+#plot(NA, xlim=c(0,10), ylim=c(0,10), xlab="X", ylab="Y")
+fern_2 = function(start,distance,direction,dir){
+  
+  coords = turtle(start, distance, direction)
+  direction1 = direction - (pi/4)*dir
+  dir = dir*-1
+  if (distance > 0.1){
+    fern_2(coords,0.38*distance,direction1,dir)
+    fern_2(coords,0.87*distance,direction,dir)
+  }
+}
+#start = c(5,0)
+#fern_2(start,2,pi/2,-1)
+
+########## Additional Fractals Challeeg F ##############
+
+#Colourful Tree
+#plot(NA, xlim=c(0,20), ylim=c(0,12), xlab="X", ylab="Y")
+
+turtle1 = function(start, distance, direction){
+  x1 = start[1]
+  y1 = start[2]
+  x2 = x1 + distance*cos(direction)
+  y2 = y1 + distance*sin(direction)
+  if (distance > 0.5){
+    col = "brown"
+    lwd = 3
+  }else {
+    col = "green"
+    lwd = 0.5
+  }
+  segments(x1,y1,x2,y2,col = col,lwd =lwd)
+  coords = c(x2,y2)
+  return(coords)
+}
+
+tree_mod = function(start,distance,direction){
+  coords = turtle1(start, distance, direction)
+  direction1 = (direction - pi/5)
+  direction2 = (direction + pi/5)
+  distance = 0.75*distance
+  if (distance > 0.05){
+    tree_mod(coords,distance,direction1)
+    tree_mod(coords,distance,direction2)
+  }
+}
+#start = c(10,0)
+#tree_mod(start,3,pi/2)
+
+################################
+
+# curly fern
+
+#plot(NA, xlim=c(1,9), ylim=c(0,7), xlab="X", ylab="Y")
+fern_mod = function(start,distance,direction){
+  coords = turtle(start, distance, direction)
+  direction1 = (direction + pi/8)
+  direction2 = 0.9*direction
+  if (distance > 0.1){
+    fern_mod(coords,0.87*distance,direction1)
+    fern_mod(coords,0.5*distance,direction2)
+  }
+}
+#start = c(8,0)
+#fern_mod(start,2,pi/2)
+
+##################################
+
+#bushy fern
+#factor = 0.38
+#plot(NA, xlim=c(0,40), ylim=c(0,40), xlab="X", ylab="Y")
+fern_2_mod = function(start,distance,direction,dir){
+  #browser()
+  coords = turtle(start, distance, direction)
+  factor = factor*1.2
+  direction1 = direction - (pi/4)*dir
+  dir = dir*-1
+  if (distance > 0.05){
+    fern_2_mod(coords,factor*distance,direction1,dir)
+    fern_2_mod(coords,0.87*distance,direction,dir)
+  }
+}
+#start = c(20,0)
+#fern_2_mod(start,5,pi/2,-1)
+
+############ Challenge G #########
+
+#plot(NA, xlim=c(0,30), ylim=c(0,30), xlab="X", ylab="Y")
+fern_2 = function(start,distance,direction,dir){
+  
+  coords = turtle(start, distance, direction)
+  if (distance > 0.1){
+    fern_2(coords,0.38*distance,direction - (pi/4)*dir,dir*-1)
+    fern_2(coords,0.87*distance,direction,dir*-1)
+  }
+}
+#fern_2(c(15,0),5,pi/2,-1)
+# Not very small
+
+############### THE END #########################
+
+
+
