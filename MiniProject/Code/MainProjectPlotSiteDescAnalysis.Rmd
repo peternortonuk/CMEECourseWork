@@ -1,0 +1,112 @@
+---
+title: "MainProjPlotSiteDescriptorAnalysis"
+author: "PetraGuy"
+date: "8 January 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+```
+
+This analysis is to examine site and plot descriptors, to get a feel for which ones are used and how they might be used as part of a "heterogenity" index or whether they need o be part of any ther covariates important for the analysis of species richness and species area relationships.
+
+```{r, echo = FALSE}
+#clear the workspace
+rm(list = ls())
+cat("\014")
+```
+```{r,echo = FALSE }
+#Get the data , enter input CSV file name here, for data in data directory
+inputfile = 'LookUpPlotDescriptorCodes.csv'
+fullfile = paste("../Data",inputfile, sep = "/")
+LookUpPlot = as.tbl(read.csv(fullfile))
+
+inputfile = 'LookUpSiteDescriptorCodes.csv'
+fullfile = paste("../Data",inputfile, sep = "/")
+LookUpSite = as.tbl(read.csv(fullfile))
+
+inputfile = 'Plot_descriptors00-03.csv'
+fullfile = paste("../Data",inputfile, sep = "/")
+PlotDescriptorsYr2 = as.tbl(read.csv(fullfile))
+
+inputfile = 'Site_descriptors00-03.csv'
+fullfile = paste("../Data",inputfile, sep = "/")
+SiteDescriptorsYr2 = as.tbl(read.csv(fullfile))
+```
+
+Sites.
+Cdes have been selected that relate to open areas, large ponds, rivers, moorland, rough pasture etc. The ponds and rivers were selected, not because they represent a different habitat, but because they are likely to imply open ground around them. Perhaps rivers, ponds etc should be grouped with marsh or bog and used as part of the hetrogeneity that comes from differing habitats - or perhaps just put all hetergenity in one code implying openness.
+```{r}
+OpenCodes = c(8,9,10,24,86,87,90,91,92,93,105,106,107,108,109,110,111,112,113,114,115,116,117,208,209,210,211,212)
+Open = SiteDescriptorsYr2 %>% select(SITE, SD_code)%>% filter(SD_code %in% OpenCodes)
+Open
+
+```
+```{r}
+ggplot(Open, aes(x = SD_code)) +
+         geom_histogram(breaks = seq(1,220, by = 10), col = "black", fill = "green")+
+                        labs(title = "Histogram of openness SD codes", x = "SD code")
+```
+The histogram shows that there are many records that could be considered as contributing toward open areas in woodlands, the 0-10 codes are for coppicing, 100 -120 codes are glades, rides, fields, paths, marshes and ditces.
+
+Plot below shows the frequency of all the SD codes for comparison
+
+```{r}
+ggplot(SiteDescriptorsYr2, aes(SiteDescriptorsYr2$SD_code)) +
+         geom_histogram(breaks = seq(1,250, by = 10), col = "black", fill = "green")+
+                        labs(title = "Histogram of entered SD codes", x = "SD code")
+```
+
+The historgam shows that many codes refer to: nature of the woodland (5 - 11),other tree species not recorded in plots (29 - 48), stumps (50 - 60). Codes 150 - 200 manily refer to animals, the larger 190 -200 being birds. 
+
+What about potential for codes which may have a negative association woth diversity; planted conifers, rhododendron, bracken, nettle clump, (maybe road or buildings??)
+
+```{r}
+NegativeCodes = c(6,41,143,145,149)
+Negative = SiteDescriptorsYr2 %>% select(SITE, SD_code)%>% filter(SD_code %in% NegativeCodes)
+Negative
+```
+
+
+```{r}
+ggplot(Negative, aes(x = SD_code)) +
+         geom_histogram(breaks = seq(1,160, by = 10), col = "black", fill = "green")+
+                        labs(title = "Histogram of negative SD codes", x = "SD code")
+```
+
+How many codes does each wood have? 
+
+```{r}
+plot(table(Open$SITE))
+
+```
+
+Most sites have around 10 SD_codes , Site 23 has 37. Site 25 has no codes recorded,75, 78 have no openness codes at all. 
+
+In summary: These are the SD codes which I think should be used to contribute to (or form on their own) a heterogenity index - which is linked to openness of habitat - it does not imply different habitats, such as rotting wood, aquatics. So marsh is included because it would imply open ground.
+
+8/9/10, coppice stool, single coppice, recently cut coppice.
+24 Fire sites
+86/87 Pool > 1m2 (85, pool <1m2 excluded)
+90/91/92/93 Streamsand rivers > 1m across ( streams < 1m across excluded)
+100 Spring
+101 Marsh
+102/103  Ditches
+105 - 110, glades
+111/112 Rocky knolls
+113 Field
+114/115/116/117 paths > 1m
+
+Of these I am not convinced about the spring and ditches. Possibly also marsh, how big is a marsh? I included them because I am assuming that they imply some open ground
+
+
+
+
+
+
+
+
+

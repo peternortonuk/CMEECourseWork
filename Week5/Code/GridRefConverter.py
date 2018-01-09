@@ -56,3 +56,4 @@ woodLocsOS['OS'] = woodLocsOS.apply(lambda x: getOSGridReference(x['Easting'], x
 
 print woodLocsOS.head()
 
+print woodLocsOS

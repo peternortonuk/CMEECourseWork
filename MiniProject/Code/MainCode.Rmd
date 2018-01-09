@@ -1,31 +1,61 @@
 ---
-title: "MiniProject"
-author: "PetraGuy"
-date: "23 November 2017"
-output: html_document
+output:
+  pdf_document: 
+    fig_caption: yes
+    
 ---
-
+---
+title: "Can machine learning be used to identify species of Sorbus"
+author: "PetraGuy"
+date: "6 January 2018"
+---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-clear the workspace
-```{r}
 
+```{r, echo = FALSE}
+#clear the workspace
 rm(list = ls())
 cat("\014")
 ```
-Get the data , enter input CSV file name here, for data in data directory
-```{r}
+Abstract.
+
+Machine learning was used to separate six species of Sorbus within the subgenus Soraria based on morphological measurements of fruit and leaves....
+
+1. Introduction - The genus Sorbus.
+
+Sorbus is a member of the Rosacea family, perhaps the best known species being Sorbus aucuparia, the Rowan or Mountain Ash. 
+
+![Figure 1. Sorbus aucuparia](Sorbusaucuparia.pdf){width=25%, height=25%}\ 
+
+
+However, there are over 50 species of Sorbus in the UK, 38 of these are vulnerable or critically endangered and most are endemic or native.  There are four diploid species, but, as with many Rosaceae, Sorbus produce new apomictic polyploid species. These can also produce viable pollen and can therefore backcross with other diploid species. This results in the large number of genetically unique, stable, clonal communities, which can look very similar to each other. This presents a problem with recording and many Sorbus require expert knowledge to correctly identify to species level because much of the identification depends on comparitive knowledge. This tends to disuade recorders, or encourages records at aggregate level. 
+
+Sorbus are grouped into six subgenus, each of which are reasonably easy to identify by recorders with some knowledge, as the illustrations below show.
+
+More difficulty arises when identifying plants within these subgeni, and this is where this work has concentrated. In this modelling only the subgenus Soraria has been trialled. This consists of seven species all similar in appearance to Sorbus intermedia, although only six species are considered based on the availability of data. These plants are distinguished from other subgeni by having leaves with rounded lobes which are tomentose beneath and the fruits having fewer lenticles. Perhaps the most noticeable difference between plants within the subgenus, are the larger fruits on S intermedia, the smaller leaves of S minima and the small fruits of S mougeotii.
+
+2. Methods
+2.1 Data.
+
+The data was provided by Dr T Rich, the British Botanical Society expert on Sorbus and  consists of leaf and fruit measurements. For the leaves, the length, width, base angle, number of veins, depth of the lobes, vein angle and base angle have been recorded. For the fruit, the length and the width are used. Due to the variability in leaf size across one plant, the measurements were all carried out in a specific manner described by Rich [ ]. Essentially, repeated measurements of leaves on sterile spurs on the sunlight side of the tree are recorded and averaged over at least ten leaves. 
+
+The nature of collection means that the data was sparse. Every plant of every species did not have have complete set of measurements or the same number of measurements. For example, S intermedia had 126 observations but S leyana only had 39. This is due to the rarity S. leyana. S. intermedia is a common plant found throught the UK in easily accessible places, whilst S leyana is only found in two sites in South Wales, sometimes on the sides of cliffs. In addition,  measurements  cannot all be collected at the same time. Leaves must be measured when mature, around flowering time, and therefore cannot be measured in conjunction with fruit. Separate trips to re-measure fruit on the same trees may not be possible. This has lead to a sparse dataset in which not all morphological characteristics were availabe for every plant. S intermedia records are an example. Of 122 records,  72 are purely for fruit measurements and the remaining 50 purely for leaf measurements, and these occur on different plants If imputation was carried out, 59% of the leaf measurements would be imputed. This would reduce the effectiveness of some algorithsms. For example, in kNN, if you increase the frequency of the neighbours in the S. Intermedia group, it is more likely that a member of a different group will be close to that neighbour. Therefore, the sparsity was handled by reallocating measurements. For example, the 50 leaf measurements for S. intermedia were assigned to 50 fruit measurements and the excess 22 were not used. In some cases, where there were only a few additional rows of incomplete data, median imputation was carried out. 
+
+Although it seems dubious to assign records from one plant to another, in this analysis this was felt to be acceptible for two reasons. Firstly, this an exploration of a new technique for biological recording. It is not currently being proposed as a complete and accurate method for species identifiction at this stage. Secondly, the clonal nature of these plants implies that we would expect a great deal of similarity within a species. The variation within the species is more likely to come from the variety of leaf sizes which can be found on one plant, and these are controlled for, although they cannot be elimnated, when the data is collected. (The range of laef sizes witin each plant was not available, so this comparison has not been tested).
+
+```{r,echo = FALSE }
+#Get the data , enter input CSV file name here, for data in data directory
 inputfile = 'SorariaCompact1.csv'
 Dataname = strsplit(inputfile, "\\.")[[1]][[1]]
 fullfile = paste("../Data",inputfile,sep = '/')
 Data = read.csv(fullfile)
 ```
 
-Do some median imputations if necessary
-```{r}
+
+```{r,echo = FALSE}
+#Do some median imputations if necessary, but probably not, see above. 
 median_replace1 = function(x){
   ifelse(is.na(x), median(x,na.rm = TRUE), x)
  }
@@ -37,34 +67,48 @@ median_replace2 = function(x){
 Imputed_list = lapply(split.data.frame(Data[,2:12], Data$Species), FUN = median_replace2)
 ```
 
-The imputed dataframe is a list with species as the elements, the following sticks it back together with a different name so both optiona are available
 
-```{r}
+
+```{r, echo = FALSE}
+#The imputed dataframe is a list with species as the elements, the following sticks it back together with a different name so both optiona are available
 temp = do.call(rbind, Imputed_list)
 Imputed_df = cbind(Data[1], temp)
 ```
 
-Its worth creating a scaled dataframe too for some of the analysis and ploting
-```{r}
+
+```{r,echo = FALSE }
+#Its worth creating a scaled dataframe too for some of the analysis and ploting
 Scaled_df = scale(Imputed_df[-1])
 Scaled_df = cbind(Data[1], Scaled_df)
+
+# Scaled_df is sceled, imputed df, but if we want to use non-imputed, we need to scale Data again
 ```
 
+```{r,echo = FALSE }
+#scale the non-imputed data
+Scaled_df_NI = scale(Data[-1])
+Scaled_df_NI = cbind(Data[1], Scaled_df_NI)
 
-PLOTTING
+```
 
-Execute the first section to save the data, or go straight to plotting to view graphs in document
-```{r}
+3.Data exploration.
+In order for machne learning algorithms to work accurately the groups to be separated should be clearly defined with very little overlap. Also, the data contains many variables, some of which may be unnecessary to the analysis. The following plots lok at group separation and correlations
+
+
+```{r,echo = FALSE }
+#Execute to save the data, or go straight to plotting to view graphs in document
 out = paste(Dataname, "pairs", sep = "_")
 out= paste('../Results',out,sep = '/')
 out = paste(out,'.pdf')
 
 ```
-Pairs Plots, unhash pdf to save data to file. Not all pairs plotted beacuse there are so many the plot becomes too difficult to read and therefore uninformative. The pairs plot
 
-```{r}
+Pairs Plots,  Not all pairs plotted; there are so many the plot becomes too difficult to read and therefore uninformative. 
+
+```{r, echo = FALSE }
+#unhash pdf to save data to file.
 #pdf(out)
-reduced_df = Imputed_df[-c(4,5,6,7,8,9,12)]
+reduced_df = Scaled_df[-c(4,5,6,7,8,9,12)]
 panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
 {
   usr <- par("usr"); on.exit(par(usr))
@@ -75,34 +119,35 @@ panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
   if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
   text(0.5, 0.5, txt, cex = cex.cor * r)
 }
-pairs(reduced_df[-1], lower.panel = panel.smooth, upper.panel = panel.cor, col = Imputed_df$Species)
+pairs(reduced_df[-1], lower.panel = panel.smooth, upper.panel = panel.cor, col = Scaled_df$Species)
 mtext(Dataname, side = 1)
 ```
 
 Repeat the pairs plots using ggplot
 
-```{r}
+```{r,echo = FALSE }
 library(GGally)
-ggpairs(data = Imputed_df[,2:6])
+ggpairs(data = Scaled_df[,2:6])
 
-ggpairs(Imputed_df[,7:12])
+ggpairs(Scaled_df[,7:12])
 ```
+The pairs plot show a strong correlation between leaf width and length, leaf width andlength and the widest point,  and fruit width and length.
 
-
-
-Look at scatter plots by species of main characters, run the following to get new filename if saving data
-```{r}
+Look at scatter plots by species of main characters.
+```{r, echo = FALSE}
+#run the following to get new filename if saving data
 out = paste(Dataname, "scatter", sep = "_")
 out= paste('../Results',out,sep = '/')
 out = paste(out,'.pdf')
 
 ```
 
-Scatter plots, unhash pdf to save data to file
+Scatter plots of the most correlated features
 
-```{r}
+```{r,echo = FALSE }
 library(ggplot2)
 library(gridExtra)
+#unhash pdf to save data to file
 #pdf(out)
 graphics.off()
 reduced_df = Imputed_df[Imputed_df$Species == "Arranensis",]
@@ -115,16 +160,17 @@ plot2 = ggplot(Imputed_df, aes(x= FruitLength, y = FruitWidth, col = Species))+
 
 grid.arrange(plot1,plot2)
 ```
+The scatter plots do not demostrate a clear separation of features between species, there is considerable overlap. S. anglica appears to have some separation with the longest and widest leaves, but the range of leaf measurements plotted shows that it overlaps witj most others, perhaps excepting S. mougeotii. S.Anglica stands out in the second plot as having fruits wider than long.
 
 Box plots
-```{r}
+```{r,echo = FALSE }
 out = paste(Dataname, "box", sep = "_")
 out= paste('../Results',out,sep = '/')
 out = paste(out,'.pdf')
 ```
 
 
-```{r}
+```{r,echo = FALSE }
 #pdf(out)
 col_names = colnames(Data)
 col_names = col_names[-1]
@@ -141,14 +187,14 @@ for (i in seq_along(col_names)){
 
 Try ggplot option for boxplots, but they'll need scaling because facet wrap will use same scale for all
 
-```{r}
+```{r,echo = FALSE }
 out = paste(Dataname, "scaledbox", sep = "_")
 out= paste('../Results',out,sep = '/')
 out = paste(out,'.pdf')
 ```
 
 
-```{r}
+```{r,echo = FALSE }
 #pdf(out)
 library(reshape2)
 melted = melt(Scaled_df)
@@ -156,11 +202,10 @@ melted = melt(Scaled_df)
 ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) +   facet_wrap(~variable) +
   theme(axis.ticks = element_blank(), axis.text.x = element_blank())
 ```
+Box plots clearly show the amount of overlap for different features across the species. Some  features clearly separate one or two species from the others. For example the fruit length differentiates S. leyana and S. mougeotti and the fruit width for S.anglica does not overlap with other species. There is also considerable overlap of many features and no one feature obviously separates all the species. This suggests that the machine learning algorithms may not be very accurte.
 
-Th scatter plots and pairs plots indicate that only leaf length, leaf width and widest point are correlated with a correlation coefficient of 0.9. Two of these variables might then be removed from the analysis.
-
-Lets look at anovas for each feature
-```{r}
+Analysis of varaince for each feature quantifies this.
+```{r,echo = FALSE }
 out = paste(Dataname, "anova", sep = "_")
 out= paste('../Results',out,sep = '/')
 out = paste(out,'.csv')
@@ -168,7 +213,7 @@ out = paste(out,'.csv')
 ```
 
 
-```{r}
+```{r,echo = FALSE }
 
 col_names = colnames(Data)
 col_names = col_names[-1]
@@ -190,13 +235,13 @@ write.csv(anova_data, out)
 
 But what happens if we need to scale the data, repeated anovas for scaled dataframe
 
-```{r}
+```{r, echo = FALSE}
 out = paste(Dataname, "anova_scaled", sep = "_")
 out= paste('../Results',out,sep = '/')
 out = paste(out,'.csv')
 ```
 
-```{r}
+```{r,echo = FALSE }
 col_names = colnames(Data)
 col_names = col_names[-1]
 anova_data = data.frame()
@@ -215,10 +260,10 @@ print(anova_data)
 write.csv(anova_data, out)
 ```
 
-It looks like there is a difference with within group means and between group means, as we can see from the large F values, except in WidestPercent. LeafWidth, LeafLength and WidestPoint are highly correlated and may not all be requried in a model
+There is a difference with within group means and between group means, as we can see from the large F values, except in WidestPercent. LeafWidth, LeafLength and WidestPoint are highly correlated and may not all be requried in a model
 
 Some simple cluster analysis
-```{r}
+```{r,echo = FALSE }
 set.seed(1)
 library(ggplot2)
 library(gridExtra)
@@ -235,16 +280,17 @@ plot2= ggplot(Imputed_df, aes(x= LeafLength, y = LeafWidth, col = Species))+
 
 grid.arrange(plot1,plot2)
 ```
+The first plot shows the modelled clusters and the second is the scatterplot of the real data for comparison. As we suspected, S. anglica has been allocated to most clusters, S. cuniefolia and S. mougeotti are the most differentiated. 
 What about principle components?
 
-```{r}
+```{r, echo = FALSE}
 pc = princomp(Scaled_df[-1])
 plot(pc)
 plot(pc, type = 'l')
 
 ```
 
-```{r}
+```{r, echo = FALSE}
 pc = prcomp(Scaled_df[-1])
 comp = data.frame(pc$x[,1:4])
 plot(comp)
@@ -254,28 +300,23 @@ rownames(explvar) =  col_names
 print(explvar)
 
 ```
-If leaf length is correlated with width and widest point and leaf width, AND pc shws that leafwidth, veins, leaf ratio, fruit length and widest percent together explain 80% of the variance, perhaps a model using only these is sufficient.
+If leaf length is correlated with width and widest point and leaf width, AND pc shows that leafwidth, veins, leaf ratio, fruit length and widest percent together explain 80% of the variance, perhaps a model using only these is sufficient.
 
-```{r}
+```{r, echo = FALSE}
 reduced_data = Imputed_df[-c(1,2,4,5,8,11,12)]
 Imputed_kmeans = kmeans(reduced_data, 7, nstart = 7)
 table(Imputed_df$Species, Imputed_kmeans$cluster)
 ```
+Again, S. cuneifolia, S mougeotti are differentiated, there does not appear to be much improvement in the other species.
 
+Modelling. Supervised Learning.
 
-
-Supervised Learning 
-Create training and test sets. Cross validation will be used to train the model. The caret package is need to do this within the model fitting algorithm, otherwise you would need to write your own for loops for each fold of cross validation.
-
-```{r}
-
-```
-
+Supervised machine learning is appropriate because we have pre-defined target variables into which we want to split the data - the species. Data is split into training and test sets to avoid model overfitting.  Cross validation will be used to train the model. The caret package [ ] was used for the model fitting.
 
 Classification 
 Random forest - many decision trees fittied by repeated bootstrapping.
 
-```{r}
+```{r, echo = FALSE}
 library(caret)
 set.seed(42)
 forest = train(Species~., data = Imputed_df, method = "ranger",
