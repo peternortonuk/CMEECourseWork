@@ -1,0 +1,146 @@
+---
+title: "MainProjDBH"
+author: "PetraGuy"
+date: "11 January 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(plyr)
+library(ggplot2)
+```
+
+
+
+```{r, echo = FALSE}
+#clear the workspace
+rm(list = ls())
+cat("\014")
+```
+The purpose of this exploration is to try out the DBH index as an indicator of shading/hetergeneity/succession in our plots.
+
+I think...and it hinges on me havig got this right!! That we are doing the following calculation:
+"Sum of running differences in count between adjacent DBH classes"
+
+```{r }
+#Get the data , enter input CSV file name here, for data in data directory
+inputfile = 'table_DBH_live_counts_71-03.csv'
+fullfile = paste("../Data",inputfile, sep = "/")
+DBH_measurements = as.tbl(read.csv(fullfile))
+```
+
+Just considering year 2 for now.
+
+```{r}
+Yr2_DBH = DBH_measurements %>% filter(Yr == 2)
+
+```
+
+Get an idea of the distribuion of the measurements. Lets say we dont care about the species for now, implyng that we take all species as being equally shading. We want to look at counts per plot, over each site.
+
+```{r}
+
+DBH_Yr2_agg = aggregate(Count~DBH_class + PLOT + SITE, data = Yr2_DBH, sum)
+# Count is now the sum of counts in each DBH class.
+
+```
+
+This code results in one line per DBH class, per plot, per site. Now we need to ombine the counts for he classes into one index per plot. First I will do some modelling to see what type of "combining" we should do. Simon used the cumultaive subtraction method. To see how that works, imagine you have 100 trees in the first class, 20 in the next, then 1 in the final. I.e. lots of young saplings. The calculation would be 100 - 20 - 1 = 79. The large positive number indicating lots of young trees. The converse would happen for lots of old trees and you'd get a large negative number.
+
+
+```{r}
+# This will take a minute - and will give you 103 teeny tiny plots.
+plot_list = list()
+for (i in 1:103) {
+  Site = DBH_Yr2_agg %>% filter(SITE == i)
+  Plotname = paste("Site", i, sep = "")
+  Plot = ggplot(data = Site, aes(x = DBH_class, y = Count)) +
+    geom_bar(stat = "identity", col = "black", fill = "green") +
+    facet_wrap( ~ PLOT) +
+    scale_x_continuous("DBH class",
+      breaks = 1:32,
+      labels = c(1:32),
+      limits = c(0, 32))+
+  labs(title = Plotname)
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+  plot_list[[i]] = Plot
+}
+#pdf("DBH Plots")
+for (i in 1:103) {
+  print(plot_list[[i]])
+}
+
+```
+
+These are bar charts of DBH classes for all sites. If we consider some of the values we would calculate for some plots and see if they are good indicators of shading. The code below calucaltes the DBH index - as defined as the cumulative subtraction of counts in subsequent DBH classes, starting at the smallest class.
+
+```{r}
+
+# This code gives successive difference, not sure that this was what was meant SEE NEXT CHUNK
+
+DBH_index = function(DBH_counts){
+  while(length(DBH_counts) > 1){
+    temp = -1*diff(DBH_counts)
+    DBH_counts = temp
+  }
+  return(DBH_counts)
+}
+
+indices =  aggregate(Count~PLOT + SITE, data = DBH_Yr2_agg, DBH_index)
+```
+
+```{r}
+#This code just subtracts, x1 - x2 - x3 - ... - x2, where xi are the counts in each class
+DBH_index = function(DBH_counts){
+ index = DBH_counts[1]-sum(DBH_counts[-1])
+ return(index)
+}
+
+indices =  aggregate(Count~PLOT + SITE, data = DBH_Yr2_agg, DBH_index)
+
+```
+
+Now to select some plots to see if we like the index. Consider site 2 plots 10 and 11
+
+```{r}
+plot_list = list()
+i = 2
+  Site = DBH_Yr2_agg %>% filter(SITE == i)
+  Plotname = paste("Site", i, sep = "")
+  Plot = ggplot(data = Site, aes(x = DBH_class, y = Count)) +
+    geom_bar(stat = "identity", col = "black", fill = "green") +
+    facet_wrap( ~ PLOT) +
+    scale_x_continuous("DBH class",
+      breaks = 1:32,
+      labels = c(1:32),
+      limits = c(0, 32))+
+  labs(title = Plotname)
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+Plot
+
+indices %>% filter(SITE == 2)
+DBH_Yr2_agg %>% filter(SITE == 2) %>% filter (PLOT == 10 | PLOT == 11)
+
+```
+Plots 10 and 11 have lots of smaller trees, and indices of - 109 and 37 respectively. Plot 10 site 2 has the most negative index, so we would want this to be the "oldest" plot
+Looking at the counts, plot 10 has 12 in the first category and 69 in the next, therefore the first subtraction gives a relatively large negative value, the remaining values, all being smaller, result in a large negative index.
+In plot 11, the numbers of trees in each DBH class gradually decreases giving the large positive that we want to imply many small plants.
+
+I think this may show that the index could let us down if there are few trees in the first class but many in the second.
+
+Imagine the following situation, 1 tree in dbh class 1, then 99 in class 2, followed by 1 in class 3. The index would be 1 - 99 - 1 = -99. Large -ve, implying many older trees.
+Compare to a plot with none in class 1,2,3,4, then 1 in class 5 followed by 10, 20,30,40 in class 6,7,8,9, giving the same index of -99.
+
+
+
+
+
+
+
+
+
+
+
+
