@@ -59,6 +59,8 @@ ggplot(SiteDescriptorsYr2, aes(SiteDescriptorsYr2$SD_code)) +
 
 The historgam shows that many codes refer to: nature of the woodland (5 - 11),other tree species not recorded in plots (29 - 48), stumps (50 - 60). Codes 150 - 200 manily refer to animals, the larger 190 -200 being birds. 
 
+
+----- Ignore this for now, come back to this later??----
 What about potential for codes which may have a negative association woth diversity; planted conifers, rhododendron, bracken, nettle clump, (maybe road or buildings??)
 
 ```{r}
@@ -73,6 +75,9 @@ ggplot(NegativeSites, aes(x = SD_code)) +
          geom_histogram(breaks = seq(1,160, by = 10), col = "black", fill = "green")+
                         labs(title = "Histogram of negative SD codes", x = "SD code")
 ```
+
+-------
+
 
 How many open codes does each wood have? 
 

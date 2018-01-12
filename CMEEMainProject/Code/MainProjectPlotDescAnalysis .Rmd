@@ -13,13 +13,13 @@ library(ggplot2)
 
 This analysis is to examine  plot descriptors, to get a feel for which ones are used and how they might be used as part of a "heterogenity" index or whether they need to be part of any other covariates important for the analysis of species richness and species area relationships.
 
-```{r, echo = FALSE}
+```{r,}
 #clear the workspace
 rm(list = ls())
 cat("\014")
 ```
 
-```{r,echo = FALSE }
+```{r}
 #Get the data , enter input CSV file name here, for data in data directory
 inputfile = 'LookUpPlotDescriptorCodes.csv'
 fullfile = paste("../Data",inputfile, sep = "/")
@@ -68,6 +68,9 @@ ggplot(PlotDescriptorsYr2, aes(PlotDescriptorsYr2$PD_code)) +
 
 The historgam shows that many codes refer to stumps and live and decaying wood items such as bryophyte covered trunks(40 - 50). The next highest categoies are for plants, (15 - 40)
 
+
+
+ ---  Might come back to this bit later, do we want to consider "negative" codes. Not sure where this ends - if there is lots of decaying wood, is the wood healthier and therefore richer etc etc..---------------
 What about potential for codes which may have a negative association woth diversity; planted conifers, rhododendron, bracken, nettle clump, (maybe road or buildings??)
 
 ```{r}
@@ -84,6 +87,7 @@ ggplot(NegativePlots, aes(x = PD_code)) +
 ```
 There are over 500 entries for rhodo thickets, bracken, nettles and brambles. 
 
+-----------------------------------
 
 These are the PD codes which I think should be used to contribute to (or form on their own) heterogenity index - which is linked to openness of habitat - it does not imply different habitats, such as rotting wood, aquatics. So marsh is included because it would imply open ground.
 
