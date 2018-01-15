@@ -18,6 +18,18 @@ knitr::opts_chunk$set(echo = TRUE)
 #clear the workspace
 rm(list = ls())
 cat("\014")
+setwd("~/Documents/CMEECourseWork/MiniProject/Code")
+library(randomForest)
+library(ggplot2)
+library(gridExtra)
+library(GGally)
+library(grid)
+library(reshape2)
+library(caret)
+library(rpart)
+#library(rattle) this will not install
+library(rpart.plot)
+library(RColorBrewer)
 ```
 Abstract.
 
@@ -55,7 +67,7 @@ Data = read.csv(fullfile)
 
 
 ```{r,echo = FALSE}
-#Do some median imputations if necessary, but probably not, see above. 
+#Do some median imputations, carried out after the data was manipulated as described above - #hence reducing the number or rows that were imputed. 
 median_replace1 = function(x){
   ifelse(is.na(x), median(x,na.rm = TRUE), x)
  }
@@ -85,14 +97,16 @@ Scaled_df = cbind(Data[1], Scaled_df)
 ```
 
 ```{r,echo = FALSE }
-#scale the non-imputed data
+#scale the non-imputed data, not sure i need this
 Scaled_df_NI = scale(Data[-1])
 Scaled_df_NI = cbind(Data[1], Scaled_df_NI)
 
 ```
 
 3.Data exploration.
-In order for machne learning algorithms to work accurately the groups to be separated should be clearly defined with very little overlap. Also, the data contains many variables, some of which may be unnecessary to the analysis. The following plots lok at group separation and correlations
+In order for machine learning algorithms to work accurately the groups should be separated into clearly defined clumps with very little overlap. The following exploration looks at the way the varibles are distributed.  
+
+The data contains many variables, some of which may be unnecessary to the analysis. The following plots look at correlations, although, for the machine learning algorithms used, this may not be an issue. In fact, dropping variables could cause data points to become closer together and therefore grouped together by a clustering algorithm, when in fact they were not related. But also, having many variables does introduce more neighbours, so there is the potential for for datapoints in separate groups to be close to a un-related neighbour simply because there are more variables and therefore more points.
 
 
 ```{r,echo = FALSE }
@@ -126,7 +140,7 @@ mtext(Dataname, side = 1)
 Repeat the pairs plots using ggplot
 
 ```{r,echo = FALSE }
-library(GGally)
+
 ggpairs(data = Scaled_df[,2:6])
 
 ggpairs(Scaled_df[,7:12])
@@ -145,8 +159,7 @@ out = paste(out,'.pdf')
 Scatter plots of the most correlated features
 
 ```{r,echo = FALSE }
-library(ggplot2)
-library(gridExtra)
+
 #unhash pdf to save data to file
 #pdf(out)
 graphics.off()
@@ -160,7 +173,7 @@ plot2 = ggplot(Imputed_df, aes(x= FruitLength, y = FruitWidth, col = Species))+
 
 grid.arrange(plot1,plot2)
 ```
-The scatter plots do not demostrate a clear separation of features between species, there is considerable overlap. S. anglica appears to have some separation with the longest and widest leaves, but the range of leaf measurements plotted shows that it overlaps witj most others, perhaps excepting S. mougeotii. S.Anglica stands out in the second plot as having fruits wider than long.
+The scatter plots do not demostrate a clear separation of features between species, there is considerable overlap. S. anglica appears to have some separation with the longest and widest leaves, but the range of leaf measurements plotted shows that it overlaps witj most others, perhaps excepting S. mougeotii. S.Anglica stands out in the second plot as having fruits wider than long. This is further demonstrated by the box plots below.
 
 Box plots
 ```{r,echo = FALSE }
@@ -175,7 +188,7 @@ out = paste(out,'.pdf')
 col_names = colnames(Data)
 col_names = col_names[-1]
 plotlist = list()
-library(grid)
+
 for (i in seq_along(col_names)){
   plot = ggplot(Imputed_df, (aes_string(x='Species', y=col_names[i])))+
                  geom_boxplot()
@@ -196,15 +209,18 @@ out = paste(out,'.pdf')
 
 ```{r,echo = FALSE }
 #pdf(out)
-library(reshape2)
+
 melted = melt(Scaled_df)
 
 ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) +   facet_wrap(~variable) +
   theme(axis.ticks = element_blank(), axis.text.x = element_blank())
 ```
-Box plots clearly show the amount of overlap for different features across the species. Some  features clearly separate one or two species from the others. For example the fruit length differentiates S. leyana and S. mougeotti and the fruit width for S.anglica does not overlap with other species. There is also considerable overlap of many features and no one feature obviously separates all the species. This suggests that the machine learning algorithms may not be very accurte.
+Box plots clearly show a lot of  overlap for different features across the species. Some  features clearly separate one or two species from the others. For example the fruit length differentiates S. leyana and S. mougeotti and the fruit width for S.anglica does not overlap with other species. There is also considerable overlap of many features and no one feature obviously separates all the species. This suggests that the machine learning algorithms that are using distance techniques, such as k means and k nearest neighbours may not differentiate groups, but decision tree methds, such as random forest, may be better.
 
-Analysis of varaince for each feature quantifies this.
+
+
+=====Not sure that I wan to include this bit =======
+Analysis of variance for each feature quantifies this.
 ```{r,echo = FALSE }
 out = paste(Dataname, "anova", sep = "_")
 out= paste('../Results',out,sep = '/')
@@ -262,11 +278,16 @@ write.csv(anova_data, out)
 
 There is a difference with within group means and between group means, as we can see from the large F values, except in WidestPercent. LeafWidth, LeafLength and WidestPoint are highly correlated and may not all be requried in a model
 
-Some simple cluster analysis
+
+====== delete all above ??? =====
+
+
+
+A simple k-means cluster analysis can be used to give an indiction of the groupings.
+
 ```{r,echo = FALSE }
 set.seed(1)
-library(ggplot2)
-library(gridExtra)
+
 graphics.off()
 
 Imputed_kmeans = kmeans(Imputed_df[-1], 7)
@@ -281,6 +302,11 @@ plot2= ggplot(Imputed_df, aes(x= LeafLength, y = LeafWidth, col = Species))+
 grid.arrange(plot1,plot2)
 ```
 The first plot shows the modelled clusters and the second is the scatterplot of the real data for comparison. As we suspected, S. anglica has been allocated to most clusters, S. cuniefolia and S. mougeotti are the most differentiated. 
+
+
+==== May not include any of this =======
+
+
 What about principle components?
 
 ```{r, echo = FALSE}
@@ -309,28 +335,77 @@ table(Imputed_df$Species, Imputed_kmeans$cluster)
 ```
 Again, S. cuneifolia, S mougeotti are differentiated, there does not appear to be much improvement in the other species.
 
+
+=== Delete all above ========
+
+
+
 Modelling. Supervised Learning.
 
-Supervised machine learning is appropriate because we have pre-defined target variables into which we want to split the data - the species. Data is split into training and test sets to avoid model overfitting.  Cross validation will be used to train the model. The caret package [ ] was used for the model fitting.
+Supervised machine learning is appropriate because we have pre-defined target variables into which we want to split the data - the species. Three classification models will be used, kmeans, k nearest neighbouts and random forest. The caret package was used for all the modelling. In order to reduce overfitting the caret package allows for train and test sets to be easily created within the code. Multiple train sets are created for each model by splitting the entire data set several times and fitting the model to each split.Every point in the data will fall into on training set fold, and therefore the influence of outliers is reduced. The folds are used to estimate the out of sample error and the enitre data set can then be used to refit the model.
 
-Classification 
-Random forest - many decision trees fittied by repeated bootstrapping.
+The first model is a random forest.The caret packages was used first. This provides straight forward cross validated mode, in which the data is split into n different test and train sections. The tune length(number of possible variables to use at each decision node in the tree can be set - mtry) and the model outputs the accuracy for all the possible values of mtry. This means we can easily select a value for the mtry hyperparameter.
 
 ```{r, echo = FALSE}
-library(caret)
-set.seed(42)
-forest = train(Species~., data = Imputed_df, method = "ranger",
-               trControl= trainControl(method = "cv", number = 5))
-plot(forest)
-print(forest)
 
+set.seed(42)
+soraria_tree_caret_ranger = train(Species~., data = Imputed_df, method = "ranger", tuneLength =11,
+               trControl= trainControl(method = "cv", number = 5, summaryFunction = defaultSummary, classProbs = TRUE))
+plot(soraria_tree_caret_ranger)
+print(soraria_tree_caret_ranger)
+
+                
 
 
 ```
 
+The plot shows that 6 parameters give the most acurate model using the extratrees algorithm for each node.
 
+The randomForest packages provides simple way of accessing model and outputting the errors. The randomForest command bootstraps samples to create a forest and averages the error over the collection. Since not all items are selected in each sample there will be a set of unused variables that can be used to calcualte the error of the model. This is called the out of bag error and the error against the number of trees used can be plotted in order to estimate how many tees should be used. This package also provides a confusion matrix which easily shows the results of the model, something the caret model did not. Unfortuneately the out of bag samples are not available as an object, so tuning the model required the creation of a separate test and train set. 
 
+```{r}
+#using random forest package
+#create the train test split to be used for model tuning.
+n = nrow(Imputed_df)
+n_train = round(0.8*n)
+set.seed(42) # change the seed to create new train and test sets
+train_indices = sample(1:n, n_train)
+soraria_train = Imputed_df[train_indices,]
+soraria_test = Imputed_df[-train_indices,]
+```
 
+```{r}
+soraria_randomforest = randomForest(formula = Species~., data = Imputed_df, mtry = 6, keep.forest = FALSE)
+err = soraria_randomforest$err.rate
+plot(soraria_randomforest)
+legend(x = "right", legend = colnames(err), fill = 1:ncol(err))
+```
 
+```{r}
+#tuning the mtry
+res = tuneRF(x = soraria_train,
+             y = soraria_train$Species,
+             ntreeTry = 500) 
+print(res)
+mtry_opt = res[,"mtry"][which.min(res[,"OOBError"])]
+```
+We can tune for more hyperparameters by minimizing the OOB error.
+above we tuned mtry, but we can also look at nodesize and sampsize. 
+Nodesize is the minimum size of the terminal nodes and will decide how deep the tree is. The larger this number, the smaller the tree. 
+
+```{r}
+set.seed(43)
+soraria_rpart_tree = rpart(Species~., soraria_train, method = "class", parms = list(split = "gini"))
+rpart.plot(soraria_rpart_tree)
+```
+Gives  great plot, but there's not much tuning to be done
+Look at accuracy
+
+```{r}
+pred = predict(soraria_rpart_tree, soraria_test, type = "class")
+conf = table(soraria_test$Species, pred)
+print(sum(diag(conf))/sum(conf))
+print(conf)
+```
 
 
