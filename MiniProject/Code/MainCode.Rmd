@@ -5,7 +5,7 @@ output:
     
 ---
 ---
-title: "Can machine learning be used to identify species of Sorbus"
+title: "Using machine learning be used to identify species of Sorbus"
 author: "PetraGuy"
 date: "6 January 2018"
 ---
@@ -19,17 +19,17 @@ knitr::opts_chunk$set(echo = TRUE)
 rm(list = ls())
 cat("\014")
 setwd("~/Documents/CMEECourseWork/MiniProject/Code")
-library(randomForest)
-library(ggplot2)
-library(gridExtra)
-library(GGally)
-library(grid)
-library(reshape2)
-library(caret)
-library(rpart)
+#library(randomForest)
+#library(ggplot2)
+#library(gridExtra)
+#library(GGally)
+#library(grid)
+#library(reshape2)
+#library(caret)
+#library(rpart)
 #library(rattle) this will not install
-library(rpart.plot)
-library(RColorBrewer)
+#library(rpart.plot)
+#library(RColorBrewer)
 ```
 Abstract.
 
@@ -55,7 +55,7 @@ The data was provided by Dr T Rich, the British Botanical Society expert on Sorb
 
 The nature of collection means that the data was sparse. Every plant of every species did not have have complete set of measurements or the same number of measurements. For example, S intermedia had 126 observations but S leyana only had 39. This is due to the rarity S. leyana. S. intermedia is a common plant found throught the UK in easily accessible places, whilst S leyana is only found in two sites in South Wales, sometimes on the sides of cliffs. In addition,  measurements  cannot all be collected at the same time. Leaves must be measured when mature, around flowering time, and therefore cannot be measured in conjunction with fruit. Separate trips to re-measure fruit on the same trees may not be possible. This has lead to a sparse dataset in which not all morphological characteristics were availabe for every plant. S intermedia records are an example. Of 122 records,  72 are purely for fruit measurements and the remaining 50 purely for leaf measurements, and these occur on different plants If imputation was carried out, 59% of the leaf measurements would be imputed. This would reduce the effectiveness of some algorithsms. For example, in kNN, if you increase the frequency of the neighbours in the S. Intermedia group, it is more likely that a member of a different group will be close to that neighbour. Therefore, the sparsity was handled by reallocating measurements. For example, the 50 leaf measurements for S. intermedia were assigned to 50 fruit measurements and the excess 22 were not used. In some cases, where there were only a few additional rows of incomplete data, median imputation was carried out. 
 
-Although it seems dubious to assign records from one plant to another, in this analysis this was felt to be acceptible for two reasons. Firstly, this an exploration of a new technique for biological recording. It is not currently being proposed as a complete and accurate method for species identifiction at this stage. Secondly, the clonal nature of these plants implies that we would expect a great deal of similarity within a species. The variation within the species is more likely to come from the variety of leaf sizes which can be found on one plant, and these are controlled for, although they cannot be elimnated, when the data is collected. (The range of laef sizes witin each plant was not available, so this comparison has not been tested).
+Although it seems dubious to assign records from one plant to another, in this analysis this was felt to be acceptible for two reasons. Firstly, this an exploration of a new technique for biological recording. It is not currently being proposed as a complete and accurate method for species identifiction at this stage. Secondly, the clonal nature of these plants implies that we would expect a great deal of similarity within a species. The variation within the species is more likely to come from the variety of leaf sizes which can be found on one plant, and these are controlled for, although they cannot be eliminated, when the data is collected. (The range of leaf sizes within each plant was not available, so this comparison has not been tested).
 
 ```{r,echo = FALSE }
 #Get the data , enter input CSV file name here, for data in data directory

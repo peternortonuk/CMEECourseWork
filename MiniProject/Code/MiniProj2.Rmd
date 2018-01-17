@@ -1,0 +1,218 @@
+---
+title: "MiniProj2"
+author: "PetraGuy"
+date: "15 January 2018"
+output: pdf_document
+---
+
+#This creates pdf from command line, note, sensitive to ' or "
+
+#Rscript -e "library(knitr); knit('MiniProj2.Rmd')"
+
+#Rscript -e "library(rmarkdown); render('MiniProj2.md')"
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, echo=FALSE}
+#clear the workspace
+rm(list = ls())
+cat("\014")
+setwd("~/Documents/CMEECourseWork/MiniProject/Code")
+
+```
+
+```{r, echo=FALSE}
+#Get the data , enter input CSV file name here, for data in data directory
+inputfile = 'SorariaCompact1.csv'
+Dataname = strsplit(inputfile, "\\.")[[1]][[1]]
+fullfile = paste("../Data",inputfile,sep = '/')
+Data = read.csv(fullfile)
+speciesnames = as.character(unique(unlist(Data$Species))) # uselful for nameing things
+numspecies = summary(Data$Species) # useful for comparisons
+
+```
+
+```{r, echo=FALSE}
+#Median imputation 
+median_replace1 = function(x){
+  ifelse(is.na(x), median(x,na.rm = TRUE), x)
+ }
+
+median_replace2 = function(x){
+  apply(x,2,median_replace1)
+}
+
+Imputed_list = lapply(split.data.frame(Data[,2:12], Data$Species), FUN = median_replace2)
+```
+
+```{r,echo=FALSE}
+#The imputed dataframe is a list with species as the elements, the following sticks it back together with a different name so both optiona are available
+temp = do.call(rbind, Imputed_list)
+Imputed_df = cbind(Data[1], temp)
+```
+
+```{r,echo=FALSE}
+# Some algorthms are sensitive to the scale of the data, so here the entire dataframe is scaled
+Scaled_df = scale(Imputed_df[-1])
+Scaled_df = cbind(Data[1], Scaled_df)
+
+# but this might reduce the dissimilarity to much, so this is a semi-scaled datafrane.
+
+temp = Imputed_df[-c(1,6,7,8,12)]
+temp = scale(temp)
+Semi_Scaled_df = cbind(Imputed_df[c(1,6:8,12)], temp)
+
+```
+
+```{r,echo=FALSE}
+# Model evaluation metrics
+
+accuracy = function(atable){
+  a = round(sum(diag(atable)/sum(atable)), digits = 2)
+  return(a)
+}
+
+precision = function(atable){
+  p = vector()
+  items = vector()
+  no_predictions = dim(atable)[2] 
+  for (i in 1:no_predictions){
+    item[i] = paste("class",colnames(atable)[i], sep = "_")
+    p[i] = round(diag(atable)[i]/(sum((atable)[,i])), digits = 2)
+  }
+  precisions = cbind(item,p)
+  colnames(precisions) = c("Class", "Precision")
+  return(precisions)
+}
+
+sensitivity = function(atable){
+  s = vector()
+  no_actuals = dim(atable)[1] 
+    for (i in 1:no_actuals){
+    s[i] = round(diag(atable)[i]/(sum((atable)[i,])), digits = 2)
+  }
+  sensitivities = cbind(rownames(atable),s)
+  return(sensitivities)
+}
+
+```
+
+
+```{r,echo=FALSE}
+#Data sampling and test/train sets.
+
+#This shuffles and splits the data
+shuffle = function(dataset){
+  splits = list()
+  set.seed(42)
+  n = nrow(dataset)
+  shuffled = dataset[sample(n),]
+  train = shuffled[1:round(0.7*n),]
+  test = shuffled[(round(0.7*n)+1):n,]
+  splits[[1]] = train
+  splits[[2]] = test
+  return(splits)
+}
+
+#this subsets the data into species
+create_train_test = function(dataset){
+  sets = as.character(unique(dataset[,1]))
+  train = data.frame()
+  test = data.frame()
+  split_data = list()
+  for (i in 1:length(sets)){
+    sub = subset(dataset, dataset[,1] == sets[i])
+    train_temp = shuffle(sub)[[1]]
+    test_temp = shuffle(sub)[[2]]
+    train = rbind(train, train_temp)
+    test = rbind(test, test_temp)
+  }
+  split_data[[1]] = train
+  split_data[[2]] = test
+  return(split_data)
+}
+
+#PS you can check the splits are correct with summary(train$species), summary(test$species)
+#summary(maindata$species), this gives numbers in each species.
+
+#now to include a cross fold validation repeat above fold times
+
+```
+
+```{r,echo=FALSE}
+repeated_kmeans = function(dataset){ 
+  metrics_list = list()
+  accuracy_vector = vector()
+  ratio = vector()
+  species_no = data.frame(matrix(ncol = 7))
+  colnames(species_no) = speciesnames
+  for (i in 1:10){
+    kmeans_result = kmeans(dataset[-1], 7, 20, iter.max = 50, algorithm = "MacQueen")
+    ratio[i] = round(kmeans_result$tot.withinss/kmeans_result$totss, digits = 2)
+    kmeans_conf = table(Imputed_df$Species, kmeans_result$cluster)
+    accuracy_vector[i] = accuracy(kmeans_conf)
+    species = diag(kmeans_conf)
+    species_no = rbind(species_no, species)
+  }
+ metrics_list[[1]] = ratio
+ metrics_list[[2]] = accuracy_vector
+ metrics_list[[3]] = species_no[-1,]
+ return(metrics_list)
+}
+```
+
+
+```{r,echo=FALSE}
+#Imputed df without scaling
+Imputed_kmeans = repeated_kmeans(Imputed_df) 
+#Semi scaled data
+Semi_scaled_kmeans = repeated_kmeans(Semi_Scaled_df)
+# fully scaled data
+Scaled_kmeans = repeated_kmeans(Scaled_df)
+```
+Within cluster sum of squares/between cluster sum of squares for the unscaled, semi-scaled and fully scaled data for ten repeats of kmeans.
+```{r,echo=FALSE}
+#Looking at the results
+SS_df = data.frame(nrow = 3)
+SS_df = rbind(Imputed_kmeans[[1]],Semi_scaled_kmeans[[1]],Scaled_kmeans[[1]])
+rownames(SS_df) = c("unscaled","semi-scaled","fullyscaled")
+SS_df
+```
+The ratio is largest for the scaled data and does not decrease when the data is scaled, so an unscaled data set is preferable. The ratio is identical each time.
+
+The accuracy over the ten repeats.
+```{r,echo=FALSE}
+#Looking at the results
+prec_df = data.frame(nrow = 3)
+prec_df = rbind(Imputed_kmeans[[2]],Semi_scaled_kmeans[[2]],Scaled_kmeans[[2]])
+rownames(prec_df) = c("unscaled","semi-scaled","fullyscaled")
+prec_df
+```
+The accuracy is different for each repeat on all the data sets, suggesting that the algorithm is not successfully clustering the data.
+
+The next tables show the percentage of each species correctly allocated to its cluster on each of the ten repeats
+```{r,echo=FALSE}
+#Looking at the results
+m1 = Imputed_kmeans[[3]]
+m2 = Semi_scaled_kmeans[[3]]
+m3 = Scaled_kmeans[[3]]
+
+print("unscaled")
+round(apply(m1, 1, function(x) (x/numspecies)*100), digits = 2)
+print("semi-scaled")
+round(apply(m2, 1, function(x) (x/numspecies)*100), digits = 2)
+print("scaled")
+round(apply(m3, 1, function(x) (x/numspecies)*100), digits = 2)
+```
+
+The results again show that the algorithm is not consistently allocating species to the correct cluster. On some runs, is is very accurate for some species, but not necessarily for all the others. Then on other runs its is completely inaccurate.
+
+
+
+
+
+
+
+
