@@ -1,21 +1,23 @@
 ---
-title: "MiniProj2"
+title: "Can machine Learning be used to identify species of Sorbus"
 author: "PetraGuy"
-date: "15 January 2018"
 output: pdf_document
 ---
-
+```{r, echo = FALSE, comment=NA}
+date = format(Sys.Date(), "%B %d %Y")
+cat(date)
+```
 #This creates pdf from command line, note, sensitive to ' or "
 
 #Rscript -e "library(knitr); knit('MiniProj2.Rmd')"
 
 #Rscript -e "library(rmarkdown); render('MiniProj2.md')"
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, comment=NA)
 ```
 
 
-```{r, echo=FALSE}
+```{r}
 #clear the workspace
 rm(list = ls())
 cat("\014")
@@ -23,7 +25,7 @@ setwd("~/Documents/CMEECourseWork/MiniProject/Code")
 
 ```
 
-```{r, echo=FALSE}
+```{r}
 #Get the data , enter input CSV file name here, for data in data directory
 inputfile = 'SorariaCompact1.csv'
 Dataname = strsplit(inputfile, "\\.")[[1]][[1]]
@@ -34,7 +36,7 @@ numspecies = summary(Data$Species) # useful for comparisons
 
 ```
 
-```{r, echo=FALSE}
+```{r}
 #Median imputation 
 median_replace1 = function(x){
   ifelse(is.na(x), median(x,na.rm = TRUE), x)
@@ -47,13 +49,13 @@ median_replace2 = function(x){
 Imputed_list = lapply(split.data.frame(Data[,2:12], Data$Species), FUN = median_replace2)
 ```
 
-```{r,echo=FALSE}
+```{r}
 #The imputed dataframe is a list with species as the elements, the following sticks it back together with a different name so both optiona are available
 temp = do.call(rbind, Imputed_list)
 Imputed_df = cbind(Data[1], temp)
 ```
 
-```{r,echo=FALSE}
+```{r}
 # Some algorthms are sensitive to the scale of the data, so here the entire dataframe is scaled
 Scaled_df = scale(Imputed_df[-1])
 Scaled_df = cbind(Data[1], Scaled_df)
@@ -66,7 +68,7 @@ Semi_Scaled_df = cbind(Imputed_df[c(1,6:8,12)], temp)
 
 ```
 
-```{r,echo=FALSE}
+```{r}
 # Model evaluation metrics
 
 accuracy = function(atable){
@@ -79,10 +81,10 @@ precision = function(atable){
   items = vector()
   no_predictions = dim(atable)[2] 
   for (i in 1:no_predictions){
-    item[i] = paste("class",colnames(atable)[i], sep = "_")
+    items[i] = paste("class",colnames(atable)[i], sep = "_")
     p[i] = round(diag(atable)[i]/(sum((atable)[,i])), digits = 2)
   }
-  precisions = cbind(item,p)
+  precisions = cbind(items,p)
   colnames(precisions) = c("Class", "Precision")
   return(precisions)
 }
@@ -100,7 +102,7 @@ sensitivity = function(atable){
 ```
 
 
-```{r,echo=FALSE}
+```{r}
 #Data sampling and test/train sets.
 
 #This shuffles and splits the data
@@ -141,7 +143,7 @@ create_train_test = function(dataset){
 
 ```
 
-```{r,echo=FALSE}
+```{r}
 repeated_kmeans = function(dataset){ 
   metrics_list = list()
   accuracy_vector = vector()
@@ -164,7 +166,7 @@ repeated_kmeans = function(dataset){
 ```
 
 
-```{r,echo=FALSE}
+```{r}
 #Imputed df without scaling
 Imputed_kmeans = repeated_kmeans(Imputed_df) 
 #Semi scaled data
@@ -173,7 +175,7 @@ Semi_scaled_kmeans = repeated_kmeans(Semi_Scaled_df)
 Scaled_kmeans = repeated_kmeans(Scaled_df)
 ```
 Within cluster sum of squares/between cluster sum of squares for the unscaled, semi-scaled and fully scaled data for ten repeats of kmeans.
-```{r,echo=FALSE}
+```{r}
 #Looking at the results
 SS_df = data.frame(nrow = 3)
 SS_df = rbind(Imputed_kmeans[[1]],Semi_scaled_kmeans[[1]],Scaled_kmeans[[1]])
@@ -183,7 +185,7 @@ SS_df
 The ratio is largest for the scaled data and does not decrease when the data is scaled, so an unscaled data set is preferable. The ratio is identical each time.
 
 The accuracy over the ten repeats.
-```{r,echo=FALSE}
+```{r}
 #Looking at the results
 prec_df = data.frame(nrow = 3)
 prec_df = rbind(Imputed_kmeans[[2]],Semi_scaled_kmeans[[2]],Scaled_kmeans[[2]])
@@ -192,23 +194,83 @@ prec_df
 ```
 The accuracy is different for each repeat on all the data sets, suggesting that the algorithm is not successfully clustering the data.
 
-The next tables show the percentage of each species correctly allocated to its cluster on each of the ten repeats
-```{r,echo=FALSE}
+The next tables show the percentage of each species correctly allocated to its cluster on each of the ten repeats. For example, the top row from left to right, gives the true positive rate for S. anglia on each subsequent run on the kmeans algorithm.
+
+```{r}
 #Looking at the results
 m1 = Imputed_kmeans[[3]]
 m2 = Semi_scaled_kmeans[[3]]
 m3 = Scaled_kmeans[[3]]
 
-print("unscaled")
-round(apply(m1, 1, function(x) (x/numspecies)*100), digits = 2)
-print("semi-scaled")
-round(apply(m2, 1, function(x) (x/numspecies)*100), digits = 2)
-print("scaled")
-round(apply(m3, 1, function(x) (x/numspecies)*100), digits = 2)
+
+m1_percent = round(apply(m1, 1, function(x) (x/numspecies)*100), digits = 2)
+colnames(m1_percent) = c(1:10)
+cat("unscaled")
+m1_percent
+cat("\n")
+
+m2_percent = round(apply(m2, 1, function(x) (x/numspecies)*100), digits = 2)
+colnames(m2_percent) = c(1:10)
+cat("semi-scaled")
+m2_percent
+cat("\n")
+
+m3_percent = round(apply(m3, 1, function(x) (x/numspecies)*100), digits = 2)
+colnames(m3_percent) = c(1:10)
+cat("scaled")
+m3_percent
+cat("\n")
+
 ```
 
 The results again show that the algorithm is not consistently allocating species to the correct cluster. On some runs, is is very accurate for some species, but not necessarily for all the others. Then on other runs its is completely inaccurate.
 
+Hierarchical Clustering.
+
+First the unscaled imputed data.
+
+```{r}
+repeated_hclust = function(dataset){
+  conf = list()
+  metrics_list = list()
+  accuracy_vector = vector()
+  dist_methods = c("euclidean", "maximum","manhattan","canberra","minkowski")
+for (i in 1:length(dist_methods)){
+  method = dist_methods[i]
+  distance = dist(dataset[-1], method = method)
+  hcluster = hclust(distance, method = "complete")
+  cluster = cutree(hcluster, k = 7)
+  conf[[i]] = table(dataset$Species, cluster)
+  accuracy_vector[i] = accuracy(conf[[i]])
+}
+  accuracy_df = rbind(dist_methods, accuracy_vector)
+  metrics_list[[1]]=accuracy_df
+  metrics_list[[2]]=conf
+  names(metrics_list)=c("Accuracy", "Confusion Matrix")
+  return(metrics_list)
+
+}
+
+hcluster = repeated_hclust(Imputed_df)
+accs = data.frame(nrow = 2)
+accs = rbind(hcluster[[1]][1,], hcluster[[1]][2,])
+rownames(accs) = c("Distance Method", "Accuracy")
+colnames(accs) = c(" ", " "," ", " "," ")
+cat("Accuracy obtained using the different distance calculations\n")
+print(accs)
+```
+
+The canberra distance gives the most accurate results, below is the confusion matrix for that method
+
+```{r}
+hcluster[[2]][[4]]
+```
+
+The confusion matrix shows that whilst many S anglica and S minima were clustered together, many other species were dispersed across clusters. The model is not efficient in separting the species.
+
+When the scaled date was used, the accuracy reduced. The results demonstrate that while hierarchical clustering was more accurate than kmeans when the canberra distance is used, the model is still very poor.
+
+Decision Tree
 
 
 
