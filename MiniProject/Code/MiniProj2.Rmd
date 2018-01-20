@@ -1,17 +1,27 @@
 ---
 title: "Can machine Learning be used to identify species of Sorbus"
-author: "PetraGuy"
-output: pdf_document
+author: "PetraGuy, Imperial College London"
+output:
+  pdf_document: 
+    fig_caption: yes 
+header-includes:
+  - \usepackage{lineno}
+  - \linenumbers
+ 
 ---
+
 ```{r, echo = FALSE, comment=NA}
 date = format(Sys.Date(), "%B %d %Y")
 cat(date)
 ```
+```{r}
 #This creates pdf from command line, note, sensitive to ' or "
 
 #Rscript -e "library(knitr); knit('MiniProj2.Rmd')"
 
 #Rscript -e "library(rmarkdown); render('MiniProj2.md')"
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, comment=NA)
 ```
@@ -21,8 +31,12 @@ knitr::opts_chunk$set(echo = FALSE, comment=NA)
 #clear the workspace
 rm(list = ls())
 cat("\014")
-setwd("~/Documents/CMEECourseWork/MiniProject/Code")
-
+#setwd("~/Documents/CMEECourseWork/MiniProject/Code")
+library(ggplot2)
+library(reshape) # both required for the box plots, otherwise they cant all be presented
+                # on one page and therefore difficult to analyse
+library(rpart)
+library(rpart.plot)# both required for the decision tree
 ```
 
 ```{r}
@@ -68,6 +82,7 @@ Semi_Scaled_df = cbind(Imputed_df[c(1,6:8,12)], temp)
 
 ```
 
+
 ```{r}
 # Model evaluation metrics
 
@@ -96,6 +111,7 @@ sensitivity = function(atable){
     s[i] = round(diag(atable)[i]/(sum((atable)[i,])), digits = 2)
   }
   sensitivities = cbind(rownames(atable),s)
+  colnames(sensitivities) = c("Species", "Sensitivity")
   return(sensitivities)
 }
 
@@ -144,6 +160,8 @@ create_train_test = function(dataset){
 ```
 
 ```{r}
+# performs the k means algorith over 10 repeats, returns BSS/Wss ration, accuracy and 
+
 repeated_kmeans = function(dataset){ 
   metrics_list = list()
   accuracy_vector = vector()
@@ -166,7 +184,29 @@ repeated_kmeans = function(dataset){
 ```
 
 
+
+```{r, message = FALSE }
+# data exploration - box plots
+melted = melt(Scaled_df)
+ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) +   facet_wrap(~variable) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+```
+```{r, message = FALSE }
+# data exploration - box plots
+melted = melt(Semi_Scaled_df)
+ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) +   facet_wrap(~variable) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+```
+
+```{r, message = FALSE }
+# data exploration - box plots
+melted = melt(Imputed_df)
+ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) +   facet_wrap(~variable) +
+  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+```
+
 ```{r}
+#Getting the results for the kmeans
 #Imputed df without scaling
 Imputed_kmeans = repeated_kmeans(Imputed_df) 
 #Semi scaled data
@@ -174,22 +214,26 @@ Semi_scaled_kmeans = repeated_kmeans(Semi_Scaled_df)
 # fully scaled data
 Scaled_kmeans = repeated_kmeans(Scaled_df)
 ```
-Within cluster sum of squares/between cluster sum of squares for the unscaled, semi-scaled and fully scaled data for ten repeats of kmeans.
+
+
 ```{r}
-#Looking at the results
+#Disaply BSS/WSS ratio for the kmeans calculated in chunk above 
 SS_df = data.frame(nrow = 3)
 SS_df = rbind(Imputed_kmeans[[1]],Semi_scaled_kmeans[[1]],Scaled_kmeans[[1]])
 rownames(SS_df) = c("unscaled","semi-scaled","fullyscaled")
+colnames(SS_df) = c("Run 1","Run 2","Run 3","Run 4","Run 5","Run 6","Run 7", "Run 8","Run 9","Run 10")
 SS_df
+
 ```
 The ratio is largest for the scaled data and does not decrease when the data is scaled, so an unscaled data set is preferable. The ratio is identical each time.
 
-The accuracy over the ten repeats.
+
 ```{r}
-#Looking at the results
+#Display accuaracy for kmeans calcualted above
 prec_df = data.frame(nrow = 3)
 prec_df = rbind(Imputed_kmeans[[2]],Semi_scaled_kmeans[[2]],Scaled_kmeans[[2]])
 rownames(prec_df) = c("unscaled","semi-scaled","fullyscaled")
+colnames(prec_df) = c("Run 1","Run 2","Run 3","Run 4","Run 5","Run 6","Run 7", "Run 8","Run 9","Run 10")
 prec_df
 ```
 The accuracy is different for each repeat on all the data sets, suggesting that the algorithm is not successfully clustering the data.
@@ -197,7 +241,7 @@ The accuracy is different for each repeat on all the data sets, suggesting that 
 The next tables show the percentage of each species correctly allocated to its cluster on each of the ten repeats. For example, the top row from left to right, gives the true positive rate for S. anglia on each subsequent run on the kmeans algorithm.
 
 ```{r}
-#Looking at the results
+#Display percentage of true positives from the confusion matrix calcualted in kmeans chunk above
 m1 = Imputed_kmeans[[3]]
 m2 = Semi_scaled_kmeans[[3]]
 m3 = Scaled_kmeans[[3]]
@@ -271,6 +315,41 @@ The confusion matrix shows that whilst many S anglica and S minima were clustere
 When the scaled date was used, the accuracy reduced. The results demonstrate that while hierarchical clustering was more accurate than kmeans when the canberra distance is used, the model is still very poor.
 
 Decision Tree
+
+```{r}
+
+Imputed_sets = create_train_test(Imputed_df)
+Imputed_train = Imputed_sets[[1]]
+Imputed_test = Imputed_sets[[2]]
+tree = rpart(Species~., Imputed_train, method = "class", control = rpart.control(cp = 0.00001))
+rpart.plot(tree, box.palette = "Blues")
+```
+
+The decision tree produces some very accurate nodes. 100 % for S. minima, 90% for S. anglica, 
+
+```{r}
+pred_tree = predict(tree, Imputed_test, type = "class")
+confusion_tree = table(Imputed_test$Species, pred_tree)
+cat("The accuracy for the decision tree is ")
+cat(accuracy(table(Imputed_test$Species, pred_tree)))
+```
+
+```{r}
+cat("The sensitivies for the decision tree model are shown in the table below \n")
+(sensitivity(table(Imputed_test$Species, pred_tree)))
+```
+
+```{r}
+cat(" The precisions for the decision tree model are shown in the table below \n")
+precision(table(Imputed_test$Species, pred_tree))
+
+```
+
+```{r}
+cat("The confusion matrix details exactly how the species were placed. \n")
+cat("The final column is the sum of species in the test set. \n")
+cbind(table(Imputed_test$Species, pred_tree),summary(Imputed_test$Species))
+```
 
 
 
