@@ -2,7 +2,9 @@
 title: "BirdsMarsh"
 author: "PetraGuy"
 date: "26 November 2017"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
