@@ -4,17 +4,28 @@ author: "PetraGuy, Imperial College London"
 output:
   pdf_document: 
     fig_caption: yes 
+fontsize: 11pt
+
 header-includes:
   - \usepackage{lineno}
   - \linenumbers
- 
+  - \usepackage{setspace}
+  - \doublespacing
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment=NA, fig.align ="centre")
+```
 
 ```{r, echo = FALSE, comment=NA}
 date = format(Sys.Date(), "%B %d %Y")
 cat(date)
 ```
-```{r}
+
+\center
+![Figure 1. Sorbus aucuparia](Sorbusaucuparia.pdf){width=100%, height=100%}\ 
+\center
+
+```{r, echo =FALSE}
 #This creates pdf from command line, note, sensitive to ' or "
 
 #Rscript -e "library(knitr); knit('MiniProj2.Rmd')"
@@ -22,9 +33,7 @@ cat(date)
 #Rscript -e "library(rmarkdown); render('MiniProj2.md')"
 ```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, comment=NA)
-```
+
 
 
 ```{r}
@@ -182,24 +191,20 @@ repeated_kmeans = function(dataset){
  return(metrics_list)
 }
 ```
-0.Abstract.
+\flushleft
+
+#0. Abstract.
 
 Machine learning was used to separate six species of Sorbus within the subgenus Soraria based on morphological measurements of fruit and leaves. Box plots show that there is considerable overlap of characteristics between the species, but that some species were sufficiently differentiated in one or two characteristics. This was reflected in the modelling where unsupervised clustering algorithms gave inaccurate results but decision tree methods were successful.
 
-1. Introduction - The genus Sorbus.
+#1. Introduction - The genus Sorbus.
 
-Sorbus is a member of the Rosacea family, perhaps the best known species being Sorbus aucuparia, the Rowan or Mountain Ash. 
+Sorbus is a member of the Rosacea family, perhaps the best known species being Sorbus aucuparia, the Rowan or Mountain Ash. However, there are over 50 species of Sorbus in the UK, 38 of these are vulnerable or critically endangered and most are endemic or native.  There are four diploid species, but, as with many Rosaceae, Sorbus produce new apomictic polyploid species. These can also produce viable pollen and can therefore backcross with other diploid species. This results in the large number of genetically unique, stable, clonal communities, which can look very similar to each other. This presents a problem with recording and many Sorbus require expert knowledge to correctly identify to species level because much of the identification depends on comparative knowledge. This tends to dissuade recorders, or encourages records at aggregate level. This is a problem for such an important genus with many endangered plants that could benefit from identification.
 
-![Figure 1. Sorbus aucuparia](Sorbusaucuparia.pdf){width=25%, height=25%}\ 
-
-However, there are over 50 species of Sorbus in the UK, 38 of these are vulnerable or critically endangered and most are endemic or native.  There are four diploid species, but, as with many Rosaceae, Sorbus produce new apomictic polyploid species. These can also produce viable pollen and can therefore backcross with other diploid species. This results in the large number of genetically unique, stable, clonal communities, which can look very similar to each other. This presents a problem with recording and many Sorbus require expert knowledge to correctly identify to species level because much of the identification depends on comparative knowledge. This tends to dissuade recorders, or encourages records at aggregate level. This is a problem for such an important genus with many endangered plants that could benefit from identification.
-
-Sorbus are grouped into six subgenus, each of which are reasonably easy to identify by recorders with some knowledge, as the illustrations below show.
-
-More difficulty arises when identifying plants within these subgenus, and this is where this work has concentrated. In this modelling only the subgenus Soraria has been trialled. This subgenus consists of eight species all similar in appearance to Sorbus intermedia, although only seven species are considered based on the availability of data. These plants are distinguished from other subgenus by having leaves with rounded lobes which are tomentose beneath and the fruits having fewer lenticles. Perhaps the most noticeable difference between plants within the subgenus, are the larger fruits on S intermedia, the smaller leaves of S minima and the small fruits of S mougeotii.
+Sorbus are grouped into six subgenus, each of which are reasonably easy to identify by recorders with some knowledge, more difficulty arises when identifying plants within these subgenus, and this is where this work has concentrated. In this modelling only the subgenus Soraria has been trialled. This subgenus consists of eight species all similar in appearance to Sorbus intermedia, although only seven species are considered based on the availability of data. These plants are distinguished from other subgenus by having leaves with rounded lobes which are tomentose beneath and the fruits having fewer lenticles. Perhaps the most noticeable difference between plants within the subgenus, are the larger fruits on S intermedia, the smaller leaves of S minima and the small fruits of S mougeotii.
 
 
-2 Data and data preparation
+#2. Data and data preparation
 
 The data was provided by Dr T Rich, the British Botanical Society expert on Sorbus and  consists of leaf and fruit measurements. For the leaves, the length, width, widest point on the leaf, base angle, number of veins, depth of the lobes, and vein angle  have been recorded. For the fruit, the length and the width are used. Due to the variability in leaf size across one plant, the measurements were all carried out in a specific manner described by Rich [ ]. Essentially, repeated measurements of leaves on sterile spurs on the sunlight side of the tree are recorded and averaged over at least ten leaves. 
 
@@ -211,8 +216,8 @@ This procedure also has the benefit of producing a dataset with no missing value
 
 Some machine learning algorithms require train and test sets. The model is fitted to a subset of the data – the training set, and its performance evaluated using new data – the test set. This is to avoid over fitting and to improve the predictive power of the models. The data can  be split by selecting a random sample of, for example, 70% of the data. However, this might be problematic with this data because it is unbalanced. Therefore, a random stratified sampling system was carried out. Each species, which has a different number of entries, was split into 70/30 train test sets. This should reduce the bias of the model whilst not over fitting.  In addition, cross fold validation was also used to increase accuracy. This technique repeatedly creates train test sets as described above and averages the model performance metrics across all the folds. This gives a more robust estimate of the model accuracy because it is less dependent on the choice of the data for the train and test sets. 
 
-3. Modelling
-3.1Model performance metrics
+#3. Modelling
+##3.1Model performance metrics
 
 In classification models, the correct and incorrect values assigned to each class are known, and these can be used to evaluate the model. 
 
@@ -224,16 +229,16 @@ Sensitivity is the true positive rate of a class. Sensitivity tells you how good
 
 For clustering models, well defined clusters represent better models  and the ratio of within cluster sum of squares to total sum of squares was used.  For well defined, compact clusters the ratio will be small. Since we do actually have information about the clusters, that is, we know the species, we can also look at accuracy, precision and sensitivity.
 
-3.2 Modelling methods.
+##3.2 Modelling methods.
 
 Three machine learning methods were used   k-means,  hierarchical clustering and a decision tree. The first two being unsupervised clustering techniques and the third a supervised classification algorithm.
 
 
-Decision tree.
+###3.2.1.Decision tree.
 
 Variables are used to make binary decisions as whether data points are part of a group or not. Decisions are made based on whether the information after the decision, i.e., the separation of the groups, is increased or decreased. The final classes would ideally contain only the items of a single species, this will not be the case due to noise within the data. The model here is be represented by the logical processes followed to reach the final classes. The rpart package was used for the decision tree []
 
-K-means
+###3.2.2. K-means
 
 Kmeans is an unsupervised clustering technique. Even though we do  know the identity of the instances in the data, this is not used in the model. Instead, the data is grouped into clusters where the aim is to make the items within each cluster similar, whilst each cluster is as dissimilar as possible from other clusters. This is similar to a classification technique except the classes to which the items belong is to specified. In clustering, no information is needed about the objects and there is no right or wrong, so in that sense, this problem is not strictly a clustering problem. We know what species a sample belongs to and we do not want it allocated to another cluster. However, it is a useful technique for examining the data and revealing patterns within the data. The k in k means refers to the number of clusters to be used, which we specified as seven – the number of species.
 
@@ -241,17 +246,17 @@ In k-means  k centroids are randomly assigned to the data. The data points are t
 
 In order to explore different k-means models the algorithm was also repeated on  imputed, standardised and semi-standardised data. In semi-standardised data only the variables which were orders of magnitude larger were manipulated. The standardize function in R was used to subtract the means and divide by the standard deviation. The MacQueen method gave the highest accuracy and was used for all the calculations. 
 
-Hierarchical Clustering.
+###3.2.3. Hierarchical Clustering.
 
 Instead of randomly assigning k centroids, hierarchical clustering assigns each data-point to a single cluster. The distance between the clusters is calculated and the closest two points are aggregated into a new cluster, so the clusters decrease by one.  The process is repeated until all items are clustered into one cluster. The clusters can be cut at k and the members can be examined. Hierarchical clustering was explored using different distance calculation methods. 
 
 Hierarchical clustering is again unsupervised, but since we know the members of each cluster, we can compare the clusters to the original data and calculate accuracy, precision and sensitivity. The hclust function is part of the stats package [] which is usually included in base R.
 
-3.4 Computing languages
+##3.4 Computing languages
 
-R was the main language used in this project, although there is no reason, in terms of functionality, why Python could not be used, especially at the more simplistic level of modelling carried out here. A large benefit in R was that it can easily be used in conjunction with R markdown which then provide a mechanism for easily producing pdf documents with an interactive document. In addition, the data was provided by, and the results prepared for, members of the ecological community, where R is the most common package being used. Python was used for some data preparation in order to full fill the criteria of the project, but R would have been equally suitable. R markdown was used in preference to Latex since it provides the same functionally as Latex but with the added benefit of being a dynamic document that is commonly used by other researchers in ecology. 
+R was the main language used in this project, although there is no reason, in terms of functionality, why Python could not be used, especially at the more simplistic level of modelling carried out here. A large benefit in R was that it can easily be used in conjunction with R markdown which then provide a mechanism for easily producing pdf documents with an interactive document. In addition, the data was provided by, and the results prepared for, members of the ecological community, where R is the most common package being used. Python was used for some data preparation in order to full fill the criteria of the project, but R would have been equally suitable. R markdown was used as it provides the same functionality as Latex, allowing the use of latex commands directly within the document, but with the added benefit of being a dynamic document that is commonly used by other researchers in ecology.  
 
-4.Data exploration.
+#4.Data exploration.
 
 In order for machine learning algorithms to work accurately the groups should be separated into clearly defined clumps with very little overlap. Box plots show the similarity between the variables and how much the variables overlap.
 
@@ -277,9 +282,9 @@ ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) + 
   theme(axis.ticks = element_blank(), axis.text.x = element_blank())
 ```
 
-5. Results
+#5. Results
 
-5.1 Kmeans
+##5.1 Kmeans
 
 ```{r}
 #Getting the results for the kmeans
@@ -346,7 +351,7 @@ cat("\n")
 
 The results again show that the algorithm is not consistently allocating species to the correct cluster. On some runs, is is very accurate for some species, but not necessarily for all the others. Then on other runs its is completely inaccurate.
 
-5.2 Hierarchical Clustering
+##5.2 Hierarchical Clustering
 
 ```{r}
 repeated_hclust = function(dataset){
@@ -388,7 +393,7 @@ hcluster[[2]][[4]]
 
 The confusion matrix above shows that the method successful clusters some species, such as S. anglica, many other species are dispersed across the cluster. Again, the unstandardised data was more accurate than standardised data and the results are only shown for the unstandardised data.
 
-5.3 Decision Tree
+##5.3 Decision Tree
 
 ```{r}
 
@@ -425,11 +430,12 @@ cat("The final column is the sum of species in the test set. \n")
 cbind(table(Imputed_test$Species, pred_tree),summary(Imputed_test$Species))
 ```
 
-6 Conlcusion.
+#6 Conlcusion.
 Clustering algorithms were not successful in separating the data into clusters which could be interpreted as species of Sorbus. The kmeans algorithm was seen to be unrepeatable and alhough the ratio of the within cluster sum of squares to between cluster sum of squares was low, the accuracy and precision were low.
 Hierarchical clustering had slightyly improved accuracy, but it was still below 50% and the precision and sensitivyt were low.
 A decision tree successfully separated the species with at least 62% accuracy. 
 
+\flushleft
 
 
 

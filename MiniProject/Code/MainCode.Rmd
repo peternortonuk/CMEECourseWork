@@ -2,7 +2,7 @@
 output:
   pdf_document: 
     fig_caption: yes
-    
+    df_print: kable
 ---
 ---
 title: "Using machine learning be used to identify species of Sorbus"
@@ -10,7 +10,7 @@ author: "PetraGuy"
 date: "6 January 2018"
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 
@@ -185,6 +185,8 @@ out = paste(out,'.pdf')
 
 ```{r,echo = FALSE }
 #pdf(out)
+library(ggplot2)
+library(grid)
 col_names = colnames(Data)
 col_names = col_names[-1]
 plotlist = list()
@@ -192,8 +194,9 @@ plotlist = list()
 for (i in seq_along(col_names)){
   plot = ggplot(Imputed_df, (aes_string(x='Species', y=col_names[i])))+
                  geom_boxplot()
-  plotlist = rbind(plotlist,  plot)
-  grid.draw(plot)
+  plot(plot)
+  #plotlist = rbind(plotlist,  plot)
+  #grid.draw(plot)
 }
 
 ```
@@ -207,9 +210,9 @@ out = paste(out,'.pdf')
 ```
 
 
-```{r,echo = FALSE }
+```{r,echo = FALSE, message = FALSE }
 #pdf(out)
-
+library(reshape)
 melted = melt(Scaled_df)
 
 ggplot(data = melted) +  geom_boxplot(aes(x=Species,y=value, fill = Species)) +   facet_wrap(~variable) +
