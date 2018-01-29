@@ -208,7 +208,7 @@ repeated_kmeans = function(dataset){
 
 #0. Abstract.
 
-Machine learning was used to separate seven species of Sorbus within the subgenus Soraria based on morphological measurements of fruit and leaves. Box plots show that there is considerable overlap of characteristics between the species, but that some species were sufficiently differentiated in one or two characteristics. This was reflected in the modelling where unsupervised clustering algorithms gave inaccurate results but decision tree methods were successful.
+Machine learning was used to separate seven species of Sorbus within the subgenus Soraria based on morphological measurements of fruit and leaves. Box plots show that there is considerable overlap of characteristics between the species, but that some species were sufficiently differentiated in one or two characteristics. This was reflected in the modelling where unsupervised clustering algorithms gave inaccurate results but decision tree methods were successful. Accuracy of the decision tree was 0.68, for hierarchical clustering 0.41 and for kmeans the highest value obtained was 0.22. Although hierarchical clustering showed sensitivity for S. arrensis of 0.87, for the remaining species sensitivities were below 0.32. For the decision tree the lowest sensitivity was 0.17 for S. intermedia but for five of the species the value was above 0.6.  The decision tree had precision of 1 for one cluster and five remain values above 0.5, whereas for hierarchical clustering, the highest value was 0.81 and five remaining value were below 0.43. 
 
 #1. Introduction - The genus Sorbus.
 
@@ -335,8 +335,8 @@ SS_df = data.frame(nrow = 2)
 SS_df = rbind(Imputed_kmeans[[1]],Scaled_kmeans[[1]])
 rownames(SS_df) = c("unstandardized","standardized")
 colnames(SS_df) = c("Run 1","Run 2","Run 3","Run 4","Run 5","Run 6","Run 7", "Run 8","Run 9","Run 10")
-kable(SS_df, format = "latex", caption = "Within cluster to between cluster ratio")%>%
-kable_styling(latex_options = "hold_position")
+kable(SS_df, format = "pandoc", caption = "Within cluster to between cluster ratio")#%>%
+#kable_styling(latex_options = "hold_position")
 
 ```
 
@@ -349,15 +349,13 @@ acc_df = data.frame(nrow = 2)
 acc_df = rbind(Imputed_kmeans[[2]],Scaled_kmeans[[2]])
 rownames(acc_df) = c("unstandardized","standardized")
 colnames(acc_df) = c("Run 1","Run 2","Run 3","Run 4","Run 5","Run 6","Run 7", "Run 8","Run 9","Run 10")
-kable(acc_df, format = "latex", caption = "Accuracy")%>%
-kable_styling(latex_options = "hold_position")
+kable(acc_df, format = "pandoc", caption = "Accuracy")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
 The accuracy shown in table 2 is different on each run which implies that the algorithm is not successfully grouping the data into the same clusters. The mean accuracy is higher for the standardized data, but its low value, its fluctuation and its range imply that the model is not useful.
 
-
-
-The following tables show the percentage of each species correctly allocated to its cluster on each of the ten repeats for the  For example, the top row from left to right, gives the true positive rate for S. anglia on each subsequent run on the kmeans algorithm.
+Tables 3 and 4 show the percentage of each species correctly allocated to its cluster on each of the ten repeats for the  For example, the top row from left to right, gives the true positive rate for S. anglia on each subsequent run on the kmeans algorithm.
 
 ```{r,}
 #Display percentage of true positives from the confusion matrix calcualted in kmeans chunk above
@@ -371,15 +369,15 @@ m3 = Scaled_kmeans[[3]]
 
 m1_percent = round(apply(m1, 1, function(x) (x/numspecies)*100), digits = 2)
 colnames(m1_percent) = c(1:10)
-kable(m1_percent, format = "latex", caption = "Percentage of true positives for non-standarized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(m1_percent, format = "pandoc", caption = "Percentage of true positives for non-standarized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
 
 ```{r, eval = FALSE}
 m2_percent = round(apply(m2, 1, function(x) (x/numspecies)*100), digits = 2)
 colnames(m2_percent) = c(1:10)
-kable(m2_percent, format = "latex", caption = "Percentage of true positives for semi-standarized data" )
+kable(m2_percent, format = "pandoc", caption = "Percentage of true positives for semi-standarized data" )
 
 ```
 
@@ -387,28 +385,29 @@ kable(m2_percent, format = "latex", caption = "Percentage of true positives for 
 ```{r}
 m3_percent = round(apply(m3, 1, function(x) (x/numspecies)*100), digits = 2)
 colnames(m3_percent) = c(1:10)
-kable(m3_percent, format = "latex", caption = "Percentage of true positives for standarized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(m3_percent, format = "pandoc", caption = "Percentage of true positives for standarized data")#%>%
+#kable_styling(latex_options = "hold_position")
 
 
 ```
 
 The results again show that the algorithm is not consistently allocating species to the correct cluster. On some runs, it is very accurate for some species, but not necessarily for all the others. Then on other runs its is completely inaccurate. The standardized data shows better results than the non standardized data.
 
-In order to compare this model to hierarchical clustering and decision tree, the precision and sensitivity were also calculated.
+In order to compare this model to hierarchical clustering and decision tree, the precision and sensitivity were also calculated and are shown in tables 5 to 8.
+The precision and sensitivity also demonstrate the instability of the model. Although the standardized data in both cases sometimes gives very good results, this is not consistent or repeatable.
 
 ```{r}
 prec_df_Imputed = Imputed_kmeans[[4]]
 colnames(prec_df_Imputed) = c(1:10)
-kable(prec_df_Imputed, format = "latex", caption = "Precision of kmeans with non standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(prec_df_Imputed, format = "pandoc", caption = "Precision of kmeans with non standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
 ```{r}
 prec_df = Scaled_kmeans[[4]]
 colnames(prec_df) = c(1:10)
-kable(prec_df, format = "latex", caption = "Precision of kmeans with standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(prec_df, format = "pandoc", caption = "Precision of kmeans with standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
 
@@ -416,18 +415,15 @@ kable_styling(latex_options = "hold_position")
 ```{r}
 sens_df_Imputed = Imputed_kmeans[[4]]
 colnames(sens_df_Imputed) = c(1:10)
-kable(sens_df_Imputed, format = "latex", caption = "Sensitivity of kmeans with non standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(sens_df_Imputed, format = "pandoc", caption = "Sensitivity of kmeans with non standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 ```{r}
 sens_df_scaled = Scaled_kmeans[[4]]
 colnames(sens_df_scaled) = c(1:10)
-kable(sens_df_scaled, format = "latex", caption = "Sensitivity of kmeans with standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(sens_df_scaled, format = "pandoc", caption = "Sensitivity of kmeans with standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
-
-The precision and sensitivity also demonstrate the instability of the model. Although the standardized data in both cases sometimes gives very good results, this is not consistent or repeatable.
-
 
 ##5.2 Hierarchical Clustering
 
@@ -463,8 +459,8 @@ accs = data.frame(nrow = 2)
 accs = rbind(hcluster[[1]][1,], hcluster[[1]][2,])
 rownames(accs) = c("Distance Method", "Accuracy")
 colnames(accs) = c(" ", " "," ", " "," ")
-kable(accs, format = "latex", caption = "Accuracy obtained in hierarchical clustering using different distance metrics for non standarized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(accs, format = "pandoc", caption = "Accuracy obtained in hierarchical clustering using different distance metrics for non standarized data")#%>%
+#kable_styling(latex_options = "hold_position")
 
 ```
 ```{r}
@@ -473,27 +469,22 @@ accs = data.frame(nrow = 2)
 accs = rbind(hcluster_scaled[[1]][1,], hcluster_scaled[[1]][2,])
 rownames(accs) = c("Distance Method", "Accuracy")
 colnames(accs) = c(" ", " "," ", " "," ")
-kable(accs, format = "latex", caption = "Accuracy obtained in hierarchical clustering using different distance metrics for standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(accs, format = "pandoc", caption = "Accuracy obtained in hierarchical clustering using different distance metrics for standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 
 ```
 
-The table above shows that the Canberra metric gives the most accurate results in the non-standardized data. The Euclidean and Minkowski methods give slightly worse worse results but the best for the standardized data.
-
+Tables 9 and 10 demonstrate that the Canberra metric gives the most accurate results in the non-standardized data. The Euclidean and Minkowski methods give slightly worse worse results but the best for the standardized data. The confusion matrix in table 11 shows that the method successful clusters some species, such as S. anglica, many other species are dispersed across the cluster. The confusion matrix for the standardized data shows worse results than for the non-standardized data.
 
 ```{r}
-kable(hcluster[[2]][[4]], format = "latex", caption = "Confusion matrix for Canberra method using un standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(hcluster[[2]][[4]], format = "pandoc", caption = "Confusion matrix for Canberra method using un standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
-
-The confusion matrix above shows that the method successful clusters some species, such as S. anglica, many other species are dispersed across the cluster. 
 
 ```{r}
-kable(hcluster_scaled[[2]][[4]], format = "latex", caption = "Confusion matrix for Canberra method with standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(hcluster_scaled[[2]][[4]], format = "pandoc", caption = "Confusion matrix for Canberra method with standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
-
-The confusion matrix for the standardized data shows worse results than for the non-standardized data.
 
 ```{r}
 prec_imp = precision(hcluster[[2]][[2]])
@@ -516,19 +507,18 @@ colnames(sensitivity_table) = c("Standardized", "Non-standardized")
 
 
 ```{r}
-kable(precision_table, format = "latex", caption = "Precision for standardized and non-standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(precision_table, format = "pandoc", caption = "Precision for standardized and non-standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
 
 
 ```{r}
-kable(sensitivity_table, format = "latex", caption = "Precision for standardized and non-standardized data")%>%
-kable_styling(latex_options = "hold_position")
+kable(sensitivity_table, format = "pandoc", caption = "Precision for standardized and non-standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
-The precision and sensitivity is not consistent between classes or species. The precision is higher in all cases for the non-standardized data, but the sensitivity is sometimes higher in standardized data.
-
+The precision and sensitivity shown in tables 13 and 14 is not consistent between classes or species. The precision is higher in all cases for the non-standardized data, but the sensitivity is sometimes higher in standardized data. Five of seven values for the sensitivity and six out of seven for precision are below 0.5 in unstandardized data. The results are worse for standarized data.
 
 ##5.3 Decision Tree
 
@@ -545,32 +535,34 @@ tree = rpart(Species~., Imputed_train, method = "class", control = rpart.control
 rpart.plot(tree, box.palette = "Blues",fallen.leaves = FALSE,  gap=0, space=0)
 ```
 
-The plot shows the decision tree for the unstandardised data. The decisions at the nodes can be seen to be based initially on fruit width, which was seen in the boxplots to be an variable which differentiate S anglica. The leaves of the tree show that many classes are very accurate. S. minima is 100% accurate, S. anglica 90%. S mougeotii and S arranensis are both about 80% and the remaining species are above 60%. 
+The plot shows the decision tree for the unstandardised data. The decisions at the nodes can be seen to be based initially on fruit width, which was seen in the box-plots to be an variable which differentiate S anglica. The leaves of the tree show that by following the splits, many species can be idendified with a high probability.  100%  for S. minima and 90% for S. anglica. S mougeotii and S arranensis are both about 80% and the remaining species are above 60%. 
 
 ```{r}
 pred_tree = predict(tree, Imputed_test, type = "class")
 confusion_tree = table(Imputed_test$Species, pred_tree)
-cat("The accuracy for the decision tree is ")
-cat(accuracy(table(Imputed_test$Species, pred_tree)))
+acc = (accuracy(table(Imputed_test$Species, pred_tree)))
+df_acc = as.data.frame(acc, nrow = 1, ncol = 1)
+colnames(df_acc) = "Accuracy"
+kable(df_acc, format = "pandoc", caption = "Precision for standardized and non-standardized data")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
 
 ```{r, fig.cap="Sensitivity obtained using decision tree"}
 sens_tree = (sensitivity(table(Imputed_test$Species, pred_tree)))
-kable(sens_tree, format = "latex", caption = "Sensitivity for the decision tree")%>%
-kable_styling(latex_options = "hold_position")
+kable(sens_tree, format = "pandoc", caption = "Sensitivity for the decision tree")#%>%
+#kable_styling(latex_options = "hold_position")
 ```
 
-The sensitivity for the decision tree is only 0.17 for S cuneifolia but 0.85 for S anglica.
+
 
 ```{r, fig.cap="Precision obtained using decision tree"}
 prec_tree = precision(table(Imputed_test$Species, pred_tree))
-kable(prec_tree, format = "latex", caption = "Precision for the decision tree")%>%
-kable_styling(latex_options = "hold_position")
+kable(prec_tree, format = "pandoc", caption = "Precision for the decision tree")#%>%
+#kable_styling(latex_options = "hold_position")
 
 ```
-
-The decision tree achieves high precision.
+Tables 16 and 17 show that although the sensitivity for the decision tree is only 0.17 for S cuneifolia it is 0.85 for S anglica. The decision tree achieves high precision, 1 for class_Leyana and above 0.5 for five of teh seven classes.
 
 A summary of precision and sensitivity for hierarchical clustering and the decision tree are shown below. The kmeans has not been included since the inconsistency of the method demonstrates that it is not suitable for this data.
 
@@ -601,9 +593,9 @@ As expected, kmeans was not successful in separating the data into clusters whic
 
 Hierarchical clustering achieved  an accuracy of 0.42 using the Canberra method in standardized data and 0.41 using the Euclidean and Minowski method in non-standardized data. The confusion matrix for the non-standardized data showed better allocation of S Anglica but the confusion matrix for standardised data was better for allocating S mougeotii. The sensitivity and precision also gave inconsistent results for the standardized and non-standardized data. Neither data treatment being better overall for all species. 
 
-The decision tree method performed more consistently that hierarchical clustering. Although a single species might have a higher sensitivity in clustering, across all species the decision tree performed better, with  five of the seven species achieving greater than 0.6 sensitivity and precision above 0.5 in all but one class. The overall accuracy was also the highest at 0.68.
+The decision tree method performed more consistently that hierarchical clustering. Although a single species might have a higher sensitivity in clustering, across all species the decision tree performed better, with  five of the seven species achieving greater than 0.6 sensitivity and precision above 0.5 in all but one class. The decision tree also showed high precision and sensitivity for S.anglica of 0.85 and 0.79 respectively. The overall accuracy was also the highest at 0.68.
 
-The tree plot has the added benefit of providing a decision that can be used to assist biological recording.
+The tree plot has the added benefit of providing a key that can be used to assist biological recording.
 
 #7 Further work
 

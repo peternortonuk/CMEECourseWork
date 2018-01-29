@@ -1,0 +1,31 @@
+---
+title: "DBH simulations"
+author: "PetraGuy"
+date: "28 January 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+#clear the workspace
+rm(list = ls())
+cat("\014")
+```
+
+The purpose of this document is to create some simulated dbh frequency distributions, that mimic the range of distributions that might be found in the sites under consideration. A statistic must be derived from these distributions which reflects the succession of a plot since an opening event. This statistic must be easily derived from actual dbh data.
+
+A distribution that could be used to create the simulated data is the three paramater Weibull disribution given by
+
+$$ f(x) = \frac{\beta}\eta\frac{x-\gamma}{\eta} e^{-(\frac{x-\gamma}{\eta})^{\beta}} $$
+
+The summary statistics from the 103 woodlands indicates that the simulation should have a range for x of 1 to 32. The maximum frequency was 372 with the first dbh class being the mode. 
+The simulation aims tp approximate the frequncies seen in the woodland survey, whilst being a general exploration
+```{r}
+# first need to look at the effects of the 3 parameters
+#fix beta and n=eta, vary gamma 
+x = c(1:32)
+
+
+```
+
+
+
