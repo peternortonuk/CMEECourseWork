@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
 library(plyr)
 library(ggplot2)
@@ -19,11 +19,31 @@ library(ggplot2)
 rm(list = ls())
 cat("\014")
 ```
-The purpose of this exploration is to explore the use of the DBH class interval and frequency distribution measurements as a way of exploring time since disturbance. The successional effect therefore expressed should correlate with species richness. 
+```{r}
+#to generate plot of a site
 
-Initally we had thought of using a the sum of running differences in count between adjacent DBH classes. using this calculation it can be seen that a high frequency of small dbh classes would be the first term in the sum. Subsequent subtractions of smaller values would result in a large positive value. A large positive woul dthen represent an early succussion with lots of young saplings. The reverse would occur for a mature plot and a large negative number would be found.
+PlotSite = function(i){
+  Site = DBH_Yr2_agg %>% filter(SITE == i)
+  Plotname = paste("Site", i, sep = "")
+  Plot = ggplot(data = Site, aes(x = DBH_class, y = Count)) +
+    geom_bar(stat = "identity", col = "black", fill = "green") +
+    scale_x_continuous("DBH class",
+      breaks = 1:20,
+      labels = c(1:20),
+      limits = c(0, 20))+
+    facet_wrap(~PLOT)
+  labs(title = Plotname)#+
+  #theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+print(Plot)
+}
+#PS not displaing title, not sure why.
+```
 
-In order to explore the usefullness and any potential problems with this metric the following analysis has been done. All the dbh data is imported from DBH_live_counts. This is filtered to just look at year 2. Since there are multiple species, each plot has multiple lines per DBH class per plot. These were therefore aggregated, so that this analysis is ignoring species.
+The purpose of this exploration is to examine the use of the DBH class interval and frequency distribution measurements to generate a metric which correlates with time since disturbance. The successional effect therefore expressed should correlate with species richness. 
+
+Initally we had thought of using a the sum of running differences in count between adjacent DBH classes. Using this calculation it can be seen that a high frequency of small dbh classes would be the first term in the sum. Subsequent subtractions of smaller values would result in a large positive value. A large positive would then represent an early succussion with lots of young saplings. The reverse would occur for a mature plot and a large negative number would be found.
+
+To explore the usefullness and any potential problems with this metric the following analysis has been done. All the dbh data is imported from DBH_live_counts. This is filtered to just look at year 2. Since there are multiple species, each plot has multiple lines per DBH class per plot. These were therefore aggregated, so that this analysis is ignoring species.
 
 The dbh classes in the raw data are recorded in 5cm intervals, class 1 is 0-5cm, class 2 is 5-10cm. 
 
@@ -45,15 +65,16 @@ Yr2_DBH = DBH_measurements %>% filter(Yr == 2)
 
 ```{r}
 # One line per dbh per plot, i.e. ignore species
-DBH_Yr2_agg = aggregate(Count~DBH_class + PLOT + SITE, data = Yr2_DBH, sum)
+DBH_Yr2_agg = aggregate(Count~DBH_class + PLOT + SITE, data = Yr2_DBH, sum) 
+DBH_Yr2_agg = filter(DBH_Yr2_agg, PLOT !=60)
 # Count is now the sum of counts in each DBH class.
 
 ```
 
 
 
-```{r}
-# This will take a minute - and will give you 103 teeny tiny plots. Each plot is a site and contains 16 smaller subplots showing ferq distrib of dbh classes in each plot.
+```{r, echo=FALSE, eval = FALSE}
+# This will take a minute - and will give you 103 teeny tiny plots. Each plot is a site and contains 16 smaller subplots showing frequency distrib of dbh classes in each plot.
 plot_list = list()
 for (i in 1:103) {
   Site = DBH_Yr2_agg %>% filter(SITE == i)
@@ -91,21 +112,9 @@ indices =  aggregate(Count~PLOT + SITE, data = DBH_Yr2_agg, DBH_index)
 
 Consider site 2 plots 10 and 11
 
-```{r, error = FALSE, message =FALSE}
+```{r}
 
-i = 2
-  Site = DBH_Yr2_agg %>% filter(SITE == i)
-  Plotname = paste("Site", i, sep = "")
-  Plot = ggplot(data = Site, aes(x = DBH_class, y = Count)) +
-    geom_bar(stat = "identity", col = "black", fill = "green") +
-    scale_x_continuous("DBH class",
-      breaks = 1:32,
-      labels = c(1:32),
-      limits = c(0, 32))+
-    facet_wrap(~PLOT)
-  labs(title = Plotname)+
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
-print(Plot)
+PlotSite(2)
 ```
 
 ```{r}
@@ -121,6 +130,15 @@ c = "Site 2"
 index_df = as.data.frame(rbind(Site2_plot10_index,Site2_plot11_index))
 index_df
 ```
+The first table show the frequency data, the second sow the indices calculated for these two plots (unhelpfullly also displayed as Count)
+
+Plots 10 and 11 have lots of smaller trees, and therefore show a similar time since an opening event. But they have indices of - 109 and 37 respectively. Plot 10 site 2 has the most negative index of all the plots, so we would want this number to imply a long time has occured since an opening event, which it does not.
+
+Looking at the counts, plot 10 has 12 in the first category and 69 in the next, therefore the first subtraction gives a relatively large negative value, the remaining values, all being smaller, result in a large negative index.
+
+In plot 11, the numbers of trees in each DBH class gradually decreases giving the large positive that we want to imply many small plants.
+
+The maximum index is seen in Site 79 plot 9, which shows a large negative as we require, but Site 2 plot 10 shows that that this calculation will not work for all dbh frequency distributions, particularly if the second dbh class has a higher frequency than the first.
 
 ```{r}
 max_index = indices%>%filter(Count == max(Count))
@@ -130,79 +148,92 @@ min_max_df
 ```
 
 
-Plots 10 and 11 have lots of smaller trees, and therefore show a similar time since an opening event. But they have indices of - 109 and 37 respectively. Plot 10 site 2 has the most negative index of all the plots, so we would want this number to imply a long time has occured since an opening event, which it does not.
-
-Looking at the counts, plot 10 has 12 in the first category and 69 in the next, therefore the first subtraction gives a relatively large negative value, the remaining values, all being smaller, result in a large negative index.
-
-In plot 11, the numbers of trees in each DBH class gradually decreases giving the large positive that we want to imply many small plants.
-
-The maximum index is seen in Site 79 plot 9, which the plot shows the expression for this eindex that we want. But Site 2 plot 10 shows that that theis calculation will not work for all dbh frequency distributions, particularly if the second dbh class has a higher frequency than the first.
-
-```{r, error = FALSE, message =FALSE}
-
-i = 79
-  Site = DBH_Yr2_agg %>% filter(SITE == i)
-  Plotname = paste("Site", i, sep = "")
-  Plot = ggplot(data = Site, aes(x = DBH_class, y = Count)) +
-    geom_bar(stat = "identity", col = "black", fill = "green") +
-    scale_x_continuous("DBH class",
-      breaks = 1:32,
-      labels = c(1:32),
-      limits = c(0, 32))+
-    facet_wrap(~PLOT)
-  labs(title = Plotname)+
-  theme(axis.ticks = element_blank(), axis.text.x = element_blank())
-print(Plot)
-```
-
-Let's generate some summary statistics for the 103 woodlands to use as a guide for simulations
 
 
 ```{r}
-# need a mode function
+PlotSite(79)
+#error might e because dbh > class 20 exists?
+```
+
+
+
+```{r}
+# might need a mode function and here's some calculations to create means etc.
 Mode = function(x){
  names(table(x))[table(x)==max(table(x))]
 }
+
 max_class = DBH_Yr2_agg%>%filter(DBH_class == max(DBH_class))
 highest_freq = DBH_Yr2_agg%>%filter(Count == max(Count))
 modal_dbh  = Mode(DBH_Yr2_agg%>%select(DBH_class))
 
-#skew might be a nice statistic, as defined as 3(mean-median)/s
- data = list()
- means=list()
- medians=list()
- sds = list()
- skews=data.frame()
- for (i in 1:103){
-      data[[i]] = DBH_Yr2_agg%>%filter(SITE==i)
-      means[[i]]=aggregate(Count~PLOT, data = x, FUN = mean)
-      #means for all plots by site. mean of site5 plot4 is means[[5]][[2]][4]
-      medians[[i]]=aggregate(Count~PLOT, data = x, FUN = median)
-      sds[[i]]= aggregate(Count~PLOT, data = x, FUN = sd)
-      #as above for medians
- }
- 
- for (i in 1:103){
-   for (j in 1:16){
-     skews[i,j] = 3*(means[[i]][[2]][j]- medians[[i]][[2]][j])/(sds[[i]][[2]][j])
-   }
- }
-max_skew = max(skews)
-min_skew = min(skews)
-r =c("Highest dbh class","Highest dbh frequency","modal dbh","max skew","min skew")
-stats = rbind(max_class[1,], highest_freq, modal_dbh, max_skew, min_skew)
-stats_df =as.data.frame(stats,row.names = r)
-stats_df
 
+means = data.frame()
+dbh_classes = c(1:32)
+dbh_values = seq(from = 7.5, to = 162.5, length = 32)
+for (i in 1:103){
+  sitedata = DBH_Yr2_agg%>%filter(SITE == i)
+  for (j in 1:16) {
+    plotdata = sitedata%>%filter(PLOT == j)
+    means[i,j] = round(sum(plotdata$Count*(plotdata$DBH_class*5+2.5))/sum(plotdata$Count), digits = 2)
+    }
+}
+rownames(means) = c(1:103)
+colnames(means) = c(1:16)
+#the Nan a=might be an issue, I think its Ok to replace them with zeros
+means = replace(means, is.na(means),0)
+
+```
+
+Lets look at mean dbh as a metric for "time since disturbance". I will select a few sites that show a variety of dbh frequency distributions.
+
+```{r}
+PlotSite(82)
+```
+```{r}
+(means[82,])
+```
+
+```{r}
+PlotSite(65)
+```
+
+```{r}
+means[65,]
+```
+
+```{r}
+PlotSite(21)
 ```
 
 
 
+```{r}
+means[21,]
 
+```
+```{r}
 
+#Might be useful to compare plots which have similar means and see if the dbh distribution looks similar
+# The if here needed no Nans in the df, otherwise it stopped at first Nan it cae across
+GetSites = function(mean_value){
+Locations = vector()
+mean_vals = vector()
+for (i in 1:103){
+  for (j in 1:16){
+    if (means[i,j] < mean_value){
+    Site = paste("Site",i, sep = "")
+    Plot = paste("Plot",j, sep = "")
+    tmp = paste(Site, Plot, sep = " " )
+    Locations = c(Locations,tmp)
+    print(Locations)
+    tmp_mean = means[i,j]
+    mean_vals = c(mean_vals, tmp_mean)
+    print(mean_vals)
+    }}}
+Means_of_value = as.data.frame(cbind(Locations,mean_vals))
+return(Means_of_value)
+}
 
-
-
-
-
+```
 
