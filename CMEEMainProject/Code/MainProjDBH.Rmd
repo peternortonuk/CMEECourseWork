@@ -21,6 +21,7 @@ rm(list = ls())
 cat("\014")
 
 ```
+To run the code the data "table_DBH_live_counts_71-03.csv" is required in the data directory and working directory should be Code.
 
 There are some handy funtions to examine the data: PlotSite(Site) and PlotPlot(Site,Plot) will give bar charts from year 2 aggregated dbh measurements. DBH(Site,Plot) will give the dbh counts for a plot and In(Site,Plot) will give the index for a plot.
 
@@ -59,7 +60,7 @@ PlotPlot = function(i,j){
   return(Plot)
 }
 
-# To get DBH dta for a plot
+# To get DBH data for a plot
 DBH = function(i,j){
   DBH_Yr2_agg%>%filter(SITE == i)%>% filter(PLOT == j)
 } 
@@ -252,8 +253,10 @@ GetSites = function(lower, upper) {
       site = rand_row[[1]]
       plot = rand_row[[2]]
       mu = rand_row[[3]]
-  
-      Title = paste(site, plot, mu, sep = " ")
+      s = paste("Site",site)
+      p = paste("Plot",plot)
+      m = paste("mean ", mu)
+      Title = paste(s, p, m, sep = " ")
   
       data = DBH_Yr2_agg %>% filter(SITE == site) %>% filter(PLOT == plot)
       Plot = ggplot(data = data, aes(x = DBH_class, y = Count)) +
@@ -279,7 +282,7 @@ GetSites(0,10)
 #You can repeatedly call this chunk to see different random selections of plots
 #with means within the range specified
 ```
-For a mean below 10 the graphs demonstrate a pattern consistent with lots of young saplings and arecent opening event. 
+For a mean below 10 the graphs demonstrate a pattern consistent with lots of young saplings and a recent opening event. 
 
 
 ```{r}
@@ -307,12 +310,9 @@ GetSites(30,35)
 With low means, because the mean is in or near the lowest dbh class, the distribution will be right skewed and fit the desired criteria of representing a plot with lots of young trees and few older ones. When we consider larger means there are more distributions that could give that mean, and whether or not they reflect the time since an opening event is less clear. Consider Site 85 plot 4 and Site 86 plot 12.
 
 ```{r}
-PlotPlot(85,4)
-```
-
-```{r}
-PlotPlot(86,12)
-
+p1 = PlotPlot(85,4)
+p2 = PlotPlot(86,12)
+grid.arrange(p1,p2, nrow = 2)
 ```
 
 
@@ -328,9 +328,10 @@ $$ I_{s} = \frac{(mode - X_{l})}{(X_{0.95} - X_{l})}$$
 Where $$ X_{l}$$ is the lower threshold diameter and $$ X_{0.95}$$ is the 95th percentile. However, much of our data is multimodal, which makes this metric less clear.
 
 
-```{r}
 
-##problem with multi modla data
+```{r, eval=FALSE}
+
+##problem with multi modal data
 Modes_df = data.frame()
 for (i in 1:130){
   for (j in 1:16){
