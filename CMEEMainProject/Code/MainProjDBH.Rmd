@@ -19,7 +19,11 @@ library(gridExtra) # for the ggplots created in for loops
 #clear the workspace
 rm(list = ls())
 cat("\014")
+
 ```
+
+There are some handy funtions to examine the data: PlotSite(Site) and PlotPlot(Site,Plot) will give bar charts from year 2 aggregated dbh measurements. DBH(Site,Plot) will give the dbh counts for a plot and In(Site,Plot) will give the index for a plot.
+
 ```{r}
 #to generate plot of a site
 
@@ -51,10 +55,18 @@ PlotPlot = function(i,j){
                        limits = c(0, 20))+
     labs(title = Title)#+
   #theme(axis.ticks = element_blank(), axis.text.x = element_blank())
-  print(Plot)
+  #print(Plot)
+  return(Plot)
 }
 
-#PS not displaing title, not sure why.
+# To get DBH dta for a plot
+DBH = function(i,j){
+  DBH_Yr2_agg%>%filter(SITE == i)%>% filter(PLOT == j)
+} 
+#display index for a plot
+In = function(i,j){
+  indices%>%filter(SITE == i)%>%filter(PLOT == j)
+}
 ```
 
 #Introduction
@@ -129,55 +141,69 @@ DBH_index = function(DBH_counts){
 }
 
 indices =  aggregate(Count~PLOT + SITE, data = DBH_Yr2_agg, DBH_index)
+colnames(indices) = c("PLOT","SITE","INDEX")
 #indices are now per plot per site indices
+
+#Some ways of exploring the idices
+negs = indices%>%filter(PLOT + SITE, INDEX < 0) # just look at negative indices
+DBH_class1 = DBH_Yr2_agg%>%filter(DBH_class ==1)
+neg_details = inner_join(DBH_class1,negs) # all plots with neg index and trees in                                                 #dbh_class 1
 ```
 
 Consider site 2 plots 10 and 11
 
 ```{r}
-PlotSite(2)
+p1 = PlotPlot(2,10)
+p2 = PlotPlot(2,11)
+d1 = tableGrob(DBH(2,10))
+d2 = tableGrob(DBH(2,11))
+I1 = tableGrob(In(2,10))
+I2 = tableGrob(In(2,11))
+
+grid.arrange(p1,d1,I1,p2,d2, I2, nrow = 2, as.table =TRUE)
 ```
-
-```{r}
-DBH_Yr2_agg %>% filter(SITE == 2) %>% filter (PLOT == 10)
-
-```
-
-```{r}
-DBH_Yr2_agg %>% filter(SITE == 2) %>% filter (PLOT == 11)
-```
-
-
-```{r}
-
-Site2_plot10_index = indices%>%filter(SITE == 2)%>%filter(PLOT ==10)
-Site2_plot11_index = indices%>%filter(SITE == 2)%>%filter(PLOT ==11)
-r = c("Plot10","Plot11")
-c = "Site 2"
-index_df = as.data.frame(rbind(Site2_plot10_index,Site2_plot11_index))
-index_df
-```
-The first table show the frequency data, the second sow the indices calculated for these two plots (unhelpfullly also displayed as Count)
 
 Plots 10 and 11 have lots of smaller trees, and therefore a similar time since an opening event. But they have indices of - 109 and 37 respectively. Plot 10 site 2 has the most negative index of all the plots, so we would want this number to imply a long time has occured since an opening event, which it does not.
 
 Looking at the counts, plot 10 has 12 in the first category and 69 in the next, therefore the first subtraction gives a relatively large negative value, the remaining values, all being smaller, result in a large negative index.
 
-This shows that the subtraction is not suitable as a metric because it will only work if the are fewer counts in each successive class.
+A negative can occur in a right skew distribution if the count of trees in the first class is low, for example, Site 1 Plot 5
+
+```{r}
+p1 = PlotPlot(1,5)
+d1 = tableGrob(DBH(1,5))
+I1 = tableGrob(In(1,5))
+grid.arrange(p1,d1,I1, nrow = 1, as.table = TRUE)
+```
+
+
+This shows that the subtraction works if there are succussively fewer counts in each class, and if the sum of the counts in the classes above class 1 are less than those in the first class. The most negative indices occur for sites with a large number of trees in dbh class 2, which is greater than, or simmilar to the number in class 1.
+
+```{r}
+head(neg_details[order(neg_details$INDEX),])
+
+```
+
+```{r}
+p1 = PlotPlot(80,2)
+p2 = PlotPlot(80,1)
+p3 = PlotPlot(2,8)
+p4 = PlotPlot(7,14)
+grid.arrange(p1,p2,p3,p4, nrow = 2)
+```
+The above graphs show the plots with the four most negative indices. In each case it can be seen that combining the classes would resolve the problem. It could be argued that this is a valid solution because we are looking for a large number of small trees of a similar size, and for that size to drop of rapidly. The 5cm intervals used here are arbitrary, and very narrow.
+
 
 
 #The mean as a metric
 
 
 ```{r}
-# might need a mode function and here's some calculations to create means etc.
-Mode = function(x){
- names(table(x))[table(x)==max(table(x))]
-}
+
 #some other numbers that might be useful
 max_class = DBH_Yr2_agg%>%filter(DBH_class == max(DBH_class)) #=32, but not for many things
 highest_freq = DBH_Yr2_agg%>%filter(Count == max(Count)) #=372 in dbh 1 at Site103 plot14
-modal_dbh  = Mode(DBH_Yr2_agg%>%select(DBH_class))#1
+# modal_dbh  = Mode(DBH_Yr2_agg%>%select(DBH_class))#1
 
 # get the means of each plot
 means = data.frame()
@@ -204,44 +230,39 @@ means = replace(means, is.na(means),0)
 # The if here needed no Nans in the df, otherwise it stopped at first Nan it came across
 # This funtion calculates Site,Plot and means for all sites/plot below the threshold. 
 #Then randomly select some to be plotted
-GetSites = function(lower, upper){
+GetSites = function(lower, upper) {
   m_df = data.frame()
-  for (i in 1:103){
-    for (j in 1:16){
-      if( (means[i,j] < upper) && (means[i,j] > lower) ){
-        m_df = rbind(m_df,c(i,j,means[i,j]))
-      }}}
-  colnames(m_df) = c("Site", "Plot","Mean")
+  for (i in 1:103) {
+    for (j in 1:16) {
+      if ((means[i, j] < upper) && (means[i, j] > lower)) {
+        m_df = rbind(m_df, c(i, j, means[i, j]))
+  } } }
+  colnames(m_df) = c("Site", "Plot", "Mean")
   
   plot_list = list()
- 
-  if(nrow(m_df) >= 4){
-    for (i in 1:4){
-    #browser()
-    rand = sample(nrow(m_df),4)
-    tmp = rand[1]
-    rand_row = m_df[tmp,]
-    site = rand_row[[1]]
-    plot = rand_row[[2]]
-    mu = rand_row[[3]]
- 
-t1 = paste("site",i)
-t2 = paste("plot",j)
-t3 = paste("mean= ",mu)
-Title = paste(t1,t2,t3, sep = " ")
-    
-  data = DBH_Yr2_agg%>%filter(SITE==site)%>%filter(PLOT==plot)
-  Plot = ggplot(data = data, aes(x = DBH_class, y = Count)) +
-    geom_bar(stat = "identity",  position="dodge", width = 0.5,col = "black", fill = "green") +
-    scale_x_continuous("DBH class", 
-                       breaks = 1:32,
-                       #labels = c(1:32),
-                       limits = c(0,32))+
-    labs(title = Title)+
-    theme(axis.ticks = element_blank(), axis.text.x = element_blank())
-  plot_list[[i]] = Plot
-    }
-    grid.arrange(grobs = plot_list, ncol = 2)
+  
+  if (nrow(m_df) >= 4) {
+    for (i in 1:4) {
+      rand = sample(nrow(m_df), 4)
+      tmp = rand[1]
+      rand_row = m_df[tmp, ]
+      site = rand_row[[1]]
+      plot = rand_row[[2]]
+      mu = rand_row[[3]]
+  
+      Title = paste(site, plot, mu, sep = " ")
+  
+      data = DBH_Yr2_agg %>% filter(SITE == site) %>% filter(PLOT == plot)
+      Plot = ggplot(data = data, aes(x = DBH_class, y = Count)) +
+      geom_bar(stat = "identity",position = "dodge",width=0.5,col="black",fill ="green") +
+      scale_x_continuous("DBH class", breaks = 1:32,
+                     #labels = c(1:32),
+                     limits = c(0, 32)) +
+      labs(title = Title) +
+      theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+      plot_list[[i]] = Plot
+  }
+  grid.arrange(grobs = plot_list, ncol = 2)
   }
 }
 
@@ -280,27 +301,45 @@ GetSites(25,30)
 GetSites(30,35)
 ```
 
-With low means, because the mean is in or near the lowest dbh class, the distribution will be right skewed and fit the desired criteria of representing a plot with lots of young trees and few older ones. When we consider larger means there are more distributions that could give that mean, and whether or not they reflect the time since an opening event is less clear. Consider Site 1 plot 16 and Site 3 plot 16.
+With low means, because the mean is in or near the lowest dbh class, the distribution will be right skewed and fit the desired criteria of representing a plot with lots of young trees and few older ones. When we consider larger means there are more distributions that could give that mean, and whether or not they reflect the time since an opening event is less clear. Consider Site 85 plot 4 and Site 86 plot 12.
 
 ```{r}
-PlotPlot(1,16)
+PlotPlot(85,4)
 ```
 
 ```{r}
-PlotPlot(3,16)
+PlotPlot(86,12)
 
 ```
 
 
-These have similar means, but would we be able to say they represented plots that had similar time since event. Site 1 plot 16 with its righ skew looks to be in an early successional stage, whereas Site 3 plot 16 looks more mature.
+These have similar means, but would we be able to say they represented plots that had similar time since event. Site 85 plot 4 with its righ skew and some saplings could be in an early successional stage, whereas Site 86 plot 12 looks more mature.
 
 The mean may not be a metric that clearly correlates with time since event.
 
 #Symetry index
 
-Lorimer and Krug (1983) suggest that neither the shape parameter of the Weibull distribution notr the coefficient of skewness are very very sensitive to the displacement of the media from mode, and hence are not useful metrics for describing the dbh distribution. They suggest  a symmetry index defined as 
+Lorimer and Krug (1983) suggest that neither the shape parameter of the Weibull distribution nor the coefficient of skewness are very very sensitive to the displacement of the media from mode, and hence are not useful metrics for describing the dbh distribution. They suggest  a symmetry index defined as 
 
 $$ I_{s} = \frac{(mode - X_{l})}{(X_{0.95} - X_{l})}$$
-Where $$ X_{l}$$ is the lower threshold diameter and $$ X_{0.95}$$ is the 95th percentile.
+Where $$ X_{l}$$ is the lower threshold diameter and $$ X_{0.95}$$ is the 95th percentile. However, much of our data is multimodal, which makes this metric less clear.
+
+
+```{r}
+
+##problem with multi modla data
+Modes_df = data.frame()
+for (i in 1:130){
+  for (j in 1:16){
+    data = DBH_Yr2_agg%>%filter(SITE == i)%>%filter(PLOT == j)
+    data = data[,c(1,4)]
+    Modes_df[i,j] = data%>%filter(DBH_class, Count == max(Count))
+  }
+}
+
+```
+
+
+
 
 

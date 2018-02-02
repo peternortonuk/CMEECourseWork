@@ -71,8 +71,27 @@ Plot
 
 
 
+t1 = paste("site",1)
+t2 = paste("plot",1)
+t3 = paste("mean= ",5)
+Title = paste(t1,t2,t3, sep = " ")
 
+PlotPlot = function(i,j){
+  data = DBH_Yr2_agg %>% filter(SITE == i)%>%filter(PLOT==j)
+  t1 = paste("site",i)
+  t2 = paste("plot",j)
+  Title = paste(t1,t2, sep = " ")
+  Plot = ggplot(data = data, aes(x = DBH_class, y = Count)) +
+    geom_bar(stat = "identity", col = "black", fill = "green") +
+    scale_x_continuous("DBH class",
+                       breaks = 1:20,
+                       labels = c(1:20),
+                       limits = c(0, 20))+
+    labs(title = Title)#+
+  #theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+  print(Plot)
+}
 
-
-
-
+data = DBH_Yr2_agg%>%filter(SITE == 1)%>%filter(PLOT == 1)
+data = data[,c(1,4)]
+Modes_df[i,j] = data%>%filter(DBH_class, Count == max(Count))
