@@ -76,6 +76,7 @@ All the dbh data is imported from DBH_live_counts. This is filtered to just look
 
 The dbh classes in the raw data are recorded in 5cm intervals, class 1 is 5-10cm, class 2 is 5-10cm. 
 
+(I havent found much literature on using DBH in this way. Buchholz, 1978, DBH distribution analyis of different species to infer succession, Lorimar 1983 looked at finding even aged stands, but on looking at dbh frequency distribution says "Weibull parameter shape paameter reflects the degree of skewness, but is not highly sensitive to horizontal displacement of mode from median", he uses a symmetry index which depends on the mode,and therefore only useful for unimodal data)
 
 #Running sum of differences
 First, the sum of running differences in count between adjacent DBH classes is trialled. Using this calculation it can be seen that a high frequency of small dbh classes would be the first term in the sum. Subsequent subtractions of smaller values would result in a large positive value. A large positive would then represent an early succussion with lots of young saplings. The reverse would occur for a mature plot and a large negative number would be found.
@@ -107,6 +108,8 @@ DBH_Yr2_agg = filter(DBH_Yr2_agg, PLOT !=60)
 
 
 ```{r, echo=FALSE, eval = FALSE}
+#DONT RUN THIS!!!
+
 # This will take a minute - and will give you 103 teeny tiny plots. Each plot is a site #and contains 16 smaller subplots showing frequency distrib of dbh classes in each plot.
 #Not very useful because you cant see very much
 plot_list = list()
