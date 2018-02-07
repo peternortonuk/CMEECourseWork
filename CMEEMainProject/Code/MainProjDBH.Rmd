@@ -23,7 +23,9 @@ cat("\014")
 ```
 To run the code the data "table_DBH_live_counts_71-03.csv" is required in the data directory and working directory should be Code.
 
-There are some handy funtions to examine the data: PlotSite(Site) and PlotPlot(Site,Plot) will give bar charts from year 2 aggregated dbh measurements. DBH(Site,Plot) will give the dbh counts for a plot and In(Site,Plot) will give the index for a plot.
+There are some handy funtions to examine the data: PlotSite(Site) and PlotPlot(Site,Plot) will give bar charts from year 2 aggregated dbh measurements. DBH(Site,Plot) will give the dbh counts for a plot and In(Site,Plot) will give the index for a plot. GetSites_mean, GetSites_skew and GetSites_regress will produce 4 bar charts for plots random;y selected from the woodlands which have means, skews or regression slopes within the lower and upper parameters given to the function.
+Means_df[i,j], Skews_df[i,j], Medians_df[i,j] and Regress_df[i,j] will return those metrics or Site i Plot j.
+
 
 ```{r}
 #to generate plot of a site
@@ -70,8 +72,36 @@ In = function(i,j){
 }
 ```
 
+```{r, eval = FALSE}
+#This function picks out plots with count*dbh_class below a threshold value
+#its useful if you want to explore the plots with not many trees at all.
+#its not used as part of the analysis at the moment, but maybe later
+FindLowCounts = function(data, threshold){
+  #browser()
+  lcs = data.frame()
+  for (i in 1:103){
+    sitedata = data%>%filter(SITE == i)
+    for (j in 1:16){
+      plotdata = sitedata%>%filter(PLOT == j)
+      fx = sum(plotdata$DBH_class*plotdata$Count)
+      if (fx < threshold){
+       lcs[i,j] = fx
+      }else{
+         lcs[i,j] = "Na"
+       }
+    }
+  }
+  locations = which(lcs < threshold, arr.ind = TRUE)
+  colnames(locations) = c("SITE", "PLOT")
+  return(locations)
+}
+```
 #Introduction
-The purpose of this exploration is to examine the use of various metrics calculated from the DBH class interval and frequency distribution measurements to generate a metric which correlates with time since disturbance. The successional effect therefore expressed via the metric should correlate with species richness. 
+The purpose of this exploration is to examine the use of various metrics calculated from the frequency distribution of the DBH class interval. We want to find a metric for each plot which describes the succession, or the time since a disturbance event. If the plot has lost large trees, due to storm damage for example, then regeneration will occur with a large number of saplings very shortly after the event. The plot will follow a succession which we would expect to see in the dbh frequency distribution as the class with the highest frequency increases at the same time as the frequency itself decreases. (The j shaped distribution moves to the right) If there had been no disturbance, and and further time since an event, the distribution of dbh will be more even, with more trees in the large dbh classes and with lower frequencies. (Lokking more like a squished normal).
+
+This metric is therefore a function of the maximum frequency, the dbh classes showing counts and the degree of difference between the frequencies.
+
+At one extreme, higher frequencies, more counts in lower dbh classes, and large differences between adjacent classes would represent a recent event. At the other, low frequencies, more of the higher dbh classes being occupied and with the frequencies overall being less differentiated should imply longer time since an event.
 
 ... add some stuff in here about stad age, dbh frequency distributions, what they look like etc....
 
@@ -210,21 +240,25 @@ highest_freq = DBH_Yr2_agg%>%filter(Count == max(Count)) #=372 in dbh 1 at Site1
 # modal_dbh  = Mode(DBH_Yr2_agg%>%select(DBH_class))#1
 
 # get the means of each plot
-means = data.frame()
+Means_df = data.frame()
 dbh_classes = c(1:32)
 dbh_values = seq(from = 7.5, to = 162.5, length = 32)
 for (i in 1:103){
   sitedata = DBH_Yr2_agg%>%filter(SITE == i)
   for (j in 1:16) {
     plotdata = sitedata%>%filter(PLOT == j)
-    means[i,j] = round(sum(plotdata$Count*(plotdata$DBH_class*5+2.5))/sum(plotdata$Count), digits = 2)
+    Means_df[i,j] = round(sum(plotdata$Count*(plotdata$DBH_class*5+2.5))/sum(plotdata$Count), digits = 2)
     }
 }
-rownames(means) = c(1:103)
-colnames(means) = c(1:16)
+rownames(Means_df) = c(1:103)
+colnames(Means_df) = c(1:16)
 #the Nan a=might be an issue, I think its Ok to replace them with zeros
-means = replace(means, is.na(means),0)
+Means_df = replace(Means_df, is.na(Means_df),0)
 
+
+##PS dplyr method, but then you dont get the nice df accessed y row col for site plot
+##Means_df = DBH_Yr2_agg%>%group_by(SITE,PLOT)%>%
+## summarise(mean_DBH = round(sum(Count*(DBH_class*5+2.5))/sum(Count), digits = 2))
 ```
 
 
@@ -234,12 +268,12 @@ means = replace(means, is.na(means),0)
 # The if here needed no Nans in the df, otherwise it stopped at first Nan it came across
 # This funtion calculates Site,Plot and means for all sites/plot below the threshold. 
 #Then randomly select some to be plotted
-GetSites = function(lower, upper) {
+GetSites_Means = function(lower, upper) {
   m_df = data.frame()
   for (i in 1:103) {
     for (j in 1:16) {
-      if ((means[i, j] < upper) && (means[i, j] > lower)) {
-        m_df = rbind(m_df, c(i, j, means[i, j]))
+      if ((Means_df[i, j] < upper) && (Means_df[i, j] > lower)) {
+        m_df = rbind(m_df, c(i, j, Means_df[i, j]))
   } } }
   colnames(m_df) = c("Site", "Plot", "Mean")
   
@@ -277,8 +311,8 @@ GetSites = function(lower, upper) {
 Plots of plots with mean less than 10
 
 ```{r}
-#enter the lower and upper limit of the means in GetSites(lower,upper)
-GetSites(0,10)
+#enter the lower and upper limit of the means in GetSites-Means(lower,upper)
+GetSites_Means(0,10)
 #You can repeatedly call this chunk to see different random selections of plots
 #with means within the range specified
 ```
@@ -286,31 +320,31 @@ For a mean below 10 the graphs demonstrate a pattern consistent with lots of you
 
 
 ```{r}
-GetSites(10,15)
+GetSites_Means(10,15)
 ```
 
 For means between 10 and 15 the frequency of trees in the next DBH classes increases
 
 ```{r}
-GetSites(15, 20)
+GetSites_Means(15, 20)
 ```
 
 As the mean increases the counts in the larger DBH classes increases, but the distribution still resembles early succession.
 
 ```{r}
-GetSites(20,25)
+GetSites_Means(20,25)
 ```
 
 Means over 20 look like later successional distributions
 
 ```{r}
-GetSites(25,30)
+GetSites_Means(25,30)
 ```
  The means over 25 are varied, Site 18 plot 6 loks like early succession, wheres all the others do not.
 
 
 ```{r}
-GetSites(30,35)
+GetSites_Means(30,35)
 ```
 
 Means over 30 appear to represent later succession more frequently.
@@ -320,8 +354,8 @@ With low means, because the mean is in or near the lowest dbh class, the distrib
 ```{r}
 p1 = PlotPlot(85,4)
 p2 = PlotPlot(86,12)
-m1 = tableGrob(means[85,4])
-m2 = tableGrob(means[86,12])
+m1 = tableGrob(Means_df[85,4])
+m2 = tableGrob(Means_df[86,12])
 grid.arrange(p1,m1,p2,m2, nrow = 2)
 ```
 
@@ -374,11 +408,11 @@ SD[SD == 0] = NA # If SD 0 because 1 group, skew = inf and other calcs not poss.
 #PS some standard devs = NA because only one count, some NA because no DBH data for
 #that plot - i.e. no trees.
 #PPS double checks
-#sum(means == 0) #=136
+#sum(Means_df == 0) #=136
 #sum(is.na(Medians_df))#=136
 #sum(is.na(SD))#=153 more coz of plots with count = 1
 
-Skews_df = round(3*(means - Medians_df)/SD, digits = 2)
+Skews_df = round(3*(Means_df - Medians_df)/SD, digits = 2)
 
 skewmins = apply(Skews_df,2, min, na.rm = TRUE)
 skewmaxs = apply(Skews_df,2, max, na.rm = TRUE)
@@ -387,7 +421,7 @@ skewmaxs = apply(Skews_df,2, max, na.rm = TRUE)
 
 ```{r}
 # as with means, get sites with skews between certain values
-GetSites_meds = function(lower, upper) {
+GetSites_skews = function(lower, upper) {
   m_df = data.frame()
   for (i in 1:103) {
     for (j in 1:16) {
@@ -427,26 +461,26 @@ GetSites_meds = function(lower, upper) {
 ```
 
 ```{r}
-GetSites_meds(-2.4,-1.7)
+GetSites_skews(-2.4,-1.7)
 ```
 ```{r}
-GetSites_meds(-1.7, -1)
+GetSites_skews(-1.7, -1)
 ```
 ```{r}
-GetSites_meds(-1, 0)
-```
-
-
-```{r}
-GetSites_meds(0, 1)
+GetSites_skews(-1, 0)
 ```
 
 
+```{r}
+GetSites_skews(0, 1)
+```
+
+
 
 
 
 ```{r}
-GetSites_meds(1,2)
+GetSites_skews(1,2)
 ```
 
 The most positively skewed data accurately represents the sites with the most counts in the lowet dbh class, however, as the skew becomes more negative a pattern of progression to more negatively skewed distributions and hence more later successional plots is not clear. For example, compare Site 10 Plot 8 and Site 38 plot 3
@@ -454,10 +488,10 @@ The most positively skewed data accurately represents the sites with the most co
 ```{r}
 p1 = PlotPlot(10,8)
 p2 = PlotPlot(38,3)
-mean1 = (means[10,8])
+mean1 = (Means_df[10,8])
 skew1 = Skews_df[10,8]
 med1 =(Medians_df[10,8])
-mean2 = (means[38,3])
+mean2 = (Means_df[38,3])
 med2 = Medians_df[38,3]
 skew2 = Skews_df[38,3]
 d1 = tableGrob(as.data.frame(cbind(mean1,med1,skew1)))
@@ -554,5 +588,8 @@ GetSites_regress(0,10)
 GetSites_regress(5,17)
 ```
 
+```{r}
+
+```
 
 

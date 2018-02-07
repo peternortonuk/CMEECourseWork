@@ -1,17 +1,26 @@
 ---
-title: "MainProjSiteDescriptorAnalysis"
+title: "Use of site descriptors to compile heterogeneity indices"
 author: "PetraGuy"
-date: "8 January 2018"
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
 library(ggplot2)
+library(gridExtra)
 ```
 
-This analysis is to examine site descriptors, to get a feel for which ones are used and how they might be used as part of a "heterogenity" index or whether they need to be part of any other covariates important for the analysis of species richness and species area relationships.
+#Introduction.
+[This is outline, details and references etc for woodland ecology and biodiversity to be added]
+
+As part of the woodland survey, site descriptors were noted. These are elements of the entire site, between the plots, and provide additional information on habitats, vegetation, woodland management, grazing, as well as many other features (Full list...) The site descriptors have been used to compile positive and negative heterogeneity indices of the woodland. A variety of environments contribute to the overall biodiversity of the woodland, which may be reflected in the plant richness. Therefore, site descriptors which relate to positive heterogeneity elements have been combined into a score for each site. The number of positive elements recorded for the site is summed.
+
+The following code have been selected. Firstly, those that relate to open areas such large ponds, rivers, moorland,glades tracks or rough pasture.  Secondly codes relating to woodland management such as stumps, brash heaps and burn sites.  Thirdly, any other codes which imply a positive contribution to the ecosystem, such as rotten logs, hollow logs, lichen covered trunks, small streams and fungi.
+
+The items chosen not only add to the openness of the woodland, which will contribute to plant species richness directly,but also provide different habitats and a seed source for other areas of the wood. Woodland management can contribute to plant richness directly by opening areas through coppicing, but also through it addition of habitats such as rotting stumps. 
+
+There are also codes referring to elements which are likely to have a negative impact on the diversity of the woodland; planted conifers, rhododendron, bracken, nettle clumps, roads, and housing. The allelopathy and vigour of rhododendrons and bracken will reduce diversity while housing and roads, by increasing access, may reduce diversity due to trampling and dog use. 
 
 ```{r, echo = FALSE}
 #clear the workspace
@@ -34,90 +43,83 @@ SiteDescriptorsYr2 = as.tbl(read.csv(fullfile))
 
 ```
 
-Codes have been selected that relate to open areas, large ponds, rivers, moorland, rough pasture etc. The ponds and rivers were selected, not because they represent a different habitat, but because they are likely to imply open ground around them. 
+
 
 ```{r}
-OpenCodesSites = c(8,9,10,24,86,87,90,91,92,93,105,106,107,108,109,110,111,112,113,114,115,116,117,208,209,210,211,212)
-OpenSites = SiteDescriptorsYr2 %>% select(SITE, SD_code)%>% filter(SD_code %in% OpenCodesSites)
-OpenSites
-
+# these codes imply open areas, 8 - 10 are coppicing, 86 -93 are larger water features, 105-117 are glades and tracks
+#208 - 212 are heaths, marsh, rivers and lakes.
+PositiveCodesSites = c(8,9,10,12,13,14,15,16,17,18,24,54,55,56,57,58,59,61,62,63,64,65,86,87,88,89,90,91,92,93,105,106,107,108,109,110,111,112,113,114,115,116,150,151,152,153,157,158,208,209,210,211,212)
+PositveSites = SiteDescriptorsYr2 %>% select(SITE, SD_code)%>% filter(SD_code %in% PositiveCodesSites)
 ```
-```{r}
-ggplot(OpenSites, aes(x = SD_code)) +
-         geom_histogram(breaks = seq(1,220, by = 10), col = "black", fill = "green")+
-                        labs(title = "Histogram of openness SD codes", x = "SD code")
-```
-The histogram shows that there are many records that could be considered as contributing toward open areas in woodlands, the 0-10 codes are for coppicing, 100 -120 codes are glades, rides, fields, paths, marshes and ditces. Those above 200 are for rough grasslad, rivers, lakes and heaths.
 
-Plot below shows the frequency of all the SD codes for comparison
 
-```{r}
+```{r, eval= FALSE}
+#dont think this adds anything
 ggplot(SiteDescriptorsYr2, aes(SiteDescriptorsYr2$SD_code)) +
          geom_histogram(breaks = seq(1,250, by = 10), col = "black", fill = "green")+
-                        labs(title = "Histogram of entered SD codes", x = "SD code")
+                        labs(title = "Frequeny of All Site Descriptor Codes", x = "Site descriptor code", y = "Count")
 ```
 
-The historgam shows that many codes refer to: nature of the woodland (5 - 11),other tree species not recorded in plots (29 - 48), stumps (50 - 60). Codes 150 - 200 manily refer to animals, the larger 190 -200 being birds. 
-
-
------ Ignore this for now, come back to this later??----
-What about potential for codes which may have a negative association woth diversity; planted conifers, rhododendron, bracken, nettle clump, (maybe road or buildings??)
 
 ```{r}
-NegativeCodesSites = c(6,41,143,145,149)
+ggplot(PositveSites, aes(x = SD_code)) +
+         geom_histogram(breaks = seq(1,220, by = 10), col = "black", fill = "green")+
+                        labs(title = "Positive Site Descriptor Codes", x = "Site descriptor code", y = "Count in data")
+```
+The histogram shows that there are many records that could be considered as contributing positively toward heterogeneity in the woodlands, the 0-10 codes are for coppicing, the early 50s are rotting stumps and hollow trees, 100 -120 codes are glades, rides, fields, paths, marshes and ditches. Those above 200 are for rough grassland, rivers, lakes and heaths.
+
+
+```{r}
+NegativeCodesSites = c(6,41,143,145,149,117,213,215)
 NegativeSites = SiteDescriptorsYr2 %>% select(SITE, SD_code)%>% filter(SD_code %in% NegativeCodesSites)
-NegativeSites
 ```
 
 
 ```{r}
 ggplot(NegativeSites, aes(x = SD_code)) +
-         geom_histogram(breaks = seq(1,160, by = 10), col = "black", fill = "green")+
-                        labs(title = "Histogram of negative SD codes", x = "SD code")
+         geom_histogram(breaks = seq(1,250, by = 10), col = "black", fill = "green")+
+                        labs(title = "Negative Site Descriptor Codes", x = "SD code", y = "Count in data")
 ```
 
--------
-
-
-How many open codes does each wood have? 
+There are a nearly 100 counts for bracken, nettle and rhododendrons,143, 145 and 149, and a similar figure for roads and housing, 213 and 215. The first bar with over 70 counts represents planted conifer.
 
 ```{r}
-plot(table(OpenSites$SITE))
+#the heterogeneity index for each site is the sum of the positive codes
+PositiveHeterogIndices = PositveSites %>% group_by(SITE)%>% summarise(no_rows = length(SITE))
+#max = (max(SiteHeterogenity$no_rows))
+#means = round(mean(SiteHeterogenity$no_rows), digits = 2)
+#min = (min(SiteHeterogenity$no_rows))
+#stats =  tableGrob(rbind(max,means,min))
+
+ggplot(data = PositiveHeterogIndices, aes(x = SITE, y = no_rows)) +
+         geom_bar(stat = "identity", col = "black")+
+                  labs(title = "Positive Heterogenity Indices by Site", x = "Site", y = "Number of positive codes")
+
+#grid.arrange(stats,p, ncol = 2)
 
 ```
-
-Most sites have around 10 SD_codes , Site 23 has 37. Site 25 has no codes recorded,75, 78 have no openness codes at all. 
-
-In summary: These are the SD codes which I think should be used to contribute to (or form on their own) heterogenity index - which is linked to openness of habitat - it does not imply different habitats, such as rotting wood, aquatics. So marsh is included because it would imply open ground.
-
-8/9/10, coppice stool, single coppice, recently cut coppice.
-24 Fire sites
-86/87 Pool > 1m2 (85, pool <1m2 excluded)
-90/91/92/93 Streamsand rivers > 1m across ( streams < 1m across excluded)
-100 Spring
-101 Marsh
-102/103  Ditches
-105 - 110, glades
-111/112 Rocky knolls
-113 Field
-114/115/116/117 paths > 1m
-
-Of these I am not convinced about the spring and ditches. Possibly also marsh, how big is a marsh?
-
-What might the index be - a score of the number of SD_codes in a site?
 
 ```{r}
-ScoreSites = OpenSites %>% group_by(SITE)%>% summarise(no_rows = length(SITE))
-max(ScoreSites$no_rows)
-mean(ScoreSites$no_rows)
-min(ScoreSites$no_rows)
-ScoreSites
+#the heterogeneity index for each site is the sum of the positive codes
+NegativeHeterogIndices = NegativeSites %>% group_by(SITE)%>% summarise(no_rows = length(SITE))
 
-#or..more concisely!!
-ScoresSites = table(OpenSites$SITE)
+ggplot(data = NegativeHeterogIndices, aes(x = SITE, y = no_rows)) +
+         geom_bar(stat = "identity", col = "black")+
+                  labs(title = "Negative Heterogenity Indices by Site", x = "Site", y = "Number of negative codes")
 ```
 
-The index would vary from 37 with a mean of 6.96. The vector of values Score or Scores could be added as an additional column in the Site dataframe.
+```{r}
+#save the idices to merge with the site data 
+colnames(PositiveHeterogIndices) = c("Site", "Pos_Hetero_Index")
+colnames(NegativeHeterogIndices) = c("Site", "Neg_Hetero_Index")
+
+PositiveHeterogIndices = write.csv(PositiveHeterogIndices,"../Data/PositiveHeterogIndices.csv")
+NegativeHeterogIndices = write.csv(NegativeHeterogIndices, "../Data/NegativeHeterogIndices")
+
+```
+
+
+
 
 
 
