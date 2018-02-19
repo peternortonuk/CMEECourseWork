@@ -12,7 +12,7 @@ cat("\014")
 library(dplyr)
 ```
 
-This analysis will take the vegeation data and compute species richness n=by nest and by plot. These values will be saved to CSV files which can be added to the Nest and Plot level data sets
+This analysis will take the vegeation data and compute species richness by nest and by plot. These values will be saved to CSV files which can be added to the Nest and Plot level data sets
 
 
 ```{r}
@@ -51,7 +51,7 @@ nest_richness = function(data){
 return(site_list)   
 }
 spec_rich = nest_richness(Data_Yr2_veg)
-#Since nest level data is only modelled as species~area - no other vars, spec_rich list is all thats needed
+#Since nest level data is only modelled as species~area - no other vars, spec_rich list is all thats #needed. This data will be analysed from this document, a csv is not needed because it is not being added #to another file.
 
 # now need to include the NAs and combine them into a plot richness
 plot_richness = function(data){
@@ -72,5 +72,6 @@ plot_richness = function(data){
 plot_rich = plot_richness(Data_Yr2_veg)
  #Missing plots come up as 0s - but note, some "missing" plots do have vegetation entries. Handle within each #woodland modelled??
 write.csv(plot_rich,"../Data/plot_rich.csv")
-```
+
+#species richness per nest is not saved to csv because its a list spe```
 

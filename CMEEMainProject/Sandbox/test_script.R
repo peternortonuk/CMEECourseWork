@@ -97,3 +97,50 @@ brks = seq(0,16, by = 2)
 
 test = DBH(1,2)
 
+###############################
+site = DBH_Yr2_agg%>% filter(SITE == 1)
+plot = site%>%filter(PLOT == 1)
+
+highest_freq_class= function(data){
+  hfc = data.frame()
+  for (i in 1:103){
+    sitedata = data%>%filter(SITE == i)
+    for (j in 1:16){
+      plotdata = sitedata%>%filter(PLOT == j)
+      if (length(plotdata$DBH_class) != 0){
+        hfc[i,j]  = max(plotdata$Count)}
+      else{
+        hfc[i,j] = NA
+      }
+      
+    }
+  }
+  return(hfc)
+}
+high_freq_df = highest_freq_class(DBH_Yr2_agg)
+##############################
+##Mode
+
+getmode = function(DBH_Yr2_agg){
+  modes_df = data.frame()
+  for (i in 1:103){
+    sitedata = data%>%filter(SITE == i)
+    for (j in 1:16){
+      plotdata = sitedata%>%filter(PLOT == j)
+      uni_vals = unique()
+        modes_df[i,j] = NA
+      }
+      
+    }
+  }
+  return(hfc)
+}
+  uni_vals = unique()
+}
+
+Mode = vector()
+for (n in length(u)){
+  Mode[n] = 
+  
+}
+

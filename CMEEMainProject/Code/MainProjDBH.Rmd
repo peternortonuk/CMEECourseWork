@@ -103,13 +103,12 @@ This metric is therefore a function of the maximum frequency, the dbh classes sh
 
 At one extreme, higher frequencies, more counts in lower dbh classes, and large differences between adjacent classes would represent a recent event. At the other, low frequencies, more of the higher dbh classes being occupied and with the frequencies overall being less differentiated should imply longer time since an event.
 
-... add some stuff in here about stad age, dbh frequency distributions, what they look like etc....
-
 All the dbh data is imported from DBH_live_counts. This is filtered to just look at year 2. Since there are multiple species, each plot has multiple lines per DBH class per plot. These were therefore aggregated, so that this analysis is ignoring species.
 
 The dbh classes in the raw data are recorded in 5cm intervals, class 1 is 5-10cm, class 2 is 5-10cm. 
 
-(I haven't found much literature on using DBH in this way. Buchholz, 1978, DBH distribution analysis of different species to infer succession, Lorimar 1983 looked at finding even aged stands, but on looking at dbh frequency distribution says "Weibull shape parameter reflects the degree of skewness, but is not highly sensitive to horizontal displacement of mode from median", he uses a symmetry index which depends on the mode,and therefore only useful for unimodal data)
+(I haven't found much literature on using DBH in this way. Buchholz, 1978, DBH distribution analysis of different species to infer succession, Lorimar 1983 looked at finding even aged stands, but on looking at dbh frequency distribution says "Weibull shape parameter reflects the degree of skewness, but is not highly sensitive to horizontal displacement of mode from median", he uses a symmetry index which depends on the mode,and therefore only useful for unimodal data).
+
 
 #Running sum of differences
 First, the sum of running differences in count between adjacent DBH classes is trialled. Using this calculation it can be seen that a high frequency of small dbh classes would be the first term in the sum. Subsequent subtractions of smaller values would result in a large positive value. A large positive would then represent an early succession with lots of young saplings. The reverse would occur for a mature plot and a large negative number would be found.
@@ -254,7 +253,7 @@ rownames(Means_df) = c(1:103)
 colnames(Means_df) = c(1:16)
 #the Nan a=might be an issue, I think its Ok to replace them with zeros
 Means_df = replace(Means_df, is.na(Means_df),0)
-
+write.csv(Means_df, "../Data/dbh_means.csv")
 
 ##PS dplyr method, but then you dont get the nice df accessed y row col for site plot
 ##Means_df = DBH_Yr2_agg%>%group_by(SITE,PLOT)%>%
@@ -349,29 +348,16 @@ GetSites_Means(30,35)
 
 Means over 30 appear to represent later succession more frequently.
 
-With low means, because the mean is in or near the lowest dbh class, the distribution will be right skewed and fit the desired criteria of representing a plot with lots of young trees and few older ones. When we consider larger means there are more distributions that could give that mean, and whether or not they reflect the time since an opening event is less clear. Consider Site 85 plot 4 and Site 86 plot 12.
+With low means, because the mean is in or near the lowest dbh class, the distribution will be right skewed and fit the desired criteria of representing a plot with lots of young trees and few older ones. As the mean increases the distribution for that mean does appear to show a progression which could represent the regeneration dynamics. 
 
-```{r}
-p1 = PlotPlot(85,4)
-p2 = PlotPlot(86,12)
-m1 = tableGrob(Means_df[85,4])
-m2 = tableGrob(Means_df[86,12])
-grid.arrange(p1,m1,p2,m2, nrow = 2)
-```
-
-
-These have similar means, but would we be able to say they represented plots that had similar time since event. Site 85 plot 4 with its righ skew and some saplings could be in an early successional stage, whereas Site 86 plot 12 looks more mature.
-
-The mean may not be a metric that clearly correlates with time since event.
+The mean will be used as a metric.
 
 #Skew as a metric.
 
-We could use Pearson's second skewness coefficient:
+Using Pearson's second skewness coefficient:
 
 $$ Skew = \frac{3(mean - median)}{s}$$
-Or Pearson's third moment
 
-$$ Skew_{3}=  \frac{\frac{\Sigma (x_{i} - mean)^{3}}{n}}{S^{3}}$$
 ```{r}
 # Calculate the medians of the plots
 Medians = function(data){
@@ -463,9 +449,11 @@ GetSites_skews = function(lower, upper) {
 ```{r}
 GetSites_skews(-2.4,-1.7)
 ```
+
 ```{r}
 GetSites_skews(-1.7, -1)
 ```
+
 ```{r}
 GetSites_skews(-1, 0)
 ```
@@ -584,12 +572,41 @@ GetSites_regress(-20,0)
 ```{r}
 GetSites_regress(0,10)
 ```
+
 ```{r}
 GetSites_regress(5,17)
 ```
 
+The expectation was that the early successional plot, with a large number of saplings in the smaller classes, would give a large negative regression coefficient. This would reduce as the saplings aged and reduced in number and a regression coefficient closer to zero would be found in older plots. However, this metric does not reflect the succession. Alhough a large negative number is indicative of a large number of saplings, the change in slope is not a sensitive indcator of different states of the plot. 
+
+##Density
+
+Another metric that is used to examine stands is basal area/tree density. The tree density will therefore also be calculated. 
 ```{r}
+#calculate the density of trees per plot - 200m^2
+tree_density= function(data){
+  den = data.frame()
+  for (i in 1:103){
+    sitedata = data%>%filter(SITE == i)
+    for (j in 1:16){
+      plotdata = sitedata%>%filter(PLOT == j)
+      if (length(plotdata$DBH_class) != 0){
+         tmp = sum(plotdata$DBH_class * plotdata$Count)
+         tmp = tmp/200
+         den[i,j]  = tmp}
+      else{
+        den[i,j] = NA
+      }
+      
+    }
+  }
+  return(den)
+}
+plot_density = tree_density(DBH_Yr2_agg)
+write.csv(plot_density, "../Data/tree_density.csv")
 
 ```
+
+
 
 
