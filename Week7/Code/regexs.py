@@ -9,15 +9,15 @@ import re
 
 my_string = "a given string"
 match = re.search(r'\s', my_string) #\s = whitespace
-print('1',match)
+print match # there is not match coz no return therefore get funny answer
 
 #match.group()
 
 match = (r's\w*', my_string)#space then any char
-print('2',match)
+print'2',match
 
 match = re.search(r'\d', my_string)
-print('3',match)
+print '3',match
 
 
 my_string = 'an example'
@@ -48,7 +48,6 @@ print match.group()
 
 match = re.search(r'\s\w{1,3}\s', 'once upon a bit of time')# space 1 or 3 chars?? space
 print match.group()
-
 
 match = re.search(r'\s\w*$', 'once upon a bit of time') 
 print match.group()

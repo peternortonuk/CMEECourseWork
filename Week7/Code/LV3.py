@@ -8,39 +8,48 @@ import sys
 import scipy as sc
 import scipy.integrate as integrate
 import pylab as p  # Contains matplotlib for plotting
-import pandas as pd
 
 
-def dR_dt(z0, r,a,z,e):
+
+def dR_dt(z0, t, r,a,z,e):
     """ Returns the growth rate of predator and prey populations at any
     given time step """
-    #results = results.append(z0, index)
-    y0 = 0; x0 = 0
-    columns = ['R', 'C']
-    results = pd.DataFrame({'R':y0, 'C':x0}, index=[0])
-    for t in range(0,1000):
-        t=0
-        Rt = results.loc[t,'R']
-        Ct = results.loc[t,'C']
-        R = Rt + Rt*r -Rt*Rt*r - a*Ct
-        C = Ct - Ct*z+Ct*e*a*Rt
-        df = pd.DataFrame({'R':R, 'C':C}, index=[0])
-        print df
-        results = results.append(df, ignore_index=True)
-    return results
+    R = z0[0]
+    C = z0[1]
+    dRdt = r*R*(1-R/35)-a*C*R
+    dydt = -z * C + e * a * R * C
+    return sc.array([dRdt, dydt])
+
+def print_plot(pops,t):
+    prey, predators = pops.T  # What's this for? - transpose
+    f1 = p.figure()  # Open empty figure object
+    p.plot(t, prey, 'g-', label='Resource density')  # Plot
+    p.plot(t, predators, 'b-', label='Consumer density')
+    p.grid()
+    p.legend(loc='best')
+    p.xlabel('Time')
+    p.ylabel('Population')
+    p.title('Consumer-Resource population dynamics')
+    #p.show()
+    f1.savefig('../Results/prey_and_predators_3.pdf')  # Save figure
 
 def main(argv):
+    r = float(sys.argv[1])
+    a = float(sys.argv[2])
+    z = float(sys.argv[3])
+    e = float(sys.argv[4])
+    t = sc.linspace(0, 50, 1000)
     x0 = 10
     y0 = 5
     z0 = sc.array([x0, y0])
-    z0 = pd.DataFrame(data = z0)
-    r = 1.  # Resource growth rate
-    a = 0.1  # Consumer search rate (determines consumption rate)
-    z = 1.5  # Consumer mortality rate
-    e = 0.75
-    dR_dt(z0, r,a,z,e)
-    print results[columns].head()
+    pops, infodict = integrate.odeint(dR_dt, z0, t, args=(r,a,z,e), full_output=True)
+    print "prey density is ", pops[999][0]
+    print " predator desnsity is ", pops[999][1]
+    infodict['message']
+    print_plot(pops,t)
+
+
 
 if (__name__ == "__main__"):
 	status = main(sys.argv)
-	sys.exit(status)
+	#sys.exit()

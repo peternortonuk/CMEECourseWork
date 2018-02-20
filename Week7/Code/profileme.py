@@ -1,7 +1,7 @@
 #!usr/bin/python
 # Week 7 Advanced python
 
-""" Rewriting pp regress in python because my R attempt was shoddy"""
+
 
 ___author___ = "Petra Guy, pg5117@ic.ac.uk"
 ___version___ = "2.7"
@@ -32,3 +32,5 @@ def some_function(x):
     return 0
 
 some_function(1000)
+
+print 'profileme'

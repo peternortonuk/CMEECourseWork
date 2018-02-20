@@ -8,10 +8,10 @@ import sys
 import scipy as sc
 import scipy.integrate as integrate
 import pylab as p  # Contains matplotlib for plotting
+import time
 
 
-# import matplotlip.pylab as p #Some people might need to do this
-
+start = time.time()
 def dR_dt(z0, t, r,a,z,e):
     """ Returns the growth rate of predator and prey populations at any
     given time step """
@@ -31,8 +31,8 @@ def print_plot(pops,t):
     p.xlabel('Time')
     p.ylabel('Population')
     p.title('Consumer-Resource population dynamics')
-    p.show()
-    f1.savefig('../Results/prey_and_predators_1.pdf')  # Save figure
+    #p.show()
+    f1.savefig('../Results/prey_and_predators_2.pdf')  # Save figure
 
 def main(argv):
     r = float(sys.argv[1])
@@ -47,6 +47,8 @@ def main(argv):
     infodict['message']
     print_plot(pops,t)
 
+
+print "LV2 takes %f s to run" %(time.time() - start)
 if (__name__ == "__main__"):
 	status = main(sys.argv)
-	sys.exit(status)
+	#sys.exit(status)

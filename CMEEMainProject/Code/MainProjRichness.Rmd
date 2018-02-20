@@ -1,0 +1,77 @@
+---
+title: "CalulatingRichness"
+author: "PetraGuy"
+date: "7 February 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+rm(list = ls())
+cat("\014")
+library(dplyr)
+```
+
+This analysis will take the vegeation data and compute species richness by nest and by plot. These values will be saved to CSV files which can be added to the Nest and Plot level data sets
+
+
+```{r}
+#Input all the ground flora data
+Data = read.csv("../Data/GroundCover.csv")
+Data_Yr2 = Data%>%filter(Yr_2 == 2)%>%select(SITE,PLOT,NEST,COV,Amalgams)
+colnames(Data_Yr2) = c("SITE", "PLOT","NEST","Cover","BRC_number")
+veg_codes = read.csv("../Data/vegetation_codes.csv")
+# the  bryophytes, lichen etc have already been removed from these. 
+
+colnames(veg_codes) = c("Species", "BRC_number")
+Data_Yr2_veg = Data_Yr2%>% inner_join(veg_codes)
+
+# returns the species richness for each site/plot/nest as a list of data frames
+# richness[[3]] will give plot by nest data frame of richness
+# NAs are not counted, these occur for sapling counts which need to be added in to the plot richness.
+
+nest_richness = function(data){
+  site_list = list()
+  #browser()
+    for (i in 1:103){
+    sitedata = data%>%filter(SITE == i)
+    plot_nest_df = data.frame()
+    for (j in 1:16){
+      plotdata = sitedata%>%filter(PLOT == j)
+      tmp = vector()
+       for (k in 1:5){
+        nestdata = plotdata%>%filter(NEST ==k)
+        tmp = c(tmp, nrow(nestdata))
+        }
+      plot_nest_df = rbind(plot_nest_df, tmp)
+      colnames(plot_nest_df) = c("Nest1","Nest2","Nest3","Nest4","Nest5")
+    }
+   site_list[[i]]= plot_nest_df
+  }
+return(site_list)   
+}
+spec_rich = nest_richness(Data_Yr2_veg)
+#Since nest level data is only modelled as species~area - no other vars, spec_rich list is all thats #needed. This data will be analysed from this document, a csv is not needed because it is not being added #to another file.
+
+# now need to include the NAs and combine them into a plot richness
+plot_richness = function(data){
+  site_matrix = matrix(nrow = 103, ncol = 16)
+  #browser()
+  for (i in 1:103){
+    sitedata = data%>%filter(SITE == i)
+    plot_nest_df = data.frame()
+    for (j in 1:16){
+      plotdata = sitedata%>%filter(PLOT == j)
+      site_matrix[i,j] = length(unique(plotdata$BRC_number))
+      # for the seedlings there is sometimes record in specified plot, and NA record, therefore have 
+      #used unique to capture those that are NAs, but not double count when same species listed in a nest
+    }
+  }
+  return(site_matrix)
+}
+plot_rich = plot_richness(Data_Yr2_veg)
+ #Missing plots come up as 0s - but note, some "missing" plots do have vegetation entries. Handle within each #woodland modelled??
+write.csv(plot_rich,"../Data/plot_rich.csv")
+
+#species richness per nest is not saved to csv because its a list spe```
+
